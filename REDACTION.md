@@ -12,10 +12,18 @@ Rules are applied longest match first.
 
 | replaced | with |
 |---|---|
-| the absolute filesystem prefix of the machine the runs executed on | removed |
+| the absolute filesystem prefix of the machine the archive was assembled on | removed |
+| the checkout prefix of a rented machine a run executed on | removed |
+| the remaining scratch-mount prefix of that rented machine | `<remote>/` |
 | the recorded path of an artifact that is archived here | the path it now has in this archive |
 | the home directory of the account the runs executed under | `~/` |
 | any remaining directory prefix belonging to the private source tree | `source-tree/` |
+
+Both machine prefixes are removed before an archived artifact is mapped to its
+new location, so a path recorded on the rented machine and the same path
+recorded locally become the same archived string rather than two. The rules are
+the full declared set; a direction whose runs never left one machine will show
+substitutions for only some of them.
 
 ## What was checked
 
