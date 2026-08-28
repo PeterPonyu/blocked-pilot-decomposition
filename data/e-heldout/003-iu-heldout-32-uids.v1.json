@@ -1,0 +1,18 @@
+{
+  "schema": "frontier-003-iu-heldout-32-uids/v1",
+  "lane": "003-iu-development",
+  "n": 32,
+  "split": "test",
+  "patient_key": "uid",
+  "selection_rule": "sha256('003-iu-heldout-32-v1|{uid}') asc; first 32 of frozen test",
+  "selection_salt": "003-iu-heldout-32-v1",
+  "uids": ["CXR3196", "CXR3599", "CXR1929", "CXR2434", "CXR2859", "CXR1292", "CXR2484", "CXR287", "CXR1518", "CXR357", "CXR308", "CXR1515", "CXR2982", "CXR3017", "CXR3132", "CXR1149", "CXR2999", "CXR2254", "CXR335", "CXR2481", "CXR495", "CXR3515", "CXR1019", "CXR590", "CXR2882", "CXR2544", "CXR3980", "CXR1737", "CXR1070", "CXR3393", "CXR1830", "CXR926"],
+  "report_ids": ["3196", "3599", "1929", "2434", "2859", "1292", "2484", "287", "1518", "357", "308", "1515", "2982", "3017", "3132", "1149", "2999", "2254", "335", "2481", "495", "3515", "1019", "590", "2882", "2544", "3980", "1737", "1070", "3393", "1830", "926"],
+  "source_split": "data/e-split/003-iu-split-manifest.v1.json",
+  "source_split_sha256": "8550a81f9285eb3bab2c6d4c6fdc054eaee1a8c590aac17b310c40932b9cd1cd",
+  "source_jsonl": "source-tree/003-medical-report-gen/data/iu_xray_manifest.jsonl",
+  "source_jsonl_sha256": "6e8a728840e6ad30412c9695eb07f4b1d82711c9140d43f81ace76015e1f960d",
+  "not_lexicographic_prefix": true,
+  "chexbench_type_r": "forbidden",
+  "evidence_score_delta": 0
+}

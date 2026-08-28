@@ -1,0 +1,269 @@
+{
+  "schema": "frontier-003-iu-chexbert-control-baselines/v1",
+  "uids": [
+    "CXR3196",
+    "CXR3599",
+    "CXR1929",
+    "CXR2434",
+    "CXR2859",
+    "CXR1292",
+    "CXR2484",
+    "CXR287",
+    "CXR1518",
+    "CXR357",
+    "CXR308",
+    "CXR1515",
+    "CXR2982",
+    "CXR3017",
+    "CXR3132",
+    "CXR1149",
+    "CXR2999",
+    "CXR2254",
+    "CXR335",
+    "CXR2481",
+    "CXR495",
+    "CXR3515",
+    "CXR1019",
+    "CXR590",
+    "CXR2882",
+    "CXR2544",
+    "CXR3980",
+    "CXR1737",
+    "CXR1070",
+    "CXR3393",
+    "CXR1830",
+    "CXR926"
+  ],
+  "n": 32,
+  "checkpoint": {
+    "path": "~/.cache/chexbert/chexbert.pth",
+    "sha256": "6550703c92d640e1e04d8105a7a185d76ece0f25fcbf033d292785bf22c0fde1"
+  },
+  "majority_findings": "The heart and lungs have XXXX XXXX in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+  "download_attempted": false,
+  "written_utc": "2026-08-26T13:30:48Z",
+  "jsonl_sha256": "6e8a728840e6ad30412c9695eb07f4b1d82711c9140d43f81ace76015e1f960d",
+  "majority": {
+    "per_finding": {
+      "Enlarged Cardiomediastinum": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Cardiomegaly": {
+        "n_present": 3,
+        "n_pred_present": 32,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Lung Opacity": {
+        "n_present": 12,
+        "n_pred_present": 0,
+        "n_miss": 12,
+        "status": "scored",
+        "empirical_miss_rate": 1.0,
+        "cp_miss_upper_90": 1.0
+      },
+      "Lung Lesion": {
+        "n_present": 2,
+        "n_pred_present": 0,
+        "n_miss": 2,
+        "status": "underpowered"
+      },
+      "Edema": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Consolidation": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Pneumonia": {
+        "n_present": 1,
+        "n_pred_present": 0,
+        "n_miss": 1,
+        "status": "underpowered"
+      },
+      "Atelectasis": {
+        "n_present": 1,
+        "n_pred_present": 0,
+        "n_miss": 1,
+        "status": "underpowered"
+      },
+      "Pneumothorax": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Pleural Effusion": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Pleural Other": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Fracture": {
+        "n_present": 2,
+        "n_pred_present": 0,
+        "n_miss": 2,
+        "status": "underpowered"
+      },
+      "Support Devices": {
+        "n_present": 2,
+        "n_pred_present": 0,
+        "n_miss": 2,
+        "status": "underpowered"
+      },
+      "No Finding": {
+        "n_present": 8,
+        "n_pred_present": 0,
+        "n_miss": 8,
+        "status": "scored",
+        "empirical_miss_rate": 1.0,
+        "cp_miss_upper_90": 1.0
+      }
+    },
+    "coverage": {
+      "n": 32,
+      "n_test": 333,
+      "pct": "9.6%"
+    },
+    "e_k_lt1": [
+      "Enlarged Cardiomediastinum",
+      "Edema",
+      "Consolidation",
+      "Pneumonia",
+      "Pneumothorax",
+      "Pleural Effusion",
+      "Pleural Other"
+    ],
+    "official_r": false,
+    "chexbench_type_r": "forbidden",
+    "evidence_score_delta": 0
+  },
+  "retrieval": {
+    "per_finding": {
+      "Enlarged Cardiomediastinum": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Cardiomegaly": {
+        "n_present": 3,
+        "n_pred_present": 10,
+        "n_miss": 2,
+        "status": "underpowered"
+      },
+      "Lung Opacity": {
+        "n_present": 12,
+        "n_pred_present": 5,
+        "n_miss": 10,
+        "status": "scored",
+        "empirical_miss_rate": 0.8333333333333334,
+        "cp_miss_upper_90": 0.9547592858350845
+      },
+      "Lung Lesion": {
+        "n_present": 2,
+        "n_pred_present": 1,
+        "n_miss": 2,
+        "status": "underpowered"
+      },
+      "Edema": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Consolidation": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Pneumonia": {
+        "n_present": 1,
+        "n_pred_present": 0,
+        "n_miss": 1,
+        "status": "underpowered"
+      },
+      "Atelectasis": {
+        "n_present": 1,
+        "n_pred_present": 3,
+        "n_miss": 1,
+        "status": "underpowered"
+      },
+      "Pneumothorax": {
+        "n_present": 0,
+        "n_pred_present": 0,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Pleural Effusion": {
+        "n_present": 0,
+        "n_pred_present": 1,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Pleural Other": {
+        "n_present": 0,
+        "n_pred_present": 1,
+        "n_miss": 0,
+        "status": "underpowered"
+      },
+      "Fracture": {
+        "n_present": 2,
+        "n_pred_present": 3,
+        "n_miss": 2,
+        "status": "underpowered"
+      },
+      "Support Devices": {
+        "n_present": 2,
+        "n_pred_present": 1,
+        "n_miss": 1,
+        "status": "underpowered"
+      },
+      "No Finding": {
+        "n_present": 8,
+        "n_pred_present": 5,
+        "n_miss": 7,
+        "status": "scored",
+        "empirical_miss_rate": 0.875,
+        "cp_miss_upper_90": 0.9869162813660015
+      }
+    },
+    "coverage": {
+      "n": 32,
+      "n_test": 333,
+      "pct": "9.6%"
+    },
+    "e_k_lt1": [
+      "Enlarged Cardiomediastinum",
+      "Edema",
+      "Consolidation",
+      "Pneumonia",
+      "Pneumothorax",
+      "Pleural Effusion",
+      "Pleural Other"
+    ],
+    "official_r": false,
+    "chexbench_type_r": "forbidden",
+    "evidence_score_delta": 0
+  },
+  "claim_kind": "chexbert_control_baseline",
+  "official_r": false,
+  "not_official_r": true,
+  "chexbench_type_r": "forbidden",
+  "evidence_score_delta": 0
+}

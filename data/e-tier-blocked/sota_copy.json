@@ -1,0 +1,12 @@
+{
+  "direction": "003",
+  "tier": "sota_copy",
+  "name": "chexbench_type_r",
+  "status": "blocked",
+  "source": "data/e-blocker/sota_chexbench_blocker.json",
+  "metrics": null,
+  "blocker": "HF contact gate + evaluation_chexbench/data.json absent. Do not mint sota_chexbench.json.",
+  "note": "REMOTE_SOTA_READY on IU n=8 is copy-ladder harness, not Type R; see paper_primary claim_kind=harness, not_official_r=true, official_r=false.",
+  "not_official_sota": true,
+  "written_utc": "2026-08-20T13:15:27Z"
+}

@@ -1,0 +1,24 @@
+{
+  "direction": "003",
+  "tier": "static",
+  "name": "template_retrieval",
+  "status": "ok",
+  "source": "source-tree/003-medical-report-gen/results/sota_copy/core/iu_template_retrieval.json",
+  "metrics": {
+    "split": "test",
+    "n": 333,
+    "exact_match_findings": 0.012012012012012012,
+    "exact_match_impression": 0.05105105105105105,
+    "token_f1_findings": 0.35825410704256677,
+    "token_f1_impression": 0.32902433401358483,
+    "query_field": "indication"
+  },
+  "blocker": null,
+  "note": "Indication TF-IDF retrieval of a train report. Patient-disjoint. Not CheXbert, not F1CheXbert, not Type R, not official R.",
+  "claim_kind": "lexical_baseline",
+  "official_r": false,
+  "not_official_r": true,
+  "not_official_sota": true,
+  "evidence_score_delta": 0,
+  "written_utc": "2026-08-26T02:23:56Z"
+}

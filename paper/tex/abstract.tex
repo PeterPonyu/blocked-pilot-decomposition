@@ -1,0 +1,43 @@
+%% Self-contained. No \ref, no \cref, no section numbers, no "see above".
+%% One falsifiable question, the bounded answer, and the scope it does not leave.
+
+A machine learning project that fails to reach its intended evaluation usually
+reports one verdict, and the verdict hides which of several unrelated obstacles
+actually stopped it. This study takes one chest-radiograph report-generation
+pilot that did not reach its intended benchmark and separates the obstacles into
+three kinds --- administrative, statistical and instrumental --- each checkable
+on its own and each removable by a different party.
+The first is administrative. The intended evaluation is a contact-gated
+benchmark, and the project's own record lists \NLocks{} obstacles: \NPermissionLocks{}
+permissions obtainable only by a person or an institution, \NArtifactLocks{}
+evaluation file that is absent locally and arrives only with one of those
+permissions, and \NSubstitutionLocks{} refusals to score a locally held corpus
+under the benchmark's name. None is removed by
+computation, and the record was written before hardware was rented rather than
+after. The second is statistical and has two faces that are routinely merged.
+One belongs to the corpus: of \NFindings{} labelled observations,
+\NExceedSplit{} would need more reports than the entire frozen test split of
+\NTest{} before a draw is expected to contain \MinPresent{} positives, so they
+are unanswerable at this corpus size however much of it is labelled. The other
+belongs to the draw: the pre-registered subsample of \NCohort{} reports,
+selected by a salted hash fixed in advance, is not representative of the split
+it came from, holding \SkewObserved{} positives for \SkewFinding{} against
+\SkewExpected{} expected, an exact two-sided hypergeometric probability of
+\SkewP{} against a Bonferroni threshold of \Bonferroni{}. Only \NScored{} of
+\NFindings{} observations clear the pilot's presence gate, and at the expected
+draw only \NScoredExpected{} would have, so the pilot's scorable surface is
+itself a product of sampling variation. The third obstacle is instrumental, and
+it appears on exactly those \NScored{} cells, where both controls fail. A
+constant majority report misses every gold positive, and an indication-retrieval
+control misses \RetMissOne{} and \RetMissTwo{} of them with one-sided \(90\%\)
+upper limits of \RetUpperOne{} and \RetUpperTwo{}. The majority failure has a
+specific and transferable cause: the constant report reads as an unremarkable
+study, and the automatic labeller nonetheless marks it positive for
+\MajAsserted{} on all \NCohort{} rows and never marks it as the observation
+denoting nothing to report, so the trivial baseline is not the trivial floor it
+is assumed to be. Scored on surface text over the full split instead, the same
+two controls reach \SurfaceRetrievalF{}
+and \SurfaceMajorityF{} token F1 and convey none of this. No benchmark result is
+synthesised, no score is reported under the blocked benchmark's name, and every
+pilot quantity is reported with the power label it was recorded with rather than
+promoted past it.

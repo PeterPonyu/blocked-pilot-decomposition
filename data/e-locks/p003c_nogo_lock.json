@@ -1,0 +1,96 @@
+{
+  "direction": "003",
+  "panel": "P003-C",
+  "complement": true,
+  "not_official_r": true,
+  "label": "blocker",
+  "status": "blocked",
+  "chexbench_type_r": "NO-GO",
+  "iu_is_not_chexbench": true,
+  "wrap_refuses_n_le_8": true,
+  "mint_sota_chexbench": false,
+  "caption": "NO-GO lock table. Pointers only. No scores.",
+  "rows": [
+    {
+      "lock": "HF contact",
+      "fact": "StanfordAIMI/chexbench is contact-gated; missing=HF contact gate",
+      "scores": null,
+      "source": "data/e-blocker/sota_chexbench_blocker.json"
+    },
+    {
+      "lock": "CITI",
+      "fact": "CITI verify (Data or Specimens Only Research) is distinct from the HF contact click",
+      "scores": null,
+      "source": ".omc/plans/chexbench-go-nogo.md"
+    },
+    {
+      "lock": "PhysioNet MIMIC-CXR DUA",
+      "fact": "Findings Generation pixels are a separate DUA/license problem after data.json exists",
+      "scores": null,
+      "source": ".omc/plans/chexbench-go-nogo.md"
+    },
+    {
+      "lock": "data.json absent",
+      "fact": "evaluation_chexbench/data.json is not on disk",
+      "scores": null,
+      "source": "data/e-blocker/sota_chexbench_blocker.json",
+      "checked": {
+        "evaluation_chexbench_data_json": "absent",
+        "checked_paths": [
+          "source-tree/003-medical-report-gen/vendor/CheXagent/evaluation_chexbench/data.json",
+          "source-tree/003-chexagent-infer/evaluation_chexbench/data.json",
+          "evaluation_chexbench/data.json"
+        ],
+        "present": []
+      }
+    },
+    {
+      "lock": "IU is not CheXbench",
+      "fact": "iu_is_not_chexbench=true; IU Open-i scale is 7,470 PNG (not CheXbench Findings Generation)",
+      "scores": null,
+      "source": "data/e-blocker/sota_chexbench_blocker.json",
+      "iu_png_count_source": "source-tree/003-medical-report-gen/DATA_MANIFEST.md"
+    },
+    {
+      "lock": "wrap refuses n<=8",
+      "fact": "wrap_chexbench_scores.py SystemExit: n must be CheXbench split size, not harness n_images=8",
+      "scores": null,
+      "source": "source-tree/_common/wrap_chexbench_scores.py"
+    }
+  ],
+  "sources": {
+    "blocker": "data/e-blocker/sota_chexbench_blocker.json",
+    "go_nogo": ".omc/plans/chexbench-go-nogo.md",
+    "wrap": "source-tree/_common/wrap_chexbench_scores.py",
+    "data_manifest": "source-tree/003-medical-report-gen/DATA_MANIFEST.md"
+  },
+  "quoted": {
+    "missing": "HF contact gate",
+    "missing_source": "data/e-blocker/sota_chexbench_blocker.json",
+    "iu_is_not_chexbench": true,
+    "iu_is_not_chexbench_source": "data/e-blocker/sota_chexbench_blocker.json",
+    "also_missing": [
+      "evaluation_chexbench/data.json"
+    ],
+    "also_missing_source": "data/e-blocker/sota_chexbench_blocker.json",
+    "wrap_refuse": "n must be CheXbench split size, not harness n_images=8",
+    "wrap_refuse_source": "source-tree/_common/wrap_chexbench_scores.py",
+    "iu_png_count": 7470,
+    "iu_png_count_source": "source-tree/003-medical-report-gen/DATA_MANIFEST.md"
+  },
+  "data_json": {
+    "evaluation_chexbench_data_json": "absent",
+    "checked_paths": [
+      "source-tree/003-medical-report-gen/vendor/CheXagent/evaluation_chexbench/data.json",
+      "source-tree/003-chexagent-infer/evaluation_chexbench/data.json",
+      "evaluation_chexbench/data.json"
+    ],
+    "present": []
+  },
+  "nogo_gate": {
+    "chexbench_type_r": "NO-GO",
+    "sota_chexbench_json_exists": false,
+    "iu_n_images": 8
+  },
+  "written_utc": "2026-08-16T12:57:26Z"
+}

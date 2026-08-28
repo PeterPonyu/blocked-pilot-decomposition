@@ -1,0 +1,16 @@
+{
+  "direction": "003",
+  "paper_kind": [
+    "harness"
+  ],
+  "claim": "IU n=8 CheXagent infer is a harness, not CheXbench Type R.",
+  "n_images": 8,
+  "model": "StanfordAIMI/CheXagent-2-3b",
+  "device": "cuda",
+  "status": "ok",
+  "official_chexbench": "blocked",
+  "blocker": "HF contact gate",
+  "wrap_chexbench_scores": false,
+  "source": "source-tree/003-medical-report-gen/results/sota_copy/sota_chexagent_infer.json",
+  "written_utc": "2026-08-20T13:15:27Z"
+}

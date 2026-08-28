@@ -1,0 +1,74 @@
+%% Independent caption file. Every caption is self-contained: readable without
+%% the body text, without cross-references, and without float numbers.
+
+\newcommand{\CapLocks}{%
+The \NLocks{} obstacles standing between this project and the contact-gated
+benchmark it intended to be evaluated on, as recorded by the project before any
+hardware was rented. The obstacles are sorted by what would remove them, and the
+sort is the point: \NPermissionLocks{} of them are decisions by a person or an
+institution, \NArtifactLocks{} is an evaluation file absent from the machine that
+arrives only with one of those decisions, and \NSubstitutionLocks{} are refusals
+the project imposed on itself so that a locally available corpus could not be
+scored under the benchmark's name. No
+obstacle in any of the three groups is removed by additional computation, by
+additional labelling of the corpus already held, or by more time on a rented
+machine, which is why the record was written in advance of renting one.%
+}
+
+\newcommand{\CapRequired}{%
+How many labelled reports each of the \NFindings{} observations would need
+before a draw is expected to contain \MinPresent{} positives, computed from the
+prevalence of that observation in the frozen test split and plotted on a
+logarithmic axis. The upper dashed line marks the whole test split of \NTest{}
+reports and the lower dashed line marks the \NCohort{} reports that were
+actually labelled. Bars above the upper line, drawn in red, mark the
+\NExceedSplit{} observations for which the entire test split is too small: for
+those, labelling every remaining report in the split would still not reach the
+gate, so the limitation belongs to the corpus rather than to the size of the
+pilot. Bars below it mark observations for which a larger pilot within the same
+split would suffice.%
+}
+
+\newcommand{\CapDraw}{%
+Whether the pre-registered subsample of \NCohort{} reports resembles the
+\NTest{}-report split it was drawn from, for each of the \NFindings{}
+observations. Open circles give the number of positives the split's own
+prevalence predicts for a draw of this size; filled circles give the number the
+draw actually contains, and the connecting line is the discrepancy. The dashed
+line marks the presence gate of \MinPresent{} gold positives below which the
+analysis reports no rate. One observation, drawn in red, differs from the split
+by more than sampling alone comfortably explains, with the exact two-sided
+hypergeometric probability printed beside it; the comparison threshold after
+Bonferroni correction across all \NFindings{} observations is \Bonferroni{}. The
+selection rule was a salted hash fixed before the labels were read, so the
+discrepancy is sampling variation in a pre-registered draw rather than a choice
+made after seeing the data.%
+}
+
+\newcommand{\CapAssertions}{%
+What the two controls assert against what the \NCohort{} labelled reports
+actually contain, for each of the \NFindings{} observations, counted in reports.
+Grey bars give the gold positives present in the draw. Red bars give the reports
+the majority control was labelled positive for, and blue bars the same for the
+indication-retrieval control. The majority control emits one constant report for
+every row, so its bars can only be zero or the full \NCohort{}: it reaches the
+full height for exactly one observation and is zero everywhere else, including
+for the observation that denotes a study with nothing to report. That single red
+bar is the whole behaviour of a baseline usually assumed to predict normality,
+and it is an artifact of how the automatic labeller reads one fixed string
+rather than a property of the corpus.%
+}
+
+\newcommand{\CapScored}{%
+The two observations that clear the presence gate of \MinPresent{} gold
+positives in the \NCohort{}-report subsample, and how much of each the two
+controls missed. Points give the share of gold positives the control failed to
+assert and the vertical bars extend to the one-sided \(90\%\) Clopper--Pearson
+upper limit on that share, which is the honest width at these counts rather than
+a decoration. The majority control misses every positive in both cells, so its
+point sits at one and its interval has nowhere to extend. The retrieval control
+does better in both cells, and its upper limits still reach close enough to one
+that near-total failure cannot be excluded from these data. Both cells hold
+fewer than fifteen positives, and the intervals are wide for that reason and not
+for any other.%
+}

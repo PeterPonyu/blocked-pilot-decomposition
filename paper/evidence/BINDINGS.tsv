@@ -1,0 +1,15 @@
+# Archived bindings. Tab-separated: id<TAB>path<TAB>role<TAB>note
+#
+# id	path	role	note
+E-LOCKS	data/e-locks/p003c_nogo_lock.json	recorded_state	the four access locks on the contact-gated benchmark, each with what it requires and what was checked
+E-BLOCKER	data/e-blocker/sota_chexbench_blocker.json	recorded_state	the recorded blocker: contact gate plus an absent official split file
+E-TIER-BLOCKED	data/e-tier-blocked/sota_copy.json	recorded_state	the full-replication tier, recorded as blocked rather than attempted
+E-NEXT	data/e-next/next_design.json	recorded_state	the recorded finding that the three access requirements are not interchangeable
+E-SPLIT	data/e-split/003-iu-split-manifest.v1.json	protocol	the frozen patient-disjoint split: hash rule, patient counts, and the images left outside the inventory
+E-HELDOUT	data/e-heldout/003-iu-heldout-32-uids.v1.json	protocol	the pre-registered salted-hash rule that selected the 32 held-out reports
+E-PREVALENCE	data/e-prevalence/iu_chexbert_gold_prevalence.json	derived_table	per-finding gold label counts over the full frozen test split
+E-CONTROLS	data/e-controls/iu_chexbert_control_baselines.json	derived_table	per-finding present, predicted and missed counts for both control arms on the held-out subsample
+E-RETRIEVAL	data/e-retrieval/static.json	derived_table	the retrieval control scored on surface text over the full test split
+E-MAJORITY	data/e-majority/naive.json	derived_table	the majority control scored on surface text over the full test split
+E-HARNESS	data/e-harness/paper_measurement_iu_harness.json	recorded_state	the eight-image inference run, recorded as a harness rather than a benchmark result
+E-PRIMARY	data/e-primary/paper_primary.json	recorded_state	the same run entered in the comparison ladder, with its claim kind recorded

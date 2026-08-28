@@ -1,0 +1,16 @@
+# Everything the build regenerates from the archived bytes. Keeping a rendered
+# copy alongside the code that renders it only creates a way for the two to
+# disagree.
+paper/build/
+paper/figs/out/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+__pycache__/
+*.pyc
+.Rhistory

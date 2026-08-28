@@ -1,0 +1,150 @@
+%% Independent methods file. Not woven into main.tex prose.
+%% Every quantity described here resolves to a hash-bound evidence entry.
+
+\subsection{The corpus and the frozen split}
+
+The locally held corpus is the Indiana University chest X-ray collection
+distributed through Open-i~\cite{demnerfushman2016preparing}, which pairs
+de-identified radiographs with their free-text reports. Reports, not images, are
+the unit of everything reported here.
+
+The split was frozen before any of the analyses in this paper. It is
+patient-disjoint by construction: a report's assignment is a function of a
+salted hash of its patient identifier, so no patient contributes to more than one
+side and the assignment can be recomputed by anyone holding the same identifier
+list. The frozen inventory holds \NPatients{} patients and \NImages{} images,
+and divides into \NTrain{} training, \NVal{} validation and \NTest{} test
+reports.
+
+One property of that inventory is worth stating because it is the kind of thing
+usually smoothed over. A total of \NOutsideInventory{} radiograph files on disk
+are not in
+the inventory the split was built from. The project's recorded decision was to
+leave them visible and outside rather than manufacture inventory rows to absorb
+them, which keeps the split reproducible from the inventory alone and keeps the
+discrepancy countable. This paper reports the discrepancy rather than the larger
+file count.
+
+\subsection{The pre-registered subsample}
+
+Labelling was applied to a subsample of \NCohort{} reports from the frozen test
+split, which is \CoveragePct{} per cent of it. The subsample is not the first
+\NCohort{} identifiers in any ordering that correlates with content: the
+selection rule sorts test identifiers by a salted hash and takes the first
+\NCohort{}, with the salt fixed and recorded before the labels were read. The
+recorded contract states explicitly that the result is not a lexicographic
+prefix.
+
+This matters for interpreting one of the results below. A pre-registered
+selection rule protects against choosing a sample after seeing its labels. It
+does not protect against the sample being unusual, and the two are routinely
+conflated.
+
+\subsection{Labels}
+
+Labels are the fourteen observations of the CheXpert schema~\cite{irvin2019chexpert},
+assigned to report text by the released CheXbert labeller~\cite{smit2020chexbert},
+which is the labeller the standard automatic metric in this area is built on.
+The checkpoint used is recorded with its SHA-256 digest in the bound artifact, so
+the labelling can be tied to a specific set of weights rather than to a name.
+
+The labeller emits four values per observation: positive, negative, uncertain,
+and not mentioned. Throughout this paper an observation counts as a gold positive
+only when the labeller assigns the positive value. Uncertain and unmentioned are
+not counted as positives, and they are not counted as negatives either when a
+count of positives is what is being reported.
+
+The unmentioned value dominates and its interpretation is a genuine caveat.
+Across the \NFindings{} observations the median count of test reports that do not
+mention an observation at all is \MedianBlankPct{} per cent of the split, and for
+\MaxBlankFinding{} it is \MaxBlank{} of \NTest{} reports. A report that is silent
+about an observation is not a report asserting its absence, and any analysis that
+treats the two as equivalent is making a convention visible only in its methods
+section. We avoid the convention by reporting positives and misses on positives
+rather than accuracy over all four values.
+
+\subsection{The presence gate and the two power questions}
+
+The analysis applies a presence gate fixed before the runs: an observation is
+scored only if the subsample holds at least \MinPresent{} gold positives for it,
+and otherwise its cell is reported as underpowered with no rate attached. The
+gate value is not asserted here but recovered: the recorded per-observation
+status of both control arms is checked against the positive counts, and the build
+stops if any status disagrees with a gate of \MinPresent{}.
+
+Two distinct power questions follow, and separating them is one of this paper's
+points.
+
+The first asks what the corpus can support. For an observation present in
+\(K\) of the \(N\) test reports, a draw of \(n\) reports contains \(nK/N\)
+positives in expectation, so the smallest draw whose expectation reaches the gate
+is \(\lceil \text{\MinPresent{}} \cdot N / K \rceil\). When that number exceeds
+\(N\) itself, no subsample of the test split can reach the gate and the
+limitation is the corpus, not the pilot. This is arithmetic on counts, not a
+simulation.
+
+The second asks whether the draw that was actually taken resembles the split it
+came from. For each observation we compute the exact two-sided hypergeometric
+probability of the observed positive count, summing the probability of every
+outcome no more likely than the one observed, under the null that the draw is
+uniform over the split. With \NFindings{} observations tested the Bonferroni
+threshold is \Bonferroni{}, and we report probabilities against that threshold
+rather than against \(0.05\).
+
+\subsection{The two controls}
+
+Two controls are scored in label space on the subsample. The majority control
+emits, for every report, the single most frequent findings text in the training
+split; it is constant by construction, which the analysis verifies by requiring
+each of its per-observation positive counts to be either zero or all \NCohort{}
+rows. The retrieval control embeds the indication field with TF--IDF, retrieves
+the nearest training report by cosine similarity, and returns that report's
+findings text; retrieval is restricted to the training side, so a report can
+never retrieve itself or a study from its own patient.
+
+For each observation and each control we count the gold positives the control
+failed to assert, and report that count as a rate with a one-sided \(90\%\)
+Clopper--Pearson upper limit~\cite{clopper1934use}. The upper limit is reported
+because the counts are small: at these sample sizes an interval is the result and
+a point estimate on its own would misrepresent it.
+
+The same two controls also exist scored a different way, on surface text over the
+whole test split rather than in label space on the subsample, using exact match
+and unigram token F1. Those numbers are reported here only as a contrast, and
+they are not comparable to the label-space numbers.
+
+\subsection{What is deliberately not computed}
+
+Three things this project could have produced and did not, each because
+producing it would have made the result look stronger than the access situation
+allows.
+
+No score is reported under the blocked benchmark's name. The locally held corpus
+is a different corpus, and reporting a number on it under the benchmark's label
+would be a category error rather than an approximation. The project's own scoring
+wrapper enforces this by refusing any sample that is not the benchmark's split
+size.
+
+No standard automatic report-generation metric is computed from these labels.
+The label counts here support statements about positives and misses; converting
+them into the field's headline aggregate would invite comparison against
+published values computed on a different corpus with a different sample size.
+
+No inference run is promoted past what it is. A local run of a chest-radiograph
+foundation model over \HarnessImages{} images exists and is recorded, and it is
+recorded as a harness that checks the pipeline executes, with its tier marked as
+not the official evaluation. It contributes no number to this paper.
+
+\subsection{Evidence discipline}
+
+No number in this manuscript is typed by hand. Every artifact it rests on is
+recorded with its SHA-256 digest in a manifest that accompanies the manuscript
+source; the figure and table code verifies each digest against the bytes on disk
+before reading them and aborts on any mismatch, and it emits both the figures and
+the numeric macros the text prints. Several consistency checks are enforced at
+build time rather than asserted in prose: the two control arms must agree on how
+many gold positives the subsample holds, the recomputed list of observations
+expected to yield fewer than one positive must match the list the runs recorded,
+the presence gate must be recoverable from the recorded statuses, and the set of
+access obstacles the first figure describes must equal the set the project
+recorded. Any disagreement stops the build instead of producing a manuscript.

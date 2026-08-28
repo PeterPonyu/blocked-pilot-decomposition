@@ -1,0 +1,22 @@
+{
+  "title": "Permission, prevalence, and the labeller: three separable reasons a chest-radiograph reporting pilot cannot answer its own question",
+  "description": "Derived label tables, the recorded access-obstacle enumeration, the split and selection protocols, figure code and manuscript source for a study that decomposes one blocked chest-radiograph reporting project into an administrative obstacle, a corpus-level power ceiling and a labeller artifact. Code is MIT; manuscript text, figures and recorded result data are CC-BY-4.0. Third-party simulators and datasets are not redistributed.",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Fu, Zeyu",
+      "orcid": "0009-0001-8329-0108",
+      "affiliation": "Army Medical University, Chongqing, China"
+    }
+  ],
+  "keywords": [
+    "negative result",
+    "statistical power",
+    "data access",
+    "radiology report generation",
+    "automatic labelling",
+    "pre-registration"
+  ]
+}

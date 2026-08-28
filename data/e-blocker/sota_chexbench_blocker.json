@@ -1,0 +1,10 @@
+{
+  "package_id": "003-chexagent-infer",
+  "mode": "CHEXBENCH_OFFICIAL",
+  "status": "blocked",
+  "missing": "HF contact gate",
+  "also_missing": ["evaluation_chexbench/data.json"],
+  "reason": "StanfordAIMI/chexbench is contact-gated; data.json is absent. IU 7470 is not CheXbench. Do not rent GPU to discover this.",
+  "iu_is_not_chexbench": true,
+  "written_utc": "2026-08-12T20:15:00Z"
+}

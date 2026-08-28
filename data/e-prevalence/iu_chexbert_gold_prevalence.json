@@ -1,0 +1,136 @@
+{
+  "schema": "frontier-003-iu-chexbert-gold-prevalence/v1",
+  "official_r": false,
+  "not_official_r": true,
+  "chexbench_type_r": "forbidden",
+  "claim_kind": "gold_label_prevalence",
+  "evidence_score_delta": 0,
+  "n": 333,
+  "split": "test",
+  "patient_key": "uid",
+  "text_field": "findings",
+  "labels": [
+    "Enlarged Cardiomediastinum",
+    "Cardiomegaly",
+    "Lung Opacity",
+    "Lung Lesion",
+    "Edema",
+    "Consolidation",
+    "Pneumonia",
+    "Atelectasis",
+    "Pneumothorax",
+    "Pleural Effusion",
+    "Pleural Other",
+    "Fracture",
+    "Support Devices",
+    "No Finding"
+  ],
+  "prevalence": {
+    "Enlarged Cardiomediastinum": {
+      "present": 5,
+      "absent": 188,
+      "uncertain": 12,
+      "blank": 128,
+      "present_rate": 0.015015015015015015
+    },
+    "Cardiomegaly": {
+      "present": 41,
+      "absent": 223,
+      "uncertain": 4,
+      "blank": 65,
+      "present_rate": 0.12312312312312312
+    },
+    "Lung Opacity": {
+      "present": 44,
+      "absent": 51,
+      "uncertain": 0,
+      "blank": 238,
+      "present_rate": 0.13213213213213212
+    },
+    "Lung Lesion": {
+      "present": 18,
+      "absent": 15,
+      "uncertain": 1,
+      "blank": 299,
+      "present_rate": 0.05405405405405406
+    },
+    "Edema": {
+      "present": 3,
+      "absent": 20,
+      "uncertain": 3,
+      "blank": 307,
+      "present_rate": 0.009009009009009009
+    },
+    "Consolidation": {
+      "present": 1,
+      "absent": 117,
+      "uncertain": 1,
+      "blank": 214,
+      "present_rate": 0.003003003003003003
+    },
+    "Pneumonia": {
+      "present": 4,
+      "absent": 14,
+      "uncertain": 2,
+      "blank": 313,
+      "present_rate": 0.012012012012012012
+    },
+    "Atelectasis": {
+      "present": 14,
+      "absent": 0,
+      "uncertain": 7,
+      "blank": 312,
+      "present_rate": 0.042042042042042045
+    },
+    "Pneumothorax": {
+      "present": 1,
+      "absent": 257,
+      "uncertain": 0,
+      "blank": 75,
+      "present_rate": 0.003003003003003003
+    },
+    "Pleural Effusion": {
+      "present": 8,
+      "absent": 248,
+      "uncertain": 3,
+      "blank": 74,
+      "present_rate": 0.024024024024024024
+    },
+    "Pleural Other": {
+      "present": 3,
+      "absent": 0,
+      "uncertain": 0,
+      "blank": 330,
+      "present_rate": 0.009009009009009009
+    },
+    "Fracture": {
+      "present": 17,
+      "absent": 18,
+      "uncertain": 0,
+      "blank": 298,
+      "present_rate": 0.05105105105105105
+    },
+    "Support Devices": {
+      "present": 18,
+      "absent": 0,
+      "uncertain": 0,
+      "blank": 315,
+      "present_rate": 0.05405405405405406
+    },
+    "No Finding": {
+      "present": 130,
+      "absent": 0,
+      "uncertain": 0,
+      "blank": 203,
+      "present_rate": 0.39039039039039036
+    }
+  },
+  "checkpoint": {
+    "path": "~/.cache/chexbert/chexbert.pth",
+    "sha256": "6550703c92d640e1e04d8105a7a185d76ece0f25fcbf033d292785bf22c0fde1"
+  },
+  "source_split": "data/e-split/003-iu-split-manifest.v1.json",
+  "source_jsonl": "source-tree/003-medical-report-gen/data/iu_xray_manifest.jsonl",
+  "note": "CheXbert labels on frozen IU test FINDINGS only. Gold prevalence, not F1CheXbert, not Type R, not official R.",
+  "written_utc": "2026-08-26T12:02:01Z"
+}

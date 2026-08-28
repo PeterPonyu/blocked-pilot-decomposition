@@ -1,0 +1,24 @@
+{
+  "direction": "003",
+  "tier": "naive",
+  "name": "majority_all_normal",
+  "status": "ok",
+  "source": "source-tree/003-medical-report-gen/results/sota_copy/core/iu_majority_all_normal.json",
+  "metrics": {
+    "split": "test",
+    "n": 333,
+    "majority_exact_match_findings": 0.009009009009009009,
+    "majority_exact_match_impression": 0.08708708708708708,
+    "majority_token_f1_findings": 0.2518045814491352,
+    "all_normal_exact_match_impression": 0.08708708708708708,
+    "all_normal_token_f1_impression": 0.4464653616486295
+  },
+  "blocker": null,
+  "note": "Lexical majority and closed-lexicon all-normal on the frozen IU patient split. Not CheXbert, not F1CheXbert, not Type R, not official R.",
+  "claim_kind": "lexical_baseline",
+  "official_r": false,
+  "not_official_r": true,
+  "not_official_sota": true,
+  "evidence_score_delta": 0,
+  "written_utc": "2026-08-26T02:23:56Z"
+}

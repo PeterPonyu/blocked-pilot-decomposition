@@ -1,0 +1,108 @@
+{
+  "schema": "evidence-manifest/v1",
+  "state": "BOUND",
+  "bound_utc": "2026-08-28T12:27:17Z",
+  "allowed_roots": [
+    "data",
+    "paper/evidence"
+  ],
+  "allowed_roots_note": "Archived layout. Artifacts the paper produced itself stay beside the paper; everything else was copied into data/. Digests describe the archived bytes; files whose recorded paths were redacted are listed in REDACTION.md with both digests.",
+  "entries": [
+    {
+      "id": "E-LOCKS",
+      "path": "data/e-locks/p003c_nogo_lock.json",
+      "role": "recorded_state",
+      "note": "the four access locks on the contact-gated benchmark, each with what it requires and what was checked",
+      "bytes": 3475,
+      "sha256": "0853c9988fac11ceff8550451f976d02720fe5919d62a28191a56760d6232e0a"
+    },
+    {
+      "id": "E-BLOCKER",
+      "path": "data/e-blocker/sota_chexbench_blocker.json",
+      "role": "recorded_state",
+      "note": "the recorded blocker: contact gate plus an absent official split file",
+      "bytes": 392,
+      "sha256": "9e7ff622a2f6ba5231a551b653dc60a8aae91fd8836b76546d48c3dbc61e324a"
+    },
+    {
+      "id": "E-TIER-BLOCKED",
+      "path": "data/e-tier-blocked/sota_copy.json",
+      "role": "recorded_state",
+      "note": "the full-replication tier, recorded as blocked rather than attempted",
+      "bytes": 508,
+      "sha256": "5e9df8764ec61aea9b9975e8c5745442f6c6313102e441c3ae319a58a429bbb7"
+    },
+    {
+      "id": "E-NEXT",
+      "path": "data/e-next/next_design.json",
+      "role": "recorded_state",
+      "note": "the recorded finding that the three access requirements are not interchangeable",
+      "bytes": 11015,
+      "sha256": "c1abcdd8c6a950031364561e257a6c198555b9d5c54693187f6de91381aed628"
+    },
+    {
+      "id": "E-SPLIT",
+      "path": "data/e-split/003-iu-split-manifest.v1.json",
+      "role": "protocol",
+      "note": "the frozen patient-disjoint split: hash rule, patient counts, and the images left outside the inventory",
+      "bytes": 105795,
+      "sha256": "587752f8dd4ae90a1707039d1322b25d94e3997ef86085be71beff82db01a13d"
+    },
+    {
+      "id": "E-HELDOUT",
+      "path": "data/e-heldout/003-iu-heldout-32-uids.v1.json",
+      "role": "protocol",
+      "note": "the pre-registered salted-hash rule that selected the 32 held-out reports",
+      "bytes": 1330,
+      "sha256": "225222ccf7bc2e6d63827c66323e2b40e685052ceb4bd9e30d7ad23ddaa1081d"
+    },
+    {
+      "id": "E-PREVALENCE",
+      "path": "data/e-prevalence/iu_chexbert_gold_prevalence.json",
+      "role": "derived_table",
+      "note": "per-finding gold label counts over the full frozen test split",
+      "bytes": 3248,
+      "sha256": "8c82c23ed0895a6b7139c45c0dfd3d1ead08bf7d88244915c239deb1a49e1335"
+    },
+    {
+      "id": "E-CONTROLS",
+      "path": "data/e-controls/iu_chexbert_control_baselines.json",
+      "role": "derived_table",
+      "note": "per-finding present, predicted and missed counts for both control arms on the held-out subsample",
+      "bytes": 6225,
+      "sha256": "b0e10241561f5363f93f89c7bb11d0ee880c972bb33905581b8c044bc6c614a4"
+    },
+    {
+      "id": "E-RETRIEVAL",
+      "path": "data/e-retrieval/static.json",
+      "role": "derived_table",
+      "note": "the retrieval control scored on surface text over the full test split",
+      "bytes": 816,
+      "sha256": "67934c64ca690ca71b639689298378f50a5db71d9088e2c6b28e76c943a17c59"
+    },
+    {
+      "id": "E-MAJORITY",
+      "path": "data/e-majority/naive.json",
+      "role": "derived_table",
+      "note": "the majority control scored on surface text over the full test split",
+      "bytes": 896,
+      "sha256": "bbd757064bb6366c9bcc015bbba2c1dfd5bd9df134823fe7ebee5ab9e0226900"
+    },
+    {
+      "id": "E-HARNESS",
+      "path": "data/e-harness/paper_measurement_iu_harness.json",
+      "role": "recorded_state",
+      "note": "the eight-image inference run, recorded as a harness rather than a benchmark result",
+      "bytes": 468,
+      "sha256": "7fde6811101d92b8f6c75a487bd245618fe1a4e09581398df4dcd7083c69b0c7"
+    },
+    {
+      "id": "E-PRIMARY",
+      "path": "data/e-primary/paper_primary.json",
+      "role": "recorded_state",
+      "note": "the same run entered in the comparison ladder, with its claim kind recorded",
+      "bytes": 548,
+      "sha256": "d8d228267e044fc34080d5a569e7a4c2985adab3ef47f0b1d49213e5c7efeec5"
+    }
+  ]
+}

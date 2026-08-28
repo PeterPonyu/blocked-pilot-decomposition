@@ -1,0 +1,140 @@
+{
+  "package_id": "003-chexagent-infer",
+  "mode": "NEXT_DESIGN",
+  "subject": "Type R (official CheXbench Findings Generation) unlock-path design. DESIGN ONLY: nothing in this document executes a download, a box power-on, or a mint. Every step lists its gate and its actor; nothing proceeds without the listed human approvals.",
+  "current_state": {
+    "verdict": "NO-GO",
+    "type_r_state": "PARKED",
+    "missing": "HF contact gate",
+    "also_missing": ["evaluation_chexbench/data.json"],
+    "closed": ["laptop", "teaching", "iu_harness"],
+    "evidence": {
+      "go_nogo": ".omc/plans/chexbench-go-nogo.md (NO-GO, reaffirmed 2026-08-14)",
+      "blocker": "results/sota_copy/sota_chexbench_blocker.json (status=blocked)",
+      "closeout": "results/sota_copy/laptop_closeout.json (commit 305b6b3)",
+      "independent_review": "results/sota_copy/independent_review.json (verdict PASS, overclaim=[])"
+    }
+  },
+  "three_locks_not_interchangeable": {
+    "rule": "CheXbench Type R access requires three independent human approvals. Satisfying any one does NOT satisfy the others. Do not treat a token, a click, or a URL as a substitute for a different lock.",
+    "locks": [
+      {
+        "id": "lock_1_hf_contact",
+        "name": "HF contact gate",
+        "what_it_is": "Human accepts the gated access terms on https://huggingface.co/datasets/StanfordAIMI/chexbench (contact-gated; as of 2026-08-13 no human has accepted this session).",
+        "what_it_unlocks": "ONLY evaluation_chexbench/data.json (~5,036,767 B on gated HF). It does NOT unlock images.",
+        "what_it_does_not_unlock": "Pixel data. Images still need their own DUA/license (MIMIC-CXR and CheXpert are separate grants)."
+      },
+      {
+        "id": "lock_2_citi",
+        "name": "CITI verify",
+        "what_it_is": "Human completes the CITI course 'Data or Specimens Only Research' and produces a verification URL of the form https://www.citiprogram.org/verify/?XXXXXX.",
+        "what_it_unlocks": "Credentialing evidence required by downstream human-subjects-data agreements (e.g. PhysioNet).",
+        "what_it_does_not_unlock": "The HF contact gate (lock 1) or the PhysioNet DUA (lock 3). A verify URL alone downloads nothing."
+      },
+      {
+        "id": "lock_3_physionet_dua",
+        "name": "PhysioNet MIMIC-CXR DUA",
+        "what_it_is": "Human is credentialed on PhysioNet and signs the MIMIC-CXR data use agreement for pixels.",
+        "what_it_unlocks": "MIMIC-CXR pixel access (if the post-JSON path resolves to MIMIC; per go-nogo, that keeps findings-generation MIMIC paths on their own NO-GO until this DUA lands).",
+        "what_it_does_not_unlock": "CheXpert (separate license), the HF contact gate, or CITI."
+      }
+    ],
+    "equivalence_statement": "HF contact click != CITI verify URL != PhysioNet MIMIC-CXR DUA. CheXbench HF unlocks data.json only. GitHub mirrors are dead ends (upstream 404, forks 404, no gist; Zenodo/PwC/Academic Torrents/Wayback body negative; hf-mirror.com 401). CXRAgent CheXbench_metadata.jsonl (~4.9 MB) is EuroRad VQA, NOT Findings Generation; size-similar files are not the official split."
+  },
+  "invariants": {
+    "iu_is_not_chexbench": "IU X-Ray (Open-i, 7,470 PNGs, 3,337-row manifest) and the n=8 CheXagent-2-3b SOTA_INFER harness (REMOTE_SOTA_READY=true) are IU harness evidence ONLY. IU 7470 is not CheXbench. Nothing in this repo may cite IU n=8 as CheXbench Type R or as F1CheXbert evidence.",
+    "wrap_refusal": "source-tree/_common/wrap_chexbench_scores.py refuses n<=8 ('n must be CheXbench split size, not harness n_images=8'). It may never be pointed at the IU harness or the teaching fixture, and it may not run until the official box run produces real vendor F1CheXbert scores on the CheXbench split.",
+    "no_mint_before_run": "sota_chexbench.json is minted ONLY as the terminal artifact of a successful official CheXbench run on the box with the real split (n>8). It does not exist in this worktree and must not be created by any path short of step 8 below.",
+    "no_forged_flags": "llm_qa_ok and REMOTE_SOTA_READY are never fabricated; REMOTE_SOTA_READY is set only by mark_remote_sota.sh after a verified success artifact, never from --help or proxy e2e.",
+    "paper_reference_only": "F1CheXbert Avg 55.2 is a paper/vendor reference number (vendor_target_avg=55.2, vendor_target_is_refuse_gate=false). It is never an achieved result until step 8 produces real scores."
+  },
+  "unlock_path": [
+    {
+      "step": 0,
+      "name": "Human approvals (locks 1-3), in any order",
+      "actor": "human only",
+      "gate": "Explicit verbal GO plus the relevant lock acceptance(s). Until then: box stays off (AutoDL RTX 4090D 24GB), no laptop HF download of gated assets (CheXbench/SDXL/DiT/CORPUS), no GPU rental to 'discover' the blocker.",
+      "evidence_when_done": "HF dataset page shows accepted status; CITI verify URL; PhysioNet credentialing email.",
+      "refusal_condition": "Any agent attempting this step without explicit human GO violates the standing lock."
+    },
+    {
+      "step": 1,
+      "name": "Stage data.json on the box",
+      "actor": "box (never laptop)",
+      "gate": "lock_1_hf_contact accepted. Run source-tree/_common/box_stage_assets.sh on the box with the box's own HF credential; download happens as box traffic, not laptop traffic.",
+      "evidence_when_done": "evaluation_chexbench/data.json present on box; size/SHA recorded.",
+      "refusal_condition": "File size != 5,036,767 B or SHA unverifiable -> treat as wrong artifact, do not proceed; do not substitute a mirror file."
+    },
+    {
+      "step": 2,
+      "name": "Validate the split before spending GPU-hours",
+      "actor": "box, CPU-first",
+      "gate": "data.json parses; schema matches Findings Generation (study-id dict with image_path as 2-path list, section_indication, section_findings); n_total counted from the JSON itself (was 'unknown' at NO-GO time).",
+      "evidence_when_done": "results/sota_copy/chexbench_split_check.json (box-origin) with n_total, 5 image_path samples, data_source sample, estimated image bytes, estimated GPU-h.",
+      "refusal_condition": "If image_path targets resolve to MIMIC-CXR/PhysioNet pixels and lock_3_physionet_dua is not yet held -> back to PARKED (go-nogo escalation rule)."
+    },
+    {
+      "step": 3,
+      "name": "Stage pixels per the split's true provenance",
+      "actor": "box + human (locks 2/3 as applicable)",
+      "gate": "Each image source's own license/DUA held: MIMIC-CXR -> lock_3_physionet_dua; CheXpert -> its separate license. CITI (lock 2) where the agreement chain requires it.",
+      "evidence_when_done": "All image_path samples resolve on box storage; zero missing; provenance table written.",
+      "refusal_condition": "Any source without its own lock -> that source's images stay out of scope; partial splits do not count as Type R."
+    },
+    {
+      "step": 4,
+      "name": "Run official Findings Generation evaluation on the box",
+      "actor": "box",
+      "gate": "Steps 1-3 green; GPU free; CheXagent (or the portfolio SOTA candidate) weights already cached on box (weight_gate.json shows the CheXagent-2-3b snapshot exists).",
+      "evidence_when_done": "evaluation_chexbench/axis_3_text_generation/run_findings_generation.py completes on the full split (n>8); per-class and macro/micro F1CheXbert scores logged.",
+      "refusal_condition": "Crash/OOM/partial split -> no wrap; fix and re-run the full split."
+    },
+    {
+      "step": 5,
+      "name": "Vendor-score the reports with the official F1CheXbert harness",
+      "actor": "box",
+      "gate": "Step 4 outputs exist; F1CheXbert (real CheXbert labeler, not a keyword fallback) runs over all generated reports vs references on the CheXbench split.",
+      "evidence_when_done": "macro14/micro14/macro5/micro5 as real measured numbers from this run.",
+      "refusal_condition": "Any score derived from IU, the teaching fixture, or the paper 55.2 -> invalid; wrap must refuse."
+    },
+    {
+      "step": 6,
+      "name": "rsync evidence back to laptop",
+      "actor": "box -> laptop via source-tree/_common/rsync_fire.sh",
+      "gate": "Step 5 scores verified on box first; transfer is evidence sync, not computation.",
+      "evidence_when_done": "results/sota_copy/ on laptop holds box-origin score JSONs; dryrun_remote.sh diff shows nothing extra.",
+      "refusal_condition": "laptop never downloads gated assets and never runs the official split; laptop remains a staging/CI surface (GHA code-infra+security with FIRE_CI=1 is the substitute gate)."
+    },
+    {
+      "step": 7,
+      "name": "Mint sota_chexbench.json (the ONLY mint path)",
+      "actor": "box (or laptop consuming verified box scores), post-success only",
+      "gate": "wrap_chexbench_scores.py --n <real CheXbench split size n>8> --macro14/--micro14/--macro5/--micro5 <step-5 measured values>; the n<=8 refusal must be exercised-and-passed, never bypassed.",
+      "evidence_when_done": "sota_chexbench.json with mode=CHEXBENCH_OFFICIAL, status=ok, real n and scores; this clears the 003 blocker (sota_chexbench_blocker.json supersedes to resolved).",
+      "refusal_condition": "No step-5 evidence, or n<=8, or scores not from this run -> refuse; the artifact must not exist."
+    },
+    {
+      "step": 8,
+      "name": "Close Type R",
+      "actor": "lead session",
+      "gate": "Step 7 artifact committed on the direction worktree branch (no push without instruction); independent review re-run on the new artifact.",
+      "evidence_when_done": "residuals list in the next closeout empty for Type R; findings.md and the residual board updated.",
+      "refusal_condition": "Independent review REQUEST_CHANGES/REJECT -> back to the failing step."
+    }
+  ],
+  "forbidden_actions": [
+    "no AutoDL box power-on or SSH before explicit GO",
+    "no laptop HF download of gated assets (CheXbench, SDXL, DiT, CORPUS)",
+    "no minting sota_chexbench.json before step 7's gate is met",
+    "no forging llm_qa_ok or REMOTE_SOTA_READY",
+    "no touching anchor heads ci/laptop-substitute-fire-infra and docs/incubator-index-audits-plans (they stay at b8a3d53; never deleted or fast-forwarded)",
+    "001-007 are portfolio directories, not remotes; the only remote is origin",
+    "no committing sota_copy noise onto main",
+    "no treating IU n=8 / REMOTE_SOTA_READY=true as CheXbench Type R",
+    "no treating any mirror, size-similar file, or the paper 55.2 as official evidence"
+  ],
+  "parked_until": "A human accepts lock_1_hf_contact (minimum) and issues explicit GO; locks 2 and 3 as the split's provenance requires. Until then, substitute CI remains bash source-tree/_common/selftest_ci.sh and .github/workflows/{code-infra,security}.yml with FIRE_CI=1; selftest_all.sh is not the GHA gate.",
+  "truth_source": "origin/main@54e43d9 per the OMC interlock at laptop-closeout time; later main commits are other directions' closeouts and do not alter 003 evidence.",
+  "written_utc": "2026-08-14T08:07:05Z"
+}
