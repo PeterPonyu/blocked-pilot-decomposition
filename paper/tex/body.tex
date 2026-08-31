@@ -1,0 +1,469 @@
+%% The manuscript body, shared by every binding of this paper.
+%% The class, the front matter and the bibliography style belong to the
+%% binding; everything a reader reads belongs here, once.
+\section{Introduction}
+
+Projects that do not reach their intended evaluation tend to disappear, and the
+ones that survive as text usually survive as a single sentence: the experiment
+was not feasible. That sentence is almost always an aggregate over obstacles
+that have nothing to do with each other. A licence that has not been granted, a
+disease that is too rare in the available corpus, and a scoring instrument that
+behaves unexpectedly are three different problems with three different owners,
+and collapsing them into one verdict throws away the only part a reader could
+act on.
+
+This paper takes one such project and refuses the aggregate. The project set out
+to evaluate chest-radiograph report generation on a public benchmark, did not
+get there, and produced instead a small labelled pilot on a corpus it already
+held. We report the obstacles separately, and we report what the pilot can and
+cannot support, with the arithmetic that decides which is which.
+
+The first obstacle is administrative and is not a scientific finding at all,
+which is exactly why it should be stated in a scientific document. The intended
+benchmark is contact-gated, the pixels underneath it carry their own data use
+agreement, and both of those are ordinary and defensible choices for clinical
+data. What is worth recording is their consequence: \NLocks{} obstacles were
+enumerated, none of them is removed by computation, and the enumeration was
+written on \BlockerDate{}, before any hardware was rented. The alternative --- to
+rent a machine, discover the gate, and write the discovery up as a cost --- is
+common enough to be worth naming as the thing this project avoided.
+
+The second obstacle is statistical, and the useful move is to split it in two.
+A pilot can be too small for its corpus, and a corpus can be too small for the
+question. Of the \NFindings{} labelled observations, \NExceedSplit{} would need
+more reports than the entire frozen test split of \NTest{} before a draw is even
+expected to contain \MinPresent{} positives. For those, labelling more of the
+same split changes nothing. Reporting the pilot as underpowered would be true
+and would also be the wrong diagnosis.
+
+The other half of the statistical obstacle is the draw itself, and it is the
+part we did not expect. The subsample the project pre-registered is not
+representative of the split it came from: it over-represents one observation at
+an exact two-sided hypergeometric probability of \SkewP{}, which clears a
+Bonferroni threshold of \Bonferroni{} across all \NFindings{} observations.
+Because the presence gate is a threshold on positives in the draw, that anomaly
+is not a nuisance detail; it is what makes one of the two scorable cells
+scorable at all. Pre-registration did its job, which is to prevent choosing a
+sample after seeing its labels, and it does not do the other job people expect
+of it.
+
+The third obstacle is the instrument, and it generalises furthest. The majority
+control emits one constant report, the most frequent findings text in the
+training split, which reads as an unremarkable study. The automatic labeller
+that defines the standard metric in this area marks that text positive for
+\MajAsserted{} on all \NCohort{} rows and never marks it as the observation
+denoting nothing to report. A baseline that everyone treats as the floor of
+predicting normality is therefore not that baseline; it is whatever the labeller
+makes of one fixed string. Scored on surface text instead, the same control
+reaches \SurfaceMajorityF{} token F1 against \SurfaceRetrievalF{} for a
+retrieval control, a comparison that looks orderly and carries none of the
+information above.
+
+\section{Methods}
+\input{methods}
+
+\section{The blockage is administrative}
+
+Fig.~\ref{fig:locks} lays out the \NLocks{} recorded obstacles, grouped by
+what would remove each one. The grouping is the result, and the three groups
+behave differently enough that treating them as one queue would be a mistake.
+
+Of the \NLocks{}, \NPermissionLocks{} are permissions. The benchmark suite is
+distributed under a contact gate, so its maintainers grant access on
+request~\cite{chexbench}. Human-subjects research training must be completed by
+a named person and produces a verification record in that person's name. The
+radiographs the benchmark scores are governed by a credentialed data use
+agreement of their own~\cite{johnson2019mimiccxr,goldberger2000physionet}. The
+project's record is explicit that these three are not interchangeable: holding
+any one of them satisfies neither of the others, and none of them is a token
+that can be substituted for another. That sounds obvious written down and is
+routinely got wrong in planning, because all three are colloquially ``getting
+access''.
+
+Exactly \NArtifactLocks{} of the \NLocks{} is an artifact rather than a
+permission. The file
+defining which cases the benchmark scores was checked for at three locations and
+found at none of them. It is not a fourth door: it arrives with the first
+permission. It is listed separately because holding a permission and holding the
+file it unlocks are different states, and a plan that tracks only permissions
+will report itself further along than it is.
+
+The record also shows the absence was not for want of looking. Public mirrors
+and archive copies were checked and none held the file, and one similarly sized
+file circulating under a related name was examined and rejected because it
+defines a different task. That refusal is the part worth copying. A file of
+about the right size under about the right name is the most likely way an
+evaluation quietly becomes a different evaluation, and the only defence is to
+check what a candidate file defines before running anything against it.
+
+The remaining \NSubstitutionLocks{} obstacles are refusals the project imposed
+on itself, and they are the only ones it controlled. A different public
+chest-radiograph corpus was available locally, and scoring it under the
+benchmark's name was refused as a category error rather than accepted as an
+approximation. The project's scoring wrapper enforces the refusal mechanically
+by rejecting any sample whose size is not the benchmark's own split size, which
+is why the \HarnessImages{}-image local inference run recorded in the same
+project is recorded as a harness that checks the pipeline executes and
+contributes no number to this paper.
+
+What makes the grouping worth publishing is a negative property that holds
+across all three. None of these obstacles is removed by more computation, by a
+larger model, or by labelling more of the corpus already on hand. A project that
+reads its own blockage as a resource problem will spend resources and remain
+blocked. The record here was written before that spending, and stating that
+plainly is the only way the avoided cost shows up anywhere.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig1_access_locks.pdf}
+\caption{\CapLocks}
+\label{fig:locks}
+\end{figure}
+
+\section{The corpus sets a ceiling the pilot cannot raise}
+
+The pilot labelled \NCohort{} of the \NTest{} test reports, \CoveragePct{} per
+cent of the split, and \NUnderpowered{} of the \NFindings{} observations fall
+below the presence gate. The obvious reading is that the pilot is too small. For
+most of the observations that reading is right, and for \NExceedSplit{} of them
+it is wrong in a way that matters.
+
+Table~\ref{tab:power} and Fig.~\ref{fig:required} give the arithmetic. For
+each observation the table reports how many labelled reports would be needed
+before a draw is expected to hold \MinPresent{} positives, given that
+observation's prevalence in the split. For \NExceedSplit{} observations that
+number exceeds \NTest{}, the size of the whole test split: \RarestFinding{} is
+positive in \RarestPresent{} of \NTest{} reports and would need
+\RarestRequired{} of them. Labelling every remaining report in the split would
+not move those cells above the gate. One observation,
+\BoundaryFinding{}, sits exactly at the boundary and would need the split
+entire.
+
+The distinction this draws is between a pilot that is underpowered and a corpus
+that cannot answer the question. They are different findings with different
+consequences. The first is fixed by labelling more of what is already on hand,
+which costs annotation time and nothing else. The second is fixed only by a
+larger or differently composed corpus, which is a different project. A report
+that says only ``underpowered'' points the reader at the cheaper of the two
+remedies for cells where the cheaper remedy cannot work.
+
+It is worth being precise about what the required-rows column is not. It is the
+size at which the \emph{expected} number of positives reaches the gate, which is
+a necessary condition and a weak one: at exactly that size roughly half of all
+draws still fall short. Read it as a floor below which the question is
+hopeless, not as a sample size recommendation.
+
+\begin{table}[tbp]
+\centering
+\caption{What the frozen test split of \NTest{} reports contains for each of the
+\NFindings{} labelled observations, and what a subsample would need. Rows needed
+for the gate is the smallest draw whose expected number of gold positives
+reaches \MinPresent{}, computed from that observation's prevalence in the split;
+values in bold exceed the size of the split itself, so no subsample of it can
+reach the gate. Drawn is the number of gold positives in the \NCohort{}-report
+subsample that was actually labelled and Expected is what the split's prevalence
+predicts for a draw of that size. Unmentioned counts reports whose text does not
+refer to the observation at all, which the labeller distinguishes from
+asserting its absence.}
+\label{tab:power}
+\small
+\input{generated_table_power}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig2_required_rows.pdf}
+\caption{\CapRequired}
+\label{fig:required}
+\end{figure}
+
+\section{A pre-registered draw is still a draw}
+
+The \NCohort{} reports were selected by sorting test identifiers on a salted
+hash and taking the first \NCohort{}, with the salt fixed and recorded before
+any label was read. That protocol rules out the failure mode it was designed
+for. It does not rule out the draw being unusual, and this one is.
+
+Fig.~\ref{fig:draw} compares, for every observation, the positives the draw
+contains against the positives the split's own prevalence predicts for a draw of
+that size. Exactly \NUnrepresentative{} of them is out of line: \SkewFinding{} is
+positive in \SkewSplitPresent{} of \NTest{} test reports, which predicts
+\SkewExpected{} positives in a draw of \NCohort{}, and the draw holds
+\SkewObserved{}.
+The exact two-sided hypergeometric probability is \SkewP{}, against a Bonferroni
+threshold of \Bonferroni{} for \NFindings{} comparisons. Every other observation
+is consistent with the split, and \NZeroDrawn{} of them contribute no positives
+at all.
+
+The consequence is not cosmetic. Only \NScored{} of \NFindings{} observations
+clear the presence gate, and \SkewFinding{} is one of them --- with
+\ScoredOnePresent{} positives against \ScoredOneExpected{} expected. Had the
+draw been typical, that cell would have fallen below the gate with the rest. At
+the expected draw, \NScoredExpected{} of the \NFindings{} observations clears
+the gate: \ScoredTwo{}, which is positive in \ScoredTwoSplit{} of \NTest{}
+reports and is the only observation common enough to survive a draw this small
+reliably. One of the pilot's \NScored{} scorable cells therefore exists because
+a pre-registered random draw happened to be lucky, or unlucky, depending on
+which way one reads it.
+
+We want to state the implication carefully, because it is easy to overreach.
+Nothing here indicates a defect in the selection rule, which did what a salted
+hash does. Nothing here indicates the labels are wrong. The observation is
+narrower and, we think, more useful: at these sizes the set of cells a pilot can
+report on is itself a random variable, and a pilot that reports only its
+scorable cells is reporting a selection it did not make and usually does not
+mention. The remedy is cheap --- state the expected count next to the observed
+one for every cell, scorable or not, which is what the table above does --- and
+we have not seen it done.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig3_draw_vs_split.pdf}
+\caption{\CapDraw}
+\label{fig:draw}
+\end{figure}
+
+\section{Both controls fail, and one of them fails informatively}
+
+\subsection{What the controls assert}
+
+Fig.~\ref{fig:assertions} shows what each control asserted across all
+\NFindings{} observations, next to what the draw contains. The retrieval control
+behaves as a retrieval control should: it asserts positives for
+\RetAssertedFindings{} different observations, in counts that are the right
+order of magnitude, because it returns real reports written by radiologists
+about other patients.
+
+The majority control does something else. It emits one constant report for every
+row, so each of its per-observation counts must be zero or all \NCohort{}, which
+the analysis verifies rather than assumes. It reaches \NCohort{} for exactly one
+observation, \MajAsserted{}, and zero for the other thirteen. The text it emits
+is the most frequent findings text in the training split:
+
+\begin{quote}
+\small\itshape \MajTemplate{}
+\end{quote}
+
+That reads as an unremarkable study. The labeller marks it positive for
+\MajAsserted{} on every row and never marks it as \ScoredTwo{}, the observation
+that denotes a study with nothing to report. So the majority control asserts
+\MajAsserted{} on all \NCohort{} reports, where the truth is
+\MajAssertedDrawn{}, and asserts nothing at all on the two cells that can be
+scored.
+
+This is worth separating from the pilot it was found in. A constant majority
+baseline is standard, and its purpose is to establish the floor that a system
+predicting nothing informative would achieve. In label space that purpose fails
+here, and not because the corpus is small: it fails because the floor is defined
+by whatever the labeller assigns to one particular string, and that assignment
+is not the null vector anyone assumed. Any comparison in which the majority
+baseline's label-space score is treated as the trivial floor inherits this,
+whatever its sample size.
+
+\subsection{The two cells that can be scored}
+
+Table~\ref{tab:scored} and Fig.~\ref{fig:scored} give the two cells that clear
+the gate. On \ScoredOne{}, with \ScoredOnePresent{} gold positives, the majority
+control misses all of them and the retrieval control misses \RetMissedOne{}, a
+share of \RetMissOne{} with a one-sided \(90\%\) upper limit of \RetUpperOne{}.
+On \ScoredTwo{}, with \ScoredTwoPresent{} gold positives, the majority control
+again misses all of them and the retrieval control misses \RetMissedTwo{}, a
+share of \RetMissTwo{} with an upper limit of \RetUpperTwo{}.
+
+The retrieval control is better than the majority control in both cells, and the
+correct summary of that is not that retrieval works. Both upper limits sit close
+enough to one that these data cannot exclude a control that misses essentially
+every positive. Two cells with \ScoredOnePresent{} and \ScoredTwoPresent{}
+positives do not distinguish a control that misses four fifths of positives from
+one that misses all of them, and reporting the point estimates without the
+limits would suggest otherwise.
+
+\subsection{The same controls, scored differently}
+
+The two controls also exist scored on surface text over the whole \NTest{}-report
+split, by exact match and unigram token F1. There, retrieval reaches
+\SurfaceRetrievalF{} token F1 on the findings section against \SurfaceMajorityF{}
+for the majority control, a ratio of about \SurfaceRatio{} to one, and exact
+match is \SurfaceRetrievalExact{} per cent against \SurfaceMajorityExact{} per
+cent.
+
+Those numbers are calm and orderly and they describe the same two systems that,
+in label space, respectively fail to exclude near-total failure and assert one
+wrong observation on every report. Surface overlap rewards a control for
+producing text of the right shape and vocabulary, which both controls do by
+construction, since both emit real report text. Neither number is wrong. They
+are measuring the property that survives when the clinical content is removed,
+and the gap between the two views of the same pair of systems is the practical
+argument for label-space evaluation being worth its cost.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig4_control_assertions.pdf}
+\caption{\CapAssertions}
+\label{fig:assertions}
+\end{figure}
+
+\begin{table}[tbp]
+\centering
+\caption{The \NScored{} observations that clear the presence gate of
+\MinPresent{} gold positives in the \NCohort{}-report subsample, and how each
+control performed on them. Missed counts the gold positives the control did not
+assert, miss rate is that count over the gold positives, and the final column is
+the one-sided \(90\%\) Clopper--Pearson upper limit on the miss rate, which is
+wide because the counts are small. The majority control emits one constant
+report for every case; the retrieval control returns the training report whose
+indication text is nearest by TF--IDF cosine similarity.}
+\label{tab:scored}
+\small
+\input{generated_table_scored}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.86\linewidth]{fig5_scored_cells.pdf}
+\caption{\CapScored}
+\label{fig:scored}
+\end{figure}
+
+\section{Discussion}
+
+The obstacles in this paper are separable, and each is owned by someone
+different. The administrative one is owned by institutions and by the person
+willing to complete the paperwork, and no amount of engineering substitutes. The
+corpus ceiling is owned by whoever assembles corpora, and it is invisible to a
+project that only reports its own sample size. The composition of the draw is
+owned by nobody, which is why it needs to be printed rather than assigned. The
+instrument behaviour is owned by the evaluation community, and it is the only
+one a reader of a results table might otherwise mistake for a property of the
+system being evaluated.
+
+Reporting them separately costs almost nothing. Everything in this paper is
+arithmetic over label counts that already existed, plus one exact test, plus the
+decision to publish a list of access obstacles instead of a sentence saying the
+benchmark was unavailable. What it buys is that each part can be refuted
+independently. Someone who obtains the access grant refutes the first part.
+Someone who assembles a corpus with more positives for the rare observations
+refutes the corpus ceiling. Someone who shows that the labeller reads the
+constant template differently under a different checkpoint refutes the last, and
+we have recorded the checkpoint digest precisely so that can be attempted.
+
+Two points generalise past this corpus and this benchmark.
+
+The first is that a pre-registered draw is still a draw. Pre-registration is now
+routine and its guarantee is often stated too broadly. Fixing the selection rule
+in advance removes selection bias from the choice of sample; it leaves sampling
+variation entirely intact, and at pilot sizes sampling variation determines
+which cells are reportable at all. The cheap defence is to print the expected
+count beside the observed count for every cell, so a reader can see that the
+reportable set was drawn rather than designed.
+
+The second is that a trivial baseline is only trivial in the space it is scored
+in. The constant majority report used here is the standard construction, and in
+surface-overlap space it does what it is supposed to. Passed through an
+automatic labeller, it becomes a system that confidently asserts one wrong
+observation on every case, which is not a floor in any useful sense. Anyone
+reporting a label-space metric with a majority baseline should check what the
+labeller assigns to their constant string, and report that vector, because it
+takes one forward pass and it determines what the floor means.
+
+\section{What this study does not claim}
+
+No result is reported on the blocked benchmark, and no number appearing here is
+presented as an approximation of one. The locally held corpus is a different
+corpus and is treated as such throughout.
+
+No standard automatic report-generation aggregate is computed. The counts here
+support statements about positives and misses on a small labelled subsample;
+they are not converted into a headline metric, and no comparison against
+published values is made or implied.
+
+No deficiency is alleged in the benchmark, in its maintainers, or in the
+credentialing bodies whose approvals are enumerated here. Gating clinical data
+behind institutional agreements is a legitimate and, for these data, an expected
+choice. What is reported is the consequence for a project that has not completed
+those steps, which is a fact about the project.
+
+No claim is made about the labeller's correctness. That the labeller assigns
+\MajAsserted{} to one constant string is an observation about that string under
+that checkpoint. It is not evidence that the labeller is inaccurate in general,
+and this study did not evaluate its accuracy.
+
+No conclusion is drawn about report-generation systems. Both arms examined here
+are controls. Nothing in this paper compares a trained generator against
+anything, and the \HarnessImages{}-image local inference run that exists in the
+same project is recorded as a pipeline check and contributes no number.
+
+No cell below the presence gate is given a rate, an interval, or a direction.
+Of the \NFindings{} observations, \NUnderpowered{} are reported as underpowered
+and are left there.
+
+\section{Conclusion}
+
+One chest-radiograph reporting project that did not reach its intended
+evaluation was decomposed into the reasons it did not. A set of \NLocks{} access
+obstacles was enumerated and grouped by what removes them, and none of the
+three groups is removed by computation; the enumeration was recorded before
+hardware was rented rather than after. Of \NFindings{} labelled observations,
+\NExceedSplit{} require more reports than the entire \NTest{}-report test split
+before a draw is expected to hold \MinPresent{} positives, so for those the
+limitation is the corpus and not the pilot. The pre-registered \NCohort{}-report
+subsample is not representative of that split, over-representing \SkewFinding{}
+at \SkewObserved{} positives against \SkewExpected{} expected with an exact
+two-sided hypergeometric probability of \SkewP{}, and one of the \NScored{}
+cells that clear the presence gate exists only because of that departure.
+
+On both scorable cells the two controls fail, and the one that fails completely
+does so for a reason that travels: the constant report a majority baseline emits
+is read by the automatic labeller as positive for \MajAsserted{} on every case
+and as never denoting an unremarkable study, so the floor that baseline is meant
+to establish is not the floor anyone assumed. Scored on surface text the same
+pair looks unremarkable at \SurfaceRetrievalF{} and \SurfaceMajorityF{} token
+F1. Across every one of these results the pattern is the same: the informative
+quantity is the specific reason a claim cannot be made, and every aggregate that
+a project like this would normally report --- feasible or not, powered or not,
+better or worse --- hides exactly that.
+
+\section*{Data and code availability}
+
+The derived label tables, the recorded access-obstacle enumeration, the split
+and selection protocols, and the figure code that produces every number in this
+manuscript accompany the manuscript source. Each artifact is recorded with its
+SHA-256 digest in a manifest, and the figure code verifies those digests against
+the bytes on disk before reading them, so the build fails rather than silently
+reporting stale numbers. The radiograph pixels and the report texts are not
+redistributed here; the corpus is publicly available from its original
+distributor under its own licence, and the labeller checkpoint is a third-party
+release identified in the manifest by digest rather than copied.
+\input{generated_availability}
+
+\section*{Ethics statement}
+
+This study is a secondary analysis of a de-identified, publicly distributed
+collection of radiology reports and of derived label counts computed from them.
+No new data were collected, no images or report texts are reproduced beyond a
+single template sentence that is the modal training-split text and contains no
+patient-specific content, and no attempt was made to re-identify any individual.
+The credentialed data governed by an agreement that is discussed in this paper
+was never obtained and never used.
+
+\section*{Competing interests}
+
+Not yet declared. This is a working draft and the declaration is outstanding.
+
+\section*{Funding and author contributions}
+
+Not yet declared. This is a working draft; the author list is not fixed and
+contributions are therefore not yet attributable.
+
+\section*{Declaration of generative AI use}
+
+The analysis code, the figure code and the drafting of this manuscript were
+produced with substantial assistance from large language model agents working
+under human direction. One safeguard bears directly on what is reported: every
+number printed above is emitted programmatically from artifacts bound by
+cryptographic digest rather than transcribed by a model into prose, and several
+of the paper's structural claims --- that the majority control is constant, that
+the presence gate is the value stated, that the recorded and recomputed lists of
+thin observations agree --- are enforced as build-time checks that stop the
+build rather than as sentences. Responsibility for the content rests with the
+authors.
