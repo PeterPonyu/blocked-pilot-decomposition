@@ -15,6 +15,20 @@ additional labelling of the corpus already held, or by more time on a rented
 machine, which is why the record was written in advance of renting one.%
 }
 
+\newcommand{\CapPermissions}{%
+The \NPermissionLocks{} permissions the project's record lists, each against the
+\NPermissionLocks{} things a project needs before the benchmark can be run. A
+cell reads \emph{delivers} only where holding the permission on that row
+produces the item in that column, and \emph{still required} everywhere else. The
+relation is exactly the diagonal: each approval yields one of the three and
+leaves the remaining \NPermissionPairs{} cells untouched, so holding one is not
+partial progress toward the others. The row labels are the approvals themselves,
+which are decisions by a person or an institution; the column labels are the
+things those decisions produce, which are a file, a personal credential and
+access to the images. Nothing on this grid is moved by computation, by a larger
+model, or by labelling more of the corpus already held.%
+}
+
 \newcommand{\CapRequired}{%
 How many labelled reports each of the \NFindings{} observations would need
 before a draw is expected to contain \MinPresent{} positives, computed from the

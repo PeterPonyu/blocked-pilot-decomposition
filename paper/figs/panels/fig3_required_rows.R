@@ -31,4 +31,4 @@ p <- ggplot(f2, aes(x = label)) +
   rtx_theme() +
   theme(axis.text.x = element_text(angle = 40, hjust = 1, size = 7))
 
-save_fig(p, "fig2_required_rows", FIGURE_TEXT_WIDTH_IN, 3.2)
+save_fig(p, "fig3_required_rows", FIGURE_TEXT_WIDTH_IN, 3.2)

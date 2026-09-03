@@ -36,4 +36,4 @@ p <- ggplot(f4, aes(x = label, y = count, fill = series)) +
         legend.position = "bottom", legend.text = element_text(size = 7),
         legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2))
 
-save_fig(p, "fig4_control_assertions", FIGURE_TEXT_WIDTH_IN, 3.4)
+save_fig(p, "fig5_control_assertions", FIGURE_TEXT_WIDTH_IN, 3.4)

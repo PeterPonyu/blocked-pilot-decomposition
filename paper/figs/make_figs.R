@@ -18,7 +18,7 @@ suppressPackageStartupMessages({
 })
 
 for (unit in c("rtx_theme.R", "lib/evidence.R", "lib/emit.R", "lib/locks.R",
-               "lib/stats.R", "lib/findings.R")) {
+               "lib/permissions.R", "lib/stats.R", "lib/findings.R")) {
   source(file.path("figs", unit))
 }
 
@@ -28,6 +28,7 @@ manifest <- load_manifest()
 read_bound <- evidence_reader(manifest, find_repo_root())
 
 locks_record <- read_bound$json("E-LOCKS")
+unlock_design <- read_bound$json("E-NEXT")
 blocker <- read_bound$json("E-BLOCKER")
 split <- read_bound$json("E-SPLIT")
 heldout <- read_bound$json("E-HELDOUT")
@@ -53,6 +54,22 @@ ALPHA <- 0.05
 lock_rows <- locks_record$rows
 locks <- build_locks(lock_rows)
 lock_kinds <- lock_kind_of(locks)
+
+# The permissions are drawn from a second record, so the two have to agree about
+# how many there are. Without this the obstacle figure could count three
+# permissions while the matrix drew two, and both would look internally
+# consistent.
+permissions <- build_permissions(unlock_design)
+if (nrow(permissions) != sum(lock_kinds == "Permission")) {
+  stop("the unlock record and the obstacle record disagree on how many permissions there are")
+}
+
+# The route out, and the property the manuscript reads off it: exactly one step
+# needs a person, and it is the first one.
+unlock_steps <- build_unlock_path(unlock_design)
+if (sum(unlock_steps$human_only) != 1L || !unlock_steps$human_only[1]) {
+  stop("the recorded route no longer has a single human-only step at its head")
+}
 
 ## ---------------------------------------------------------------------------
 ## One row per observation, then every check the manuscript's claims rest on.
@@ -83,8 +100,9 @@ assert_gate_is(per_finding, MIN_PRESENT)
 ## Figures. Each panel reads the objects above and writes one file.
 ## ---------------------------------------------------------------------------
 
-for (unit in c("fig1_access_locks.R", "fig2_required_rows.R", "fig3_draw_vs_split.R",
-               "fig4_control_assertions.R", "fig5_scored_cells.R")) {
+for (unit in c("fig1_access_locks.R", "fig2_permissions.R", "fig3_required_rows.R",
+               "fig4_draw_vs_split.R", "fig5_control_assertions.R",
+               "fig6_scored_cells.R")) {
   source(file.path("figs", "panels", unit))
 }
 
@@ -106,6 +124,9 @@ if (length(maj_asserted) != 1L) {
 write_generated(c(
   macro("NLocks", nrow(lock_rows)),
   macro("NPermissionLocks", sum(lock_kinds == "Permission")),
+  macro("NPermissionPairs", nrow(permissions) * (nrow(permissions) - 1L)),
+  macro("NUnlockSteps", nrow(unlock_steps)),
+  macro("NMachineSteps", sum(!unlock_steps$human_only)),
   macro("NArtifactLocks", sum(lock_kinds == "Artifact")),
   macro("NSubstitutionLocks", sum(lock_kinds == "Substitution refused")),
   macro("NFindings", nrow(per_finding)),
@@ -169,7 +190,9 @@ write_generated(c(
   macro("SurfaceRetrievalExact", fmt(100 * retrieval_surface$metrics$exact_match_findings, 1)),
   macro("SurfaceMajorityExact", fmt(100 * majority_surface$metrics$majority_exact_match_findings, 1)),
   macro("BlockerDate", substr(blocker$written_utc, 1, 10)),
-  macro("SelectionSalt", heldout$selection_salt)
+  macro("SelectionSalt", heldout$selection_salt),
+  macro("NEvidence", nrow(manifest$entries)),
+  macro("EvidenceBytes", format(sum(manifest$entries$bytes), big.mark = ","))
 ), "generated_numbers.tex")
 
 ## Every observation in the schema, with what it would take to score it.
@@ -204,6 +227,30 @@ write_generated(c(
   "\\endgroup"
 ), "generated_table_power.tex")
 
+## The recorded route from the present state to a result.
+
+write_generated(c(
+  "\\begingroup",
+  "\\setlength{\\tabcolsep}{5pt}",
+  "\\begin{tabular}{@{}rp{0.28\\linewidth}lp{0.40\\linewidth}@{}}",
+  "\\toprule",
+  "Step & Action & Who acts & What it waits on \\\\",
+  "\\midrule",
+  paste0(
+    unlock_steps$step, " & ",
+    unlock_steps$action, " & ",
+    unlock_steps$actor, " & ",
+    unlock_steps$waits_on, " \\\\"
+  ),
+  "\\bottomrule",
+  "\\end{tabular}",
+  "\\endgroup"
+), "generated_table_unlock.tex")
+
+## The manifest itself, so the evidence discipline can be checked rather than believed.
+
+write_generated(evidence_table(manifest), "generated_table_evidence.tex")
+
 ## The cells that cleared the gate, one block per observation.
 
 write_generated(c(
@@ -221,5 +268,5 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_scored.tex")
 
-message(sprintf("wrote 5 figures to figs/out and 3 generated tex files to tex/ (%d of %d observations scored)",
+message(sprintf("wrote 6 figures to figs/out and 5 generated tex files to tex/ (%d of %d observations scored)",
                 nrow(scored), nrow(per_finding)))

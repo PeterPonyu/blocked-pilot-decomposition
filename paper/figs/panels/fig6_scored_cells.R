@@ -29,4 +29,4 @@ p <- ggplot(f5, aes(x = arm, y = rate, colour = arm)) +
   rtx_theme() +
   theme(axis.text.x = element_text(size = 7.5))
 
-save_fig(p, "fig5_scored_cells", 0.86 * FIGURE_TEXT_WIDTH_IN, 2.9)
+save_fig(p, "fig6_scored_cells", 0.86 * FIGURE_TEXT_WIDTH_IN, 2.9)

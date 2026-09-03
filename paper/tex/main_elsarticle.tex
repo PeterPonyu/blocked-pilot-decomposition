@@ -13,8 +13,19 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{placeins}
+% For every included figure, pdfTeX records the absolute path it was
+% read from in a /PTEX.FileName object.  Those objects are not
+% rendered, so a text dump of the PDF does not show them, but they
+% travel with the file and spell out the build machine's home
+% directory, user name and worktree layout.
+\pdfsuppressptexinfo=-1
+
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Permission, prevalence, and the labeller: three separable reasons a chest-radiograph reporting pilot cannot answer its own question},pdfauthor={Zeyu Fu},pdfsubject={Permission, prevalence, and the labeller: three separable reasons a chest-radiograph reporting pilot cannot answer its own question}}
+% Blind copies are compiled with \ANONYMOUS defined; the identified
+% build is the default.  hyperref writes the name into the PDF /Author
+% key as well as the title page, so both go through this one macro.
+\ifdefined\ANONYMOUS\newcommand{\PDFAUTHOR}{}\else\newcommand{\PDFAUTHOR}{Zeyu Fu}\fi
+\hypersetup{pdftitle={Permission, prevalence, and the labeller: three separable reasons a chest-radiograph reporting pilot cannot answer its own question},pdfauthor={\PDFAUTHOR},pdfsubject={Permission, prevalence, and the labeller: three separable reasons a chest-radiograph reporting pilot cannot answer its own question}}
 \numberwithin{equation}{section}
 
 \graphicspath{{../figs/out/}}
@@ -42,10 +53,17 @@
 \title{Permission, prevalence, and the labeller: three separable reasons a
 chest-radiograph reporting pilot cannot answer its own question}
 
+\ifdefined\ANONYMOUS
+% No \address and no [amu] key: elsarticle prints a superscript
+% affiliation marker for every keyed author, so an empty keyed author
+% leaves a dangling marker and an empty entry in the /Author key.
+\author{Author and affiliation withheld for blind review}
+\else
 \author[amu]{Zeyu Fu\corref{cor1}}
 \ead{fuzeyu99@126.com}
 \cortext[cor1]{Corresponding author. ORCID: 0009-0001-8329-0108.}
 \address[amu]{Army Medical University, Chongqing, China}
+\fi
 
 \begin{abstract}
 \input{abstract}

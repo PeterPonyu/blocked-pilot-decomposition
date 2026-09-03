@@ -33,4 +33,4 @@ p <- ggplot(f3, aes(x = label)) +
         legend.position = "bottom", legend.text = element_text(size = 7),
         legend.key.size = unit(0.3, "cm"))
 
-save_fig(p, "fig3_draw_vs_split", FIGURE_TEXT_WIDTH_IN, 3.3)
+save_fig(p, "fig4_draw_vs_split", FIGURE_TEXT_WIDTH_IN, 3.3)

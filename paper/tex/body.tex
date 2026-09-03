@@ -59,6 +59,63 @@ reaches \SurfaceMajorityF{} token F1 against \SurfaceRetrievalF{} for a
 retrieval control, a comparison that looks orderly and carries none of the
 information above.
 
+\section{Related work}
+
+The three obstacles this paper separates have each been studied, but largely in
+isolation from one another and almost always from the position of a study that
+finished.
+
+The measurement obstacle is the best documented. Automatic report generation is
+conventionally scored with metrics borrowed from natural language generation,
+and the most careful audit of those metrics finds that they align poorly with
+what radiologists actually count as an error, which is why that work proposes
+alternatives built on clinical entities and relations rather than on surface
+overlap~\cite{yu2023evaluating}. That finding is the reason this paper reports
+label-space counts and surface-text scores as separate, non-comparable
+quantities rather than reconciling them, and the reason it does not convert its
+label counts into the field's headline aggregate. It is also why the scoring
+here uses the benchmark's own released labeller~\cite{smit2020chexbert} rather
+than a reimplementation: if the metric is already the weak link, substituting an
+approximation of it is not a neutral simplification. Our contribution on this
+axis is narrow and negative --- we show that on this subsample a constant
+baseline is read by that labeller as positive for a finding on every case, which
+is a property of the baseline and labeller together rather than of either alone.
+
+The power obstacle has a large literature outside this field, most influentially
+the argument that low-powered studies are not merely inconclusive but actively
+unreliable, because low power inflates the effect sizes of whatever does reach
+significance~\cite{button2013power}. That argument is usually deployed against
+studies that reported a result anyway. The situation here is the one that
+argument implies but rarely addresses directly: a pilot whose subsample is too
+small for most of the label schema, where the honest output is a per-cell
+statement of what could and could not be scored. Separating the two power
+questions --- whether the corpus could ever support a cell, and whether the
+particular draw resembled the corpus --- is what keeps a corpus-level ceiling
+from being misread as a sampling accident, and neither question is answered by
+reporting the cells that happened to clear a gate.
+
+The reproducibility obstacle is where the gap is widest. Community programs have
+converged on code submission, artifact checklists and reproduction
+challenges~\cite{pineau2021improving}, and this manuscript is built to satisfy
+that standard: every number is emitted from digest-bound artifacts, and the
+build fails rather than print a stale one. But such programs are designed around
+a study that produced a result and asks whether someone else can obtain it
+again. They have very little to say about work that could not run, and a
+checklist item asking which experiments were blocked and why does not appear on
+them. The consequence is that access failures are systematically invisible: they
+are neither publishable results nor reproducibility defects, so they are
+absorbed as private cost and the next project pays it again.
+
+That access barriers exist in this field is uncontroversial. Credentialed access
+is the norm for the major chest-radiograph
+corpora~\cite{johnson2019mimiccxr,goldberger2000physionet}, and the benchmark
+this project could not reach is distributed under a contact
+gate~\cite{chexbench}. What is missing is not awareness of the barriers but any
+convention for reporting a specific encounter with one --- which permissions
+were held, which were not, what each would and would not unlock, and what the
+attempt cost. This paper is an attempt to write that report for one case, and to
+do it in a form that can be checked rather than asserted.
+
 \section{Methods}
 \input{methods}
 
@@ -79,6 +136,19 @@ any one of them satisfies neither of the others, and none of them is a token
 that can be substituted for another. That sounds obvious written down and is
 routinely got wrong in planning, because all three are colloquially ``getting
 access''.
+
+Fig.~\ref{fig:permissions} draws the relation the record states, with the
+permissions on one axis and the things a project needs on the other. Each
+approval delivers exactly one column and leaves the other
+\NPermissionPairs{} cells untouched, so the grid is a diagonal rather than a
+progression. Reading it as a progression is the specific error the shape rules
+out: the access request yields the file defining which cases are scored and no
+images, the training certificate yields a credential that later agreements
+require of a named person and no data, and the data use agreement yields the
+radiographs and neither of the other two. A plan that treats the first
+acceptance as a third of the way to running the benchmark has mistaken three
+independent conditions for one queue, and will report progress it does not
+have.
 
 Exactly \NArtifactLocks{} of the \NLocks{} is an artifact rather than a
 permission. The file
@@ -113,12 +183,46 @@ reads its own blockage as a resource problem will spend resources and remain
 blocked. The record here was written before that spending, and stating that
 plainly is the only way the avoided cost shows up anywhere.
 
+The same record sets out what a result would take, and its shape is the
+clearest statement of the claim. Table~\ref{tab:unlock} reproduces the route: it
+runs to \NUnlockSteps{} steps, of which \NMachineSteps{} are mechanical and
+exactly one needs a person. That one is the first, and nothing after it can
+start until it finishes. This is why the study reports the blockage rather than
+an attempt at the benchmark. A route whose only human step is at the head cannot
+be shortened from the other end, and the steps that a rented machine could
+perform are precisely the ones that were never reached. Publishing the route
+also makes the claim falsifiable in the ordinary way: a reader who holds the
+approvals can execute the remaining steps and check whether they behave as the
+record says.
+
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig1_access_locks.pdf}
 \caption{\CapLocks}
 \label{fig:locks}
 \end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig2_permissions.pdf}
+\caption{\CapPermissions}
+\label{fig:permissions}
+\end{figure}
+
+\begin{table}[tbp]
+\centering
+\caption{The route the project recorded from its present state to a result on
+the benchmark, written down before any machine was rented. Step is the recorded
+order; a step cannot begin until every step above it has finished. Who acts
+distinguishes the steps that need a person from those a machine performs
+unattended. What it waits on is the condition the record attaches to each step,
+restated as the state of the world that must hold rather than as the command
+that checks it. The head of the route is the only step a person must take, and
+it gates every other.}
+\label{tab:unlock}
+\small
+\input{generated_table_unlock}
+\end{table}
 
 \section{The corpus sets a ceiling the pilot cannot raise}
 
@@ -172,7 +276,7 @@ asserting its absence.}
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{fig2_required_rows.pdf}
+\includegraphics[width=\linewidth]{fig3_required_rows.pdf}
 \caption{\CapRequired}
 \label{fig:required}
 \end{figure}
@@ -218,7 +322,7 @@ we have not seen it done.
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{fig3_draw_vs_split.pdf}
+\includegraphics[width=\linewidth]{fig4_draw_vs_split.pdf}
 \caption{\CapDraw}
 \label{fig:draw}
 \end{figure}
@@ -298,7 +402,7 @@ argument for label-space evaluation being worth its cost.
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{fig4_control_assertions.pdf}
+\includegraphics[width=\linewidth]{fig5_control_assertions.pdf}
 \caption{\CapAssertions}
 \label{fig:assertions}
 \end{figure}
@@ -320,7 +424,7 @@ indication text is nearest by TF--IDF cosine similarity.}
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.86\linewidth]{fig5_scored_cells.pdf}
+\includegraphics[width=0.86\linewidth]{fig6_scored_cells.pdf}
 \caption{\CapScored}
 \label{fig:scored}
 \end{figure}
@@ -422,6 +526,50 @@ F1. Across every one of these results the pattern is the same: the informative
 quantity is the specific reason a claim cannot be made, and every aggregate that
 a project like this would normally report --- feasible or not, powered or not,
 better or worse --- hides exactly that.
+
+\appendix
+
+\section{The bound evidence}
+\label{app:evidence}
+
+The methods section asserts that no number in this manuscript is typed by hand
+and that every artifact behind one is pinned by digest. Table~\ref{tab:evidence}
+is that assertion in a form a reader can check. It lists all \NEvidence{} bound
+artifacts, totalling \EvidenceBytes{} bytes, in the order the analysis consumes
+them.
+
+Two things about this table are worth stating, because a manifest printed
+without them invites more confidence than it earns. First, a digest binds bytes
+to a claim; it does not make the bytes correct. What Table~\ref{tab:evidence}
+rules out is drift --- an artifact quietly changing after a number was computed
+from it, or a figure being redrawn from a file that is no longer the one the
+prose describes. It does not rule out an artifact having been wrong when it was
+written, and nothing in this appendix should be read as claiming otherwise.
+Second, the internal identifier and the path of each artifact are omitted on
+purpose. They describe a private tree, they would mean nothing to a reader
+outside it, and keeping them out of the PDF is a property the build checks
+rather than a courtesy. What remains is what a reader can act on.
+
+The digests are also what makes the negative results in this paper durable. A
+study whose main finding is that something could not be measured is unusually
+easy to revise after the fact, because there is no positive number anchoring it.
+Recording the obstacle enumeration and the blocked tier under digest, before any
+attempt was made, is what stops the account of why this pilot could not answer
+its question from being rewritten once the answer is known.
+
+\begin{table}[htbp]
+\centering
+\caption{Every artifact this manuscript rests on, with its size and the first 16
+hexadecimal characters of its SHA-256 digest. Full digests, and the paths the
+digests apply to, are in the manifest that accompanies the manuscript source;
+the prefix is shown here only because a 64-character digest does not set in a
+table column. The figure and table code recomputes each digest from the bytes on
+disk before reading them and stops the build on any mismatch, so a stale
+artifact cannot reach the page.}
+\label{tab:evidence}
+\footnotesize
+\input{generated_table_evidence}
+\end{table}
 
 \section*{Data and code availability}
 

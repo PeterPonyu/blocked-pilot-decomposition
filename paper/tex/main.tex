@@ -9,6 +9,12 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage[margin=1in]{geometry}
+% For every included figure, pdfTeX records the absolute path it was read
+% from in a /PTEX.FileName object.  Those objects are not rendered, so a
+% text dump of the PDF does not show them, but they travel with the file
+% and spell out the build machine's home directory, user name and worktree
+% layout.  Suppressing them costs nothing: they exist for debugging.
+\pdfsuppressptexinfo=-1
 \usepackage[hidelinks]{hyperref}
 \numberwithin{equation}{section}
 

@@ -103,3 +103,48 @@ rtx_theme <- function(base_size = FIGURE_BASE_SIZE) {
       strip.background = ggplot2::element_blank()
     )
 }
+
+# Apply a panel label to one member of a composed figure.  A ggplot plot tag
+# with `plot.tag.location = "panel"` is anchored to the panel viewport itself;
+# hjust=1 and vjust=0 put the right/bottom edges on the upper-left spine and
+# extend the glyph into the outer top/left margin.  This is deliberately not a
+# data-space annotation: it stays outside the plotting region for linear, log,
+# discrete and faceted scales alike, and patchwork keeps one tag per composed
+# panel.
+#
+# A caption that says "left" describes where a panel happened to land in one
+# composition; a caption that says "Panel A" describes the panel.  The label is
+# what lets the caption stay self-contained, so every composed figure in this
+# tree carries one.
+#
+# The title and subtitle are optional: a composed panel that already reads from
+# its axes gets a label without acquiring a heading it did not have.
+panel_label <- function(plot, label, title = NULL, subtitle = NULL) {
+  if (!is.null(subtitle)) {
+    subtitle <- paste(strwrap(subtitle, width = 48), collapse = "\n")
+  }
+  plot +
+    ggplot2::labs(title = title, subtitle = subtitle, tag = label) +
+    ggplot2::theme(
+      plot.title.position = "panel",
+      plot.title = ggplot2::element_text(
+        family = FIGURE_FONT_FAMILY, hjust = 0.5,
+        size = FIGURE_TITLE_SIZE, face = "plain",
+        margin = ggplot2::margin(b = 2.5)
+      ),
+      plot.subtitle = ggplot2::element_text(
+        family = FIGURE_FONT_FAMILY, hjust = 0.5,
+        size = FIGURE_SUBTITLE_SIZE, colour = "grey25",
+        lineheight = 0.95, margin = ggplot2::margin(b = 3.5)
+      ),
+      plot.tag.location = "panel",
+      plot.tag.position = c(0, 1),
+      plot.tag = ggplot2::element_text(
+        family = FIGURE_FONT_FAMILY, hjust = 1, vjust = 0,
+        size = FIGURE_PANEL_LABEL_SIZE, face = "bold",
+        margin = ggplot2::margin(0, 0, 0, 0)
+      ),
+      # Keep enough outer room for the label's ascender and leftward extent.
+      plot.margin = ggplot2::margin(t = 16, r = 8, b = 8, l = 16)
+    )
+}
