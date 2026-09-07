@@ -4,6 +4,8 @@ Derived label tables, the recorded access-obstacle enumeration, the split and se
 
 This repository has not been deposited in a public archive, so it has no persistent identifier yet. One will be recorded here when an archive exists.
 
+Repository: https://github.com/PeterPonyu/blocked-pilot-decomposition
+
 ## What is here
 
 - `paper/tex/` — manuscript source. The abstract, the methods and the figure
