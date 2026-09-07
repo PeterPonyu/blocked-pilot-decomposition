@@ -65,12 +65,22 @@ The three obstacles this paper separates have each been studied, but largely in
 isolation from one another and almost always from the position of a study that
 finished.
 
-The measurement obstacle is the best documented. Automatic report generation is
+The measurement obstacle is the best documented. Chest-radiograph corpora at
+hospital scale now exist with weakly supervised labels, report text, or
+both~\cite{wang2017chestxray8,irvin2019chexpert,johnson2019mimiccxr,
+bustos2020padchest,demnerfushman2016preparing}, and classification on those
+pixels has been pushed to radiologist-adjudicated
+comparisons~\cite{rajpurkar2017chexnet,rajpurkar2018chexnext,tiu2022chexzero,
+majkowska2020chest}. Automatic report generation is a different task: early
+systems already treated the report as a sequence to be decoded from the
+image~\cite{jing2018automatic,wang2018tienet,liu2019clinical}, it is
 conventionally scored with metrics borrowed from natural language generation,
 and the most careful audit of those metrics finds that they align poorly with
 what radiologists actually count as an error, which is why that work proposes
 alternatives built on clinical entities and relations rather than on surface
-overlap~\cite{yu2023evaluating}. That finding is the reason this paper reports
+overlap~\cite{yu2023evaluating,jain2021radgraph,miura2021factual}. Memory-driven
+and entity-aware generators were developed against exactly that
+gap~\cite{chen2020r2gen}. That finding is the reason this paper reports
 label-space counts and surface-text scores as separate, non-comparable
 quantities rather than reconciling them, and the reason it does not convert its
 label counts into the field's headline aggregate. It is also why the scoring
@@ -81,22 +91,35 @@ axis is narrow and negative --- we show that on this subsample a constant
 baseline is read by that labeller as positive for a finding on every case, which
 is a property of the baseline and labeller together rather than of either alone.
 
-The power obstacle has a large literature outside this field, most influentially
-the argument that low-powered studies are not merely inconclusive but actively
+The power obstacle has a large literature outside this field. The elementary
+statement is that a test's chance of detecting a real effect is a function of
+the effect, the noise and the sample size~\cite{cohen1992power}; clinical
+prediction-model writing makes the same point as a sample-size
+calculation~\cite{riley2020sample,collins2015tripod}. The influential modern
+statement is that low-powered studies are not merely inconclusive but actively
 unreliable, because low power inflates the effect sizes of whatever does reach
-significance~\cite{button2013power}. That argument is usually deployed against
-studies that reported a result anyway. The situation here is the one that
-argument implies but rarely addresses directly: a pilot whose subsample is too
-small for most of the label schema, where the honest output is a per-cell
-statement of what could and could not be scored. Separating the two power
-questions --- whether the corpus could ever support a cell, and whether the
-particular draw resembled the corpus --- is what keeps a corpus-level ceiling
-from being misread as a sampling accident, and neither question is answered by
-reporting the cells that happened to clear a gate.
+significance~\cite{button2013power,ioannidis2005why,openscience2015repro}. Flexibility in analysis and selective reporting make the
+same small samples look more decisive than they
+are~\cite{simmons2011false,gelman2014garden,head2015phacking,amrhein2019retire}.
+That argument is usually deployed against studies that reported a result anyway.
+The situation here is the one that argument implies but rarely addresses
+directly: a pilot whose subsample is too small for most of the label schema,
+where the honest output is a per-cell statement of what could and could not be
+scored. Separating the two power questions --- whether the corpus could ever
+support a cell, and whether the particular draw resembled the corpus --- is what
+keeps a corpus-level ceiling from being misread as a sampling accident, and
+neither question is answered by reporting the cells that happened to clear a
+gate. Pre-registration prevents choosing the sample after seeing its
+labels~\cite{nosek2018preregistration,munafo2017manifesto}; it does not enlarge
+the corpus. The intervals we do report on scorable cells are the ordinary
+binomial and bootstrap constructions~\cite{clopper1934use,efron1979bootstrap},
+and the paired comparisons that appear later use the sign and signed-rank
+tests~\cite{dixon1946sign,wilcoxon1945individual}.
 
 The reproducibility obstacle is where the gap is widest. Community programs have
 converged on code submission, artifact checklists and reproduction
-challenges~\cite{pineau2021improving}, and this manuscript is built to satisfy
+challenges~\cite{pineau2021improving,peng2011reproducible,baker2016reproducibility,
+goodman2016mean,landis2012transparent}, and this manuscript is built to satisfy
 that standard: every number is emitted from digest-bound artifacts, and the
 build fails rather than print a stale one. But such programs are designed around
 a study that produced a result and asks whether someone else can obtain it
@@ -110,11 +133,19 @@ That access barriers exist in this field is uncontroversial. Credentialed access
 is the norm for the major chest-radiograph
 corpora~\cite{johnson2019mimiccxr,goldberger2000physionet}, and the benchmark
 this project could not reach is distributed under a contact
-gate~\cite{chexbench}. What is missing is not awareness of the barriers but any
-convention for reporting a specific encounter with one --- which permissions
-were held, which were not, what each would and would not unlock, and what the
-attempt cost. This paper is an attempt to write that report for one case, and to
-do it in a form that can be checked rather than asserted.
+gate~\cite{chexbench}. Clinical machine-learning writing has been explicit that
+data rights, model facts and end-user information are part of the scientific
+record rather than an administrative
+afterthought~\cite{wilkinson2016fair,esteva2019guide,sendak2020facts,
+topol2019high,kelly2019key,he2019practical,nagendran2020ai,liu2019comparison,
+vasey2022decide,benjamens2020fda}. Dataset composition and hidden strata are
+themselves part of that record~\cite{larrazabal2020gender,
+oakdenrayner2020hidden,obermeyer2019dissecting,nazer2023bias}. What is missing is not awareness of the
+barriers but any convention for reporting a specific encounter with one ---
+which permissions were held, which were not, what each would and would not
+unlock, and what the attempt cost. This paper is an attempt to write that
+report for one case, and to do it in a form that can be checked rather than
+asserted.
 
 \section{Methods}
 \input{methods}
