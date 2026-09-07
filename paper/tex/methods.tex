@@ -63,6 +63,13 @@ treats the two as equivalent is making a convention visible only in its methods
 section. We avoid the convention by reporting positives and misses on positives
 rather than accuracy over all four values.
 
+For the four-state composition figure, let \(n_{f,s}\) be the count of state
+\(s\in\{+, -, ?, \mathrm{blank}\}\) for finding \(f\) in the frozen test split.
+The build checks \(\sum_s n_{f,s}=\NTest{}\) for every finding and plots the
+fractions \(n_{f,s}/\NTest{}\). The blank state is therefore retained as a
+separate denominator component and is never interpreted as a negative label;
+the resulting display describes CheXbert output rather than clinical prevalence.
+
 \subsection{The presence gate and the two power questions}
 
 The analysis applies a presence gate fixed before the runs: an observation is
@@ -71,6 +78,25 @@ and otherwise its cell is reported as underpowered with no rate attached. The
 gate value is not asserted here but recovered: the recorded per-observation
 status of both control arms is checked against the positive counts, and the build
 stops if any status disagrees with a gate of \MinPresent{}.
+
+We keep the eligibility sets explicit. Let \(S\) be the frozen test reports,
+\(C\subseteq S\) the \NCohort{}-report draw, and \(P_f=\{i\in S:
+y_{if}=+\}\) the reports labelled positive for finding \(f\). The pilot
+denominator is
+\[
+  K_f = |C\cap P_f|,
+  \qquad
+  \mathrm{status}(f)=
+  \begin{cases}
+    \mathrm{scored}, & K_f\geq \MinPresent{},\\
+    \mathrm{underpowered}, & K_f<\MinPresent{}.
+  \end{cases}
+\]
+At the benchmark level, a cell is eligible only when the permission,
+artifact-availability, and no-substitution gates all hold; those gates are
+recorded separately from \(K_f\). Thus an inaccessible cell, an observable but
+underpowered cell, and a scored cell have different denominators and are never
+collapsed into one missing-value code.
 
 Two distinct power questions follow, and separating them is one of this paper's
 points.
@@ -107,6 +133,12 @@ failed to assert, and report that count as a rate with a one-sided \(90\%\)
 Clopper--Pearson upper limit~\cite{clopper1934use}. The upper limit is reported
 because the counts are small: at these sample sizes an interval is the result and
 a point estimate on its own would misrepresent it.
+
+For a scored finding \(f\), the reported miss rate is
+\(\widehat q_f=M_f/K_f\), where \(M_f\) is the number of positive reports the
+control failed to assert. The denominator is therefore the observed
+gold-positive count in \(C\), not \(|C|\), \(|S|\), or the number of files on
+disk. No \(\widehat q_f\) is defined when \(K_f<\MinPresent{}\).
 
 The same two controls also exist scored a different way, on surface text over the
 whole test split rather than in label space on the subsample, using exact match

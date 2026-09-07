@@ -9,7 +9,7 @@
 LOCK_TEXT <- list(
   "HF contact" = list(
     kind = "Permission: a person or an institution must act",
-    title = "Access request to the benchmark host",
+    title = "Access request to the benchmark",
     detail = "The benchmark repository is contact-gated. Access is granted by its maintainers on request; no amount of local computation substitutes for the grant."),
   "CITI" = list(
     kind = "Permission: a person or an institution must act",
@@ -20,9 +20,9 @@ LOCK_TEXT <- list(
     title = "Data use agreement for the underlying images",
     detail = "The images the benchmark scores are governed by their own credentialed data use agreement, which is a further step after access to the benchmark itself."),
   "data.json absent" = list(
-    kind = "Artifact: a file that is not on this machine",
+    kind = "Artifact: a file absent from the retained workspace",
     title = "The evaluation split file",
-    detail = "The file that defines which cases the benchmark scores was not present at any of the three locations checked. It comes with the access grant above rather than being a further permission, so it is a second thing to hold, not a second door."),
+    detail = "The file that defines which cases the benchmark scores was not present at any checked location. It comes with the access grant above rather than being a further permission, so it is a second thing to hold, not a second door."),
   "IU is not CheXbench" = list(
     kind = "Substitution refused: the local corpus is a different thing",
     title = "The locally held corpus is not the benchmark",
@@ -37,7 +37,7 @@ LOCK_TEXT <- list(
 # separable kinds and that no two of them are the same kind of thing. The order
 # is the order the figure stacks them in and the order the counts are reported.
 KIND_ORDER <- c("Permission: a person or an institution must act",
-                "Artifact: a file that is not on this machine",
+                "Artifact: a file absent from the retained workspace",
                 "Substitution refused: the local corpus is a different thing")
 
 # Tile geometry, in units of one line of detail text.  The obstacles are worded

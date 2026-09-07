@@ -13,11 +13,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{placeins}
-% For every included figure, pdfTeX records the absolute path it was
-% read from in a /PTEX.FileName object.  Those objects are not
-% rendered, so a text dump of the PDF does not show them, but they
-% travel with the file and spell out the build machine's home
-% directory, user name and worktree layout.
+% Keep engine-generated PDF metadata deterministic across bindings.
 \pdfsuppressptexinfo=-1
 
 \usepackage[hidelinks]{hyperref}

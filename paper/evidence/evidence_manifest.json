@@ -13,8 +13,8 @@
       "path": "data/e-locks/p003c_nogo_lock.json",
       "role": "recorded_state",
       "note": "the four access locks on the contact-gated benchmark, each with what it requires and what was checked",
-      "bytes": 3475,
-      "sha256": "0853c9988fac11ceff8550451f976d02720fe5919d62a28191a56760d6232e0a"
+      "bytes": 3496,
+      "sha256": "8e2a238a70bf41e2007d26425009c37d4ef52ae784683ebf11ba6eaaa068d1e0"
     },
     {
       "id": "E-BLOCKER",
@@ -37,8 +37,8 @@
       "path": "data/e-next/next_design.json",
       "role": "recorded_state",
       "note": "the recorded finding that the three access requirements are not interchangeable",
-      "bytes": 11015,
-      "sha256": "c1abcdd8c6a950031364561e257a6c198555b9d5c54693187f6de91381aed628"
+      "bytes": 10990,
+      "sha256": "a9da86729b88bfa11179d0cc58a2697940b7a3234a17cd95ed97e1f8c545ff7c"
     },
     {
       "id": "E-SPLIT",

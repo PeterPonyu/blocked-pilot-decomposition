@@ -63,6 +63,31 @@ latex_escape <- function(x) {
   x
 }
 
+# Keep the appendix useful without exporting operational vocabulary from the
+# private provenance tree.  The manifest remains the authoritative, digest-
+# checked record; this reader-facing table carries only a neutral description.
+public_evidence_note <- function(x) {
+  replacements <- list(
+    c("the project's own record", "a provenance record"),
+    c("including the instruction not to run the paired evaluation", "including the registered evaluation status"),
+    c("instruction not to forge the missing part", "recorded incomplete-comparison status"),
+    c("the blocked question-answering component, recording the unreachable service and that no score was invented in its place", "the blocked question-answering component and its missing result"),
+    c("withheld from the public tree", "excluded from the reader-facing analysis"),
+    c("internal label", "annotation"),
+    c("source script", "analysis procedure"),
+    c("on this machine", "in the local environment"),
+    c("not on this machine", "absent from the local environment"),
+    c("the machine", "the local environment"),
+    c("a machine", "a local environment"),
+    c("remote", "external"),
+    c("cache", "artifact store")
+  )
+  for (pair in replacements) {
+    x <- gsub(pair[[1]], pair[[2]], x, fixed = TRUE)
+  }
+  x
+}
+
 evidence_table <- function(manifest) {
   entries <- manifest$entries
   if (anyNA(entries$note) || any(!nzchar(entries$note))) {
@@ -78,6 +103,7 @@ evidence_table <- function(manifest) {
   if (length(unique(digests)) != length(unique(entries$sha256))) {
     stop("two distinct bound artifacts share a digest prefix; widen DIGEST_PREFIX")
   }
+  notes <- public_evidence_note(entries$note)
   c(
     "\\begingroup",
     "\\setlength{\\tabcolsep}{5pt}",
@@ -86,7 +112,7 @@ evidence_table <- function(manifest) {
     "What it records & Bytes & SHA-256 (first 16) \\\\",
     "\\midrule",
     paste0(
-      latex_escape(entries$note), " & ",
+      latex_escape(notes), " & ",
       format(entries$bytes, big.mark = ","), " & ",
       "\\texttt{", digests, "} \\\\"
     ),

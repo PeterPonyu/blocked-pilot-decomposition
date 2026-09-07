@@ -4,15 +4,16 @@
 \newcommand{\CapLocks}{%
 The \NLocks{} obstacles standing between this project and the contact-gated
 benchmark it intended to be evaluated on, as recorded by the project before any
-hardware was rented. The obstacles are sorted by what would remove them, and the
+computation was provisioned. The obstacles are sorted by what would remove them, and the
 sort is the point: \NPermissionLocks{} of them are decisions by a person or an
-institution, \NArtifactLocks{} is an evaluation file absent from the machine that
+institution, \NArtifactLocks{} is an evaluation file absent from the retained
+workspace that
 arrives only with one of those decisions, and \NSubstitutionLocks{} are refusals
 the project imposed on itself so that a locally available corpus could not be
 scored under the benchmark's name. No
 obstacle in any of the three groups is removed by additional computation, by
-additional labelling of the corpus already held, or by more time on a rented
-machine, which is why the record was written in advance of renting one.%
+additional labelling of the corpus already held, or by a larger model, which is
+why the record was written before computation was provisioned.%
 }
 
 \newcommand{\CapPermissions}{%
@@ -30,51 +31,83 @@ model, or by labelling more of the corpus already held.%
 }
 
 \newcommand{\CapRequired}{%
-How many labelled reports each of the \NFindings{} observations would need
+How many labelled reports each of the \NFindings{} findings would need
 before a draw is expected to contain \MinPresent{} positives, computed from the
-prevalence of that observation in the frozen test split and plotted on a
+prevalence of that finding in the frozen test split and plotted on a
 logarithmic axis. The upper dashed line marks the whole test split of \NTest{}
 reports and the lower dashed line marks the \NCohort{} reports that were
 actually labelled. Bars above the upper line, drawn in red, mark the
-\NExceedSplit{} observations for which the entire test split is too small: for
+\NExceedSplit{} findings for which the entire test split is too small: for
 those, labelling every remaining report in the split would still not reach the
 gate, so the limitation belongs to the corpus rather than to the size of the
-pilot. Bars below it mark observations for which a larger pilot within the same
-split would suffice.%
+pilot. Bars below it mark findings for which a larger pilot within the same
+split would suffice. The x-axis labels are compact finding codes; every bar is
+one finding, not one report. The compact x-axis key is: \FindingKey%
+}
+
+% Figures 3--5 use short, stable codes so the x-axis remains readable at the
+% printed width. The full schema names stay in the evidence-derived tables and
+% this key makes each lifted figure self-contained.
+\newcommand{\FindingKey}{%
+\shortstack[l]{%
+\texttt{F01}=Enlarged Cardiomediastinum; \texttt{F02}=Cardiomegaly;\\
+\texttt{F03}=Lung Opacity; \texttt{F04}=Lung Lesion;\\
+\texttt{F05}=Edema; \texttt{F06}=Consolidation;\\
+\texttt{F07}=Pneumonia; \texttt{F08}=Atelectasis;\\
+\texttt{F09}=Pneumothorax; \texttt{F10}=Pleural Effusion;\\
+\texttt{F11}=Pleural Other; \texttt{F12}=Fracture;\\
+\texttt{F13}=Support Devices; \texttt{F14}=No Finding.%
+}%
+}
+
+\newcommand{\CapLabelStates}{%
+Composition of the four states emitted by the released CheXbert labeller for
+each of the \NFindings{} findings across the \NTest{} reports in the frozen
+test split. Each horizontal bar is a complete partition of that split: blue is
+an explicitly positive label, light blue an explicitly negative label, orange
+an uncertain label, and grey is \emph{not mentioned (not negative)}. The printed
+positive count and percentage are the only values annotated on the bars. These
+are labeller-output counts, not clinician adjudication or clinical disease
+prevalence; in particular, a grey segment must not be read as absence. The rows
+are ordered by the positive count so the rare findings remain visible.%
 }
 
 \newcommand{\CapDraw}{%
 Whether the pre-registered subsample of \NCohort{} reports resembles the
 \NTest{}-report split it was drawn from, for each of the \NFindings{}
-observations. Open circles give the number of positives the split's own
+findings. Open circles give the number of positives the split's own
 prevalence predicts for a draw of this size; filled circles give the number the
 draw actually contains, and the connecting line is the discrepancy. The dashed
 line marks the presence gate of \MinPresent{} gold positives below which the
-analysis reports no rate. One observation, drawn in red, differs from the split
+analysis reports no rate. One finding, drawn in red, differs from the split
 by more than sampling alone comfortably explains, with the exact two-sided
 hypergeometric probability printed beside it; the comparison threshold after
-Bonferroni correction across all \NFindings{} observations is \Bonferroni{}. The
+Bonferroni correction across all \NFindings{} findings is \Bonferroni{}. The
 selection rule was a salted hash fixed before the labels were read, so the
 discrepancy is sampling variation in a pre-registered draw rather than a choice
-made after seeing the data.%
+made after seeing the data. Open and filled markers use the same finding order
+as the compact x-axis labels; the gate is a count of gold positives, not a
+percentage of the draw. The compact x-axis key is: \FindingKey%
 }
 
 \newcommand{\CapAssertions}{%
 What the two controls assert against what the \NCohort{} labelled reports
-actually contain, for each of the \NFindings{} observations, counted in reports.
+actually contain, for each of the \NFindings{} findings, counted in reports.
 Grey bars give the gold positives present in the draw. Red bars give the reports
 the majority control was labelled positive for, and blue bars the same for the
 indication-retrieval control. The majority control emits one constant report for
 every row, so its bars can only be zero or the full \NCohort{}: it reaches the
-full height for exactly one observation and is zero everywhere else, including
-for the observation that denotes a study with nothing to report. That single red
+full height for exactly one finding and is zero everywhere else, including
+for the finding that denotes a study with nothing to report. That single red
 bar is the whole behaviour of a baseline usually assumed to predict normality,
 and it is an artifact of how the automatic labeller reads one fixed string
-rather than a property of the corpus.%
+rather than a property of the corpus. All bars share the \NCohort{}-report
+denominator; the grey series is the gold-positive count against which the two
+control assertions are read. The compact x-axis key is: \FindingKey%
 }
 
 \newcommand{\CapScored}{%
-The two observations that clear the presence gate of \MinPresent{} gold
+The two findings that clear the presence gate of \MinPresent{} gold
 positives in the \NCohort{}-report subsample, and how much of each the two
 controls missed. Points give the share of gold positives the control failed to
 assert and the vertical bars extend to the one-sided \(90\%\) Clopper--Pearson
@@ -84,5 +117,6 @@ point sits at one and its interval has nowhere to extend. The retrieval control
 does better in both cells, and its upper limits still reach close enough to one
 that near-total failure cannot be excluded from these data. Both cells hold
 fewer than fifteen positives, and the intervals are wide for that reason and not
-for any other.%
+for any other. The horizontal rule at one is the logical maximum miss rate; a
+point at one is complete miss, not an unobserved cell.%
 }

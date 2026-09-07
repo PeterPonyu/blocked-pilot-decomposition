@@ -5,15 +5,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
+\usepackage{array}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage[margin=1in]{geometry}
-% For every included figure, pdfTeX records the absolute path it was read
-% from in a /PTEX.FileName object.  Those objects are not rendered, so a
-% text dump of the PDF does not show them, but they travel with the file
-% and spell out the build machine's home directory, user name and worktree
-% layout.  Suppressing them costs nothing: they exist for debugging.
+% Suppress non-rendered local compilation metadata from the PDF.
 \pdfsuppressptexinfo=-1
 \usepackage[hidelinks]{hyperref}
 \numberwithin{equation}{section}
@@ -33,8 +30,8 @@
 
 \title{Permission, prevalence, and the labeller: three separable reasons a
 chest-radiograph reporting pilot cannot answer its own question}
-\author{Working draft --- author list not yet fixed}
-\date{Working draft. Not submitted to any venue.}
+\author{Anonymous authors}
+\date{}
 
 \begin{document}
 \maketitle

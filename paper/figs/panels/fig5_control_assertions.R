@@ -12,7 +12,15 @@ f4 <- rbind(
              count = per_finding$ret_pred, stringsAsFactors = FALSE)
 )
 pred_order <- per_finding$finding[order(-per_finding$n_present, -per_finding$ret_pred)]
-f4$label <- factor(short_name(f4$finding), levels = short_name(pred_order))
+# Assign compact labels from the frozen schema order, then apply the panel's
+# data-driven sort only to their factor levels.  The underlying finding column
+# remains untouched for tables and evidence tracing.
+finding_code <- setNames(sprintf("F%02d", seq_along(findings)), findings)
+f4$label <- unname(finding_code[f4$finding])
+if (anyNA(f4$label) || anyDuplicated(f4$label[seq_len(nrow(per_finding))])) {
+  stop("fig5 finding display key is not a one-to-one mapping")
+}
+f4$label <- factor(f4$label, levels = unname(finding_code[pred_order]))
 f4$series <- factor(f4$series, levels = c("Gold positives in the draw",
                                           "Asserted by the majority control",
                                           "Asserted by the retrieval control"))
@@ -29,11 +37,14 @@ p <- ggplot(f4, aes(x = label, y = count, fill = series)) +
                     name = NULL) +
   scale_y_continuous(name = "Reports labelled positive", limits = c(0, N_COHORT + 1.2),
                      breaks = seq(0, 32, 8), expand = c(0, 0)) +
-  scale_x_discrete(name = NULL) +
+  scale_x_discrete(name = "Finding code (see caption key)") +
+  labs(subtitle = sprintf("Counts are out of %d labelled reports; grey = gold-positive denominator",
+                          N_COHORT)) +
   guides(fill = guide_legend(nrow = 1)) +
   rtx_theme() +
-  theme(axis.text.x = element_text(angle = 40, hjust = 1, size = 7),
+  theme(axis.text.x = element_text(hjust = 0.5, size = 7.6),
         legend.position = "bottom", legend.text = element_text(size = 7),
-        legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2))
+        legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2),
+        plot.subtitle = element_text(size = 7.1, colour = "grey25"))
 
 save_fig(p, "fig5_control_assertions", FIGURE_TEXT_WIDTH_IN, 3.4)

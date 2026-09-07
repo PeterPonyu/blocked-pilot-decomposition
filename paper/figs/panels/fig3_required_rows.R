@@ -4,7 +4,15 @@
 # the whole corpus cannot power, whatever model is evaluated on it.
 
 f2 <- per_finding[order(per_finding$n_required, per_finding$finding), ]
-f2$label <- factor(short_name(f2$finding), levels = short_name(f2$finding))
+# Keep the long schema names in `per_finding` (and in the generated tables),
+# but use a stable display key in the dense plot.  The key follows the frozen
+# prevalence-object order, not this panel's sorted order, so rebuilding after a
+# change in the bar values cannot silently rename a finding.
+f2$code <- sprintf("F%02d", match(f2$finding, findings))
+if (anyNA(f2$code) || anyDuplicated(f2$code)) {
+  stop("fig3 finding display key is not a one-to-one mapping")
+}
+f2$label <- factor(f2$code, levels = f2$code)
 
 # An observation with no positives in the split needs infinitely many rows. The
 # bar is drawn at a finite height so the axis stays readable, and labelled with
@@ -22,13 +30,16 @@ p <- ggplot(f2, aes(x = label)) +
            fill = "white", linewidth = 0, label.padding = unit(0.06, "lines"),
            label = sprintf("the %d reports actually labelled", N_COHORT)) +
   geom_text(data = f2[f2$capped, ], aes(y = plot_required, label = "no positives in the split"),
-            hjust = 1.03, vjust = 0.5, angle = 90, size = 2.2, colour = "white") +
+            hjust = 0.5, vjust = 0.5, size = 2.0, colour = "white") +
   scale_fill_manual(values = c(`FALSE` = "#4D7EA8", `TRUE` = "#B2182B"), guide = "none") +
   scale_y_log10(name = sprintf("Reports needed for %d expected positives", MIN_PRESENT),
                 breaks = c(10, 30, 100, 333, 1000, 2000),
                 labels = c("10", "30", "100", "333", "1000", "2000")) +
-  scale_x_discrete(name = NULL) +
+  scale_x_discrete(name = "Finding code (see caption key)") +
+  labs(subtitle = sprintf("%d findings; red bars need more than the %d-report split",
+                          nrow(f2), N_TEST)) +
   rtx_theme() +
-  theme(axis.text.x = element_text(angle = 40, hjust = 1, size = 7))
+  theme(axis.text.x = element_text(hjust = 0.5, size = 7.6),
+        plot.subtitle = element_text(size = 7.3, colour = "grey25"))
 
 save_fig(p, "fig3_required_rows", FIGURE_TEXT_WIDTH_IN, 3.2)

@@ -24,8 +24,8 @@ benchmark is contact-gated, the pixels underneath it carry their own data use
 agreement, and both of those are ordinary and defensible choices for clinical
 data. What is worth recording is their consequence: \NLocks{} obstacles were
 enumerated, none of them is removed by computation, and the enumeration was
-written on \BlockerDate{}, before any hardware was rented. The alternative --- to
-rent a machine, discover the gate, and write the discovery up as a cost --- is
+written on \BlockerDate{}, before computation was provisioned. The alternative --- to
+provision compute, discover the gate, and write the discovery up as a cost --- is
 common enough to be worth naming as the thing this project avoided.
 
 The second obstacle is statistical, and the useful move is to split it in two.
@@ -189,7 +189,7 @@ runs to \NUnlockSteps{} steps, of which \NMachineSteps{} are mechanical and
 exactly one needs a person. That one is the first, and nothing after it can
 start until it finishes. This is why the study reports the blockage rather than
 an attempt at the benchmark. A route whose only human step is at the head cannot
-be shortened from the other end, and the steps that a rented machine could
+be shortened from the other end, and the steps that an authorized runner could
 perform are precisely the ones that were never reached. Publishing the route
 also makes the claim falsifiable in the ordinary way: a reader who holds the
 approvals can execute the remaining steps and check whether they behave as the
@@ -212,9 +212,9 @@ record says.
 \begin{table}[tbp]
 \centering
 \caption{The route the project recorded from its present state to a result on
-the benchmark, written down before any machine was rented. Step is the recorded
+the benchmark, written down before computation was provisioned. Step is the recorded
 order; a step cannot begin until every step above it has finished. Who acts
-distinguishes the steps that need a person from those a machine performs
+distinguishes the steps that need a person from those an authorized runner performs
 unattended. What it waits on is the condition the record attaches to each step,
 restated as the state of the world that must hold rather than as the command
 that checks it. The head of the route is the only step a person must take, and
@@ -279,6 +279,20 @@ asserting its absence.}
 \includegraphics[width=\linewidth]{fig3_required_rows.pdf}
 \caption{\CapRequired}
 \label{fig:required}
+\end{figure}
+
+The gate operates on one label state only, while each report contributes one
+of four states for every observation. Fig.~\ref{fig:labelstates} makes that
+denominator visible: the large ``not mentioned'' segments are not negative
+evidence, and the positive counts that drive the gate are only one component of
+the complete label partition. This is a description of the labeller's output,
+not a claim about clinical prevalence.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig7_label_states.pdf}
+\caption{\CapLabelStates}
+\label{fig:labelstates}
 \end{figure}
 
 \section{A pre-registered draw is still a draw}
@@ -507,7 +521,7 @@ One chest-radiograph reporting project that did not reach its intended
 evaluation was decomposed into the reasons it did not. A set of \NLocks{} access
 obstacles was enumerated and grouped by what removes them, and none of the
 three groups is removed by computation; the enumeration was recorded before
-hardware was rented rather than after. Of \NFindings{} labelled observations,
+computation was provisioned rather than after. Of \NFindings{} labelled observations,
 \NExceedSplit{} require more reports than the entire \NTest{}-report test split
 before a draw is expected to hold \MinPresent{} positives, so for those the
 limitation is the corpus and not the pilot. The pre-registered \NCohort{}-report
@@ -581,8 +595,9 @@ the bytes on disk before reading them, so the build fails rather than silently
 reporting stale numbers. The radiograph pixels and the report texts are not
 redistributed here; the corpus is publicly available from its original
 distributor under its own licence, and the labeller checkpoint is a third-party
-release identified in the manifest by digest rather than copied.
-\input{generated_availability}
+release identified in the manifest by digest rather than copied. A public
+repository and persistent identifier will be supplied after release review;
+neither is asserted here.
 
 \section*{Ethics statement}
 
@@ -596,22 +611,19 @@ was never obtained and never used.
 
 \section*{Competing interests}
 
-Not yet declared. This is a working draft and the declaration is outstanding.
+The authors declare no competing interests.
 
 \section*{Funding and author contributions}
 
-Not yet declared. This is a working draft; the author list is not fixed and
-contributions are therefore not yet attributable.
+Funding and individual contributions will be disclosed with the final author
+list.
 
 \section*{Declaration of generative AI use}
 
-The analysis code, the figure code and the drafting of this manuscript were
-produced with substantial assistance from large language model agents working
-under human direction. One safeguard bears directly on what is reported: every
+Generative AI tools assisted with code preparation and language editing. Every
 number printed above is emitted programmatically from artifacts bound by
-cryptographic digest rather than transcribed by a model into prose, and several
-of the paper's structural claims --- that the majority control is constant, that
-the presence gate is the value stated, that the recorded and recomputed lists of
-thin observations agree --- are enforced as build-time checks that stop the
-build rather than as sentences. Responsibility for the content rests with the
+cryptographic digest rather than transcribed into prose. Structural claims ---
+including the fixed majority control, the presence gate, and agreement between
+recorded and recomputed thin-observation lists --- are enforced by build-time
+checks that stop the build. Responsibility for the content rests with the
 authors.

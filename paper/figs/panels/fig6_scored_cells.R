@@ -14,6 +14,7 @@ f5 <- rbind(
 f5$panel <- sprintf("%s (%d gold positives)", short_name(f5$finding), f5$n_present)
 
 p <- ggplot(f5, aes(x = arm, y = rate, colour = arm)) +
+  geom_hline(yintercept = 1, linetype = "22", linewidth = 0.35, colour = "grey35") +
   geom_linerange(aes(ymin = rate, ymax = upper), linewidth = 0.5) +
   geom_point(size = 2.4) +
   geom_text(aes(y = upper, label = sprintf("90%% upper %.2f", upper)),
@@ -26,7 +27,10 @@ p <- ggplot(f5, aes(x = arm, y = rate, colour = arm)) +
   scale_y_continuous(name = "Share of gold positives the control missed",
                      limits = c(0.74, 1.10), breaks = seq(0.75, 1.0, 0.05)) +
   scale_x_discrete(name = NULL) +
+  labs(subtitle = sprintf("Each panel is conditional on its gold-positive count; n ranges from %d to %d",
+                          min(scored$n_present), max(scored$n_present))) +
   rtx_theme() +
-  theme(axis.text.x = element_text(size = 7.5))
+  theme(axis.text.x = element_text(size = 7.5),
+        plot.subtitle = element_text(size = 7.1, colour = "grey25"))
 
 save_fig(p, "fig6_scored_cells", 0.86 * FIGURE_TEXT_WIDTH_IN, 2.9)

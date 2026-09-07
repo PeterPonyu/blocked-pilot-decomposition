@@ -9,10 +9,10 @@ the build instead of producing a stale number.
 
 | path | role | bytes | sha256 |
 |---|---|---|---|
-| `data/e-locks/p003c_nogo_lock.json` | recorded_state | 3475 | `0853c9988fac11ce…` |
+| `data/e-locks/p003c_nogo_lock.json` | recorded_state | 3496 | `8e2a238a70bf41e2…` |
 | `data/e-blocker/sota_chexbench_blocker.json` | recorded_state | 392 | `9e7ff622a2f6ba52…` |
 | `data/e-tier-blocked/sota_copy.json` | recorded_state | 508 | `5e9df8764ec61aea…` |
-| `data/e-next/next_design.json` | recorded_state | 11015 | `c1abcdd8c6a95003…` |
+| `data/e-next/next_design.json` | recorded_state | 10990 | `a9da86729b88bfa1…` |
 | `data/e-split/003-iu-split-manifest.v1.json` | protocol | 105795 | `587752f8dd4ae90a…` |
 | `data/e-heldout/003-iu-heldout-32-uids.v1.json` | protocol | 1330 | `225222ccf7bc2e6d…` |
 | `data/e-prevalence/iu_chexbert_gold_prevalence.json` | derived_table | 3248 | `8c82c23ed0895a6b…` |

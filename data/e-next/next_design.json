@@ -9,7 +9,7 @@
     "also_missing": ["evaluation_chexbench/data.json"],
     "closed": ["laptop", "teaching", "iu_harness"],
     "evidence": {
-      "go_nogo": ".omc/plans/chexbench-go-nogo.md (NO-GO, reaffirmed 2026-08-14)",
+      "go_nogo": "source-tree/plans/chexbench-go-nogo.md (NO-GO, reaffirmed 2026-08-14)",
       "blocker": "results/sota_copy/sota_chexbench_blocker.json (status=blocked)",
       "closeout": "results/sota_copy/laptop_closeout.json (commit 305b6b3)",
       "independent_review": "results/sota_copy/independent_review.json (verdict PASS, overclaim=[])"
@@ -128,7 +128,7 @@
     "no laptop HF download of gated assets (CheXbench, SDXL, DiT, CORPUS)",
     "no minting sota_chexbench.json before step 7's gate is met",
     "no forging llm_qa_ok or REMOTE_SOTA_READY",
-    "no touching anchor heads ci/laptop-substitute-fire-infra and docs/incubator-index-audits-plans (they stay at b8a3d53; never deleted or fast-forwarded)",
+    "no touching anchor heads <private-branch> and <private-branch> (they stay at b8a3d53; never deleted or fast-forwarded)",
     "001-007 are portfolio directories, not remotes; the only remote is origin",
     "no committing sota_copy noise onto main",
     "no treating IU n=8 / REMOTE_SOTA_READY=true as CheXbench Type R",

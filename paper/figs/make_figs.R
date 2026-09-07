@@ -81,6 +81,51 @@ assert_arms_share_draw(per_finding, findings, controls)
 per_finding <- attach_predictions(per_finding, findings, controls)
 assert_majority_is_constant(per_finding, N_COHORT)
 
+## The label-state composition is derived from the same bound prevalence table
+## as every other finding-level quantity.  Build it once, then assert that each
+## finding accounts for exactly one state per frozen-test report before any
+## panel can draw it.  In particular, `blank` is not silently folded into
+## `absent`.
+LABEL_STATE_ORDER <- c("present", "absent", "uncertain", "blank")
+LABEL_STATE_LABELS <- c(
+  present = "Positive",
+  absent = "Negative",
+  uncertain = "Uncertain",
+  blank = "Not mentioned (not negative)"
+)
+label_states <- do.call(rbind, lapply(findings, function(f) {
+  gold <- prevalence$prevalence[[f]]
+  counts <- vapply(LABEL_STATE_ORDER, function(state) {
+    value <- gold[[state]]
+    if (length(value) != 1L || is.na(value) || !is.numeric(value) ||
+        value < 0 || value != floor(value)) {
+      stop("invalid ", state, " count for finding ", f)
+    }
+    as.numeric(value)
+  }, numeric(1), USE.NAMES = FALSE)
+  data.frame(finding = f, state = LABEL_STATE_ORDER, count = counts,
+             fraction = counts / N_TEST, stringsAsFactors = FALSE)
+}))
+
+if (nrow(label_states) != length(findings) * length(LABEL_STATE_ORDER) ||
+    anyDuplicated(paste(label_states$finding, label_states$state, sep = "\u001f"))) {
+  stop("label-state table must have one row per finding and state")
+}
+state_totals <- aggregate(count ~ finding, data = label_states, FUN = sum)
+state_totals <- state_totals[match(findings, state_totals$finding), , drop = FALSE]
+if (nrow(state_totals) != length(findings) || any(state_totals$count != N_TEST)) {
+  stop("label-state counts do not sum to the frozen test size for every finding")
+}
+present_totals <- label_states[label_states$state == "present", , drop = FALSE]
+present_totals <- present_totals[match(findings, present_totals$finding), , drop = FALSE]
+recorded_rates <- vapply(findings, function(f) {
+  as.numeric(prevalence$prevalence[[f]]$present_rate)
+}, numeric(1), USE.NAMES = FALSE)
+if (nrow(present_totals) != length(findings) ||
+    any(abs(present_totals$fraction - recorded_rates) > 1e-12)) {
+  stop("present-rate fields disagree with the bound label-state counts")
+}
+
 per_finding$n_required <- rows_required(per_finding$present_split, N_TEST, MIN_PRESENT)
 per_finding$exceeds_split <- per_finding$n_required > N_TEST
 
@@ -102,7 +147,7 @@ assert_gate_is(per_finding, MIN_PRESENT)
 
 for (unit in c("fig1_access_locks.R", "fig2_permissions.R", "fig3_required_rows.R",
                "fig4_draw_vs_split.R", "fig5_control_assertions.R",
-               "fig6_scored_cells.R")) {
+               "fig6_scored_cells.R", "fig7_label_states.R")) {
   source(file.path("figs", "panels", unit))
 }
 
@@ -231,8 +276,11 @@ write_generated(c(
 
 write_generated(c(
   "\\begingroup",
-  "\\setlength{\\tabcolsep}{5pt}",
-  "\\begin{tabular}{@{}rp{0.28\\linewidth}lp{0.40\\linewidth}@{}}",
+  "\\setlength{\\tabcolsep}{4pt}",
+  # Keep every text column fixed-width so the long actor label cannot force an
+  # overfull table.  The widths leave room for the step column and intercolumn
+  # padding while retaining readable, unscaled type.
+  "\\begin{tabular}{@{}r>{\\raggedright\\arraybackslash}p{0.24\\linewidth}>{\\raggedright\\arraybackslash}p{0.18\\linewidth}>{\\raggedright\\arraybackslash}p{0.48\\linewidth}@{}}",
   "\\toprule",
   "Step & Action & Who acts & What it waits on \\\\",
   "\\midrule",
@@ -268,5 +316,5 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_scored.tex")
 
-message(sprintf("wrote 6 figures to figs/out and 5 generated tex files to tex/ (%d of %d observations scored)",
+message(sprintf("wrote 7 figures to figs/out and 5 generated tex files to tex/ (%d of %d observations scored)",
                 nrow(scored), nrow(per_finding)))

@@ -17,7 +17,7 @@ p <- ggplot(locks, aes(x = 0, y = y)) +
             size = 2.3, lineheight = 1.05, colour = "grey20") +
   scale_fill_manual(values = c(
     "Permission: a person or an institution must act" = "#FBE3E4",
-    "Artifact: a file that is not on this machine" = "#E8E4F3",
+    "Artifact: a file absent from the retained workspace" = "#E8E4F3",
     "Substitution refused: the local corpus is a different thing" = "#EAEAEA"
   ), name = NULL) +
   scale_x_continuous(limits = c(-1, 1), expand = c(0, 0)) +

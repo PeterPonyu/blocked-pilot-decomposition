@@ -21,13 +21,13 @@
       "lock": "CITI",
       "fact": "CITI verify (Data or Specimens Only Research) is distinct from the HF contact click",
       "scores": null,
-      "source": ".omc/plans/chexbench-go-nogo.md"
+      "source": "source-tree/plans/chexbench-go-nogo.md"
     },
     {
       "lock": "PhysioNet MIMIC-CXR DUA",
       "fact": "Findings Generation pixels are a separate DUA/license problem after data.json exists",
       "scores": null,
-      "source": ".omc/plans/chexbench-go-nogo.md"
+      "source": "source-tree/plans/chexbench-go-nogo.md"
     },
     {
       "lock": "data.json absent",
@@ -60,7 +60,7 @@
   ],
   "sources": {
     "blocker": "data/e-blocker/sota_chexbench_blocker.json",
-    "go_nogo": ".omc/plans/chexbench-go-nogo.md",
+    "go_nogo": "source-tree/plans/chexbench-go-nogo.md",
     "wrap": "source-tree/_common/wrap_chexbench_scores.py",
     "data_manifest": "source-tree/003-medical-report-gen/DATA_MANIFEST.md"
   },
