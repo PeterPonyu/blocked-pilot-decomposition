@@ -2,7 +2,7 @@
 
 Derived label tables, the recorded access-obstacle enumeration, the split and selection protocols, figure code and manuscript source for a study that decomposes one blocked chest-radiograph reporting project into an administrative obstacle, a corpus-level power ceiling and a labeller artifact.
 
-This repository has not been deposited in a public archive, so it has no persistent identifier yet. One will be recorded here when an archive exists.
+Archived at [10.5281/zenodo.22647018](https://doi.org/10.5281/zenodo.22647018).
 
 Repository: https://github.com/PeterPonyu/blocked-pilot-decomposition
 
