@@ -45,7 +45,7 @@ conflated.
 Labels are the \NFindings{} observations of the CheXpert schema~\cite{irvin2019chexpert},
 assigned to report text by the released CheXbert labeller~\cite{smit2020chexbert},
 which is the labeller the standard automatic metric in this area is built on.
-The checkpoint used is recorded with its SHA-256 digest in the bound artifact, so
+The checkpoint used is recorded with its SHA-256 checksum in the recorded artifact, so
 the labelling can be tied to a specific set of weights rather than to a name.
 
 The labeller emits four values per observation: positive, negative, uncertain,
@@ -123,7 +123,7 @@ Two controls are scored in label space on the subsample. The majority control
 emits, for every report, the single most frequent findings text in the training
 split; it is constant by construction, which the analysis verifies by requiring
 each of its per-observation positive counts to be either zero or all \NCohort{}
-rows. The retrieval control embeds the indication field with TF--IDF, retrieves
+rows. The retrieval control embeds the indication field with term-frequency--inverse-document-frequency (TF--IDF) weighting, retrieves
 the nearest training report by cosine similarity, and returns that report's
 findings text; retrieval is restricted to the training side, so a report can
 never retrieve itself or a study from its own patient.
@@ -164,14 +164,14 @@ published values computed on a different corpus with a different sample size.
 
 No inference run is promoted past what it is. A local run of a chest-radiograph
 foundation model over \HarnessImages{} images exists and is recorded, and it is
-recorded as a harness that checks the pipeline executes, with its tier marked as
-not the official evaluation. It contributes no number to this paper.
+recorded as a smoke test that checks the code runs end to end, explicitly marked
+as not the official evaluation. It contributes no number to this paper.
 
 \subsection{Evidence discipline}
 
 No number in this manuscript is typed by hand. Every artifact it rests on is
-recorded with its SHA-256 digest in a manifest that accompanies the manuscript
-source; the figure and table code verifies each digest against the bytes on disk
+recorded with its SHA-256 checksum in a manifest that accompanies the manuscript
+source; the figure and table code verifies each checksum against the bytes on disk
 before reading them and aborts on any mismatch, and it emits both the figures and
 the numeric macros the text prints. Several consistency checks are enforced at
 build time rather than asserted in prose: the two control arms must agree on how

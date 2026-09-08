@@ -131,7 +131,7 @@ The reproducibility obstacle is where the gap is widest. Community programs have
 converged on code submission, artifact checklists and reproduction
 challenges~\cite{pineau2021improving,peng2011reproducible,baker2016reproducibility,
 goodman2016mean,landis2012transparent}, and this manuscript is built to satisfy
-that standard: every number is emitted from digest-bound artifacts, and the
+that standard: every number is computed from checksummed source files, and the
 build fails rather than print a stale one. But such programs are designed around
 a study that produced a result and asks whether someone else can obtain it
 again. They have very little to say about work that could not run, and a
@@ -215,7 +215,7 @@ benchmark's name was refused as a category error rather than accepted as an
 approximation. The project's scoring wrapper enforces the refusal mechanically
 by rejecting any sample whose size is not the benchmark's own split size, which
 is why the \HarnessImages{}-image local inference run recorded in the same
-project is recorded as a harness that checks the pipeline executes and
+project is recorded as a smoke test that checks the code runs end to end and
 contributes no number to this paper.
 
 What makes the grouping worth publishing is a negative property that holds
@@ -505,7 +505,7 @@ independently. Someone who obtains the access grant refutes the first part.
 Someone who assembles a corpus with more positives for the rare observations
 refutes the corpus ceiling. Someone who shows that the labeller reads the
 constant template differently under a different checkpoint refutes the last, and
-we have recorded the checkpoint digest precisely so that can be attempted.
+we have recorded the checkpoint checksum precisely so that can be attempted.
 
 Two points generalise past this corpus and this benchmark.
 
@@ -551,7 +551,7 @@ and this study did not evaluate its accuracy.
 No conclusion is drawn about report-generation systems. Both arms examined here
 are controls. Nothing in this paper compares a trained generator against
 anything, and the \HarnessImages{}-image local inference run that exists in the
-same project is recorded as a pipeline check and contributes no number.
+same project is recorded as a smoke test and contributes no number.
 
 No cell below the presence gate is given a rate, an interval, or a direction.
 Of the \NFindings{} observations, \NUnderpowered{} are reported as underpowered
@@ -585,17 +585,17 @@ better or worse --- hides exactly that.
 
 \appendix
 
-\section{The bound evidence}
+\section{Source artifacts and their checksums}
 \label{app:evidence}
 
 The methods section asserts that no number in this manuscript is typed by hand
-and that every artifact behind one is pinned by digest. Table~\ref{tab:evidence}
-is that assertion in a form a reader can check. It lists all \NEvidence{} bound
+and that every artifact behind one is pinned by checksum. Table~\ref{tab:evidence}
+is that assertion in a form a reader can check. It lists all \NEvidence{} recorded
 artifacts, totalling \EvidenceBytes{} bytes, in the order the analysis consumes
 them.
 
 Two things about this table are worth stating, because a manifest printed
-without them invites more confidence than it earns. First, a digest binds bytes
+without them invites more confidence than it earns. First, a checksum binds bytes
 to a claim; it does not make the bytes correct. What Table~\ref{tab:evidence}
 rules out is drift --- an artifact quietly changing after a number was computed
 from it, or a figure being redrawn from a file that is no longer the one the
@@ -606,20 +606,20 @@ purpose. They describe a private tree, they would mean nothing to a reader
 outside it, and keeping them out of the PDF is a property the build checks
 rather than a courtesy. What remains is what a reader can act on.
 
-The digests are also what makes the negative results in this paper durable. A
+The checksums are also what makes the negative results in this paper durable. A
 study whose main finding is that something could not be measured is unusually
 easy to revise after the fact, because there is no positive number anchoring it.
-Recording the obstacle enumeration and the blocked tier under digest, before any
+Recording the obstacle enumeration and the blocked evaluation with their checksums, before any
 attempt was made, is what stops the account of why this pilot could not answer
 its question from being rewritten once the answer is known.
 
 \begin{table}[htbp]
 \centering
 \caption{Every artifact this manuscript rests on, with its size and the first 16
-hexadecimal characters of its SHA-256 digest. Full digests, and the paths the
-digests apply to, are in the manifest that accompanies the manuscript source;
-the prefix is shown here only because a 64-character digest does not set in a
-table column. The figure and table code recomputes each digest from the bytes on
+hexadecimal characters of its SHA-256 checksum. Full checksums, and the paths the
+checksums apply to, are in the manifest that accompanies the manuscript source;
+the prefix is shown here only because a 64-character checksum does not set in a
+table column. The figure and table code recomputes each checksum from the bytes on
 disk before reading them and stops the build on any mismatch, so a stale
 artifact cannot reach the page.}
 \label{tab:evidence}
@@ -632,12 +632,12 @@ artifact cannot reach the page.}
 The derived label tables, the recorded access-obstacle enumeration, the split
 and selection protocols, and the figure code that produces every number in this
 manuscript accompany the manuscript source. Each artifact is recorded with its
-SHA-256 digest in a manifest, and the figure code verifies those digests against
+SHA-256 checksum in a manifest, and the figure code verifies those checksums against
 the bytes on disk before reading them, so the build fails rather than silently
 reporting stale numbers. The radiograph pixels and the report texts are not
 redistributed here; the corpus is publicly available from its original
 distributor under its own licence, and the labeller checkpoint is a third-party
-release identified in the manifest by digest rather than copied.
+release identified in the manifest by checksum rather than copied.
 \input{generated_availability}
 
 \section*{Ethics statement}
@@ -673,8 +673,8 @@ and editing.
 \section*{Declaration of generative AI use}
 
 Generative AI tools assisted with code preparation and language editing. Every
-number printed above is emitted programmatically from artifacts bound by
-cryptographic digest rather than transcribed into prose. Structural claims ---
+number printed above is emitted programmatically from artifacts tied to the manuscript by cryptographic
+checksum rather than transcribed into prose. Structural claims ---
 including the fixed majority control, the presence gate, and agreement between
 recorded and recomputed thin-observation lists --- are enforced by build-time
 checks that stop the build. Responsibility for the content rests with the
