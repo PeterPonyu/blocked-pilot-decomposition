@@ -145,9 +145,10 @@ assert_gate_is(per_finding, MIN_PRESENT)
 ## Figures. Each panel reads the objects above and writes one file.
 ## ---------------------------------------------------------------------------
 
-for (unit in c("fig1_access_locks.R", "fig2_permissions.R", "fig3_required_rows.R",
-               "fig4_draw_vs_split.R", "fig5_control_assertions.R",
-               "fig6_scored_cells.R", "fig7_label_states.R")) {
+for (unit in c("fig0_three_reasons.R", "fig1_access_locks.R", "fig2_permissions.R",
+               "fig3_required_rows.R", "fig4_draw_vs_split.R",
+               "fig5_control_assertions.R", "fig6_scored_cells.R",
+               "fig7_label_states.R")) {
   source(file.path("figs", "panels", unit))
 }
 
@@ -316,5 +317,5 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_scored.tex")
 
-message(sprintf("wrote 7 figures to figs/out and 5 generated tex files to tex/ (%d of %d observations scored)",
+message(sprintf("wrote 8 figures to figs/out and 5 generated tex files to tex/ (%d of %d observations scored)",
                 nrow(scored), nrow(per_finding)))
