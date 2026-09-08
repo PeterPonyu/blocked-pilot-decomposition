@@ -17,17 +17,19 @@ boxes <- data.frame(
   id = c("permission", "prevalence", "labeller"),
   xmin = c(0.03, 0.345, 0.66),
   xmax = c(0.325, 0.64, 0.97),
-  ymin = 0.22,
-  ymax = 0.86,
+  ymin = 0.26,
+  ymax = 0.84,
   fill = c("#FBE3E4", "#E8F1F8", "#F8E8E8"),
   border = c("#B2182B", "#4D7EA8", "#8C4A16"),
   stringsAsFactors = FALSE
 )
 boxes$xmid <- (boxes$xmin + boxes$xmax) / 2
 
+# Centre the text on the box rather than on the canvas: an off-centre block
+# reads as a box that was sized for something longer.
 box_text <- data.frame(
   x = boxes$xmid,
-  y = c(0.56, 0.56, 0.56),
+  y = (boxes$ymin + boxes$ymax) / 2,
   label = c(
     paste0(
       "PERMISSION\n",
@@ -61,12 +63,12 @@ fig0 <- ggplot() +
             family = FIGURE_FONT_FAMILY, size = 3.05, lineheight = 1.02,
             colour = "#202020") +
   annotate(
-    "text", x = 0.5, y = 0.94,
+    "text", x = 0.5, y = 0.93,
     label = "Three owners, one vanished pilot",
     family = FIGURE_FONT_FAMILY, size = 3.4, fontface = "bold", colour = "#202020"
   ) +
   annotate(
-    "label", x = 0.5, y = 0.10,
+    "label", x = 0.5, y = 0.12,
     label = "Computation removes none of these",
     family = FIGURE_FONT_FAMILY, size = 3.0, fontface = "bold",
     colour = "#4A4A4A", fill = "#F4F4F4",
@@ -83,4 +85,4 @@ fig0 <- ggplot() +
     plot.margin = margin(t = 8, r = 8, b = 12, l = 8)
   )
 
-save_fig(fig0, "fig0_three_reasons", FIGURE_TEXT_WIDTH_IN, 3.15)
+save_fig(fig0, "fig0_three_reasons", FIGURE_TEXT_WIDTH_IN, 2.85)
