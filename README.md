@@ -1,6 +1,6 @@
 # Permission, prevalence, and the labeller: three separable reasons a chest-radiograph reporting pilot cannot answer its own question
 
-Derived label tables, the recorded access-obstacle enumeration, the split and selection protocols, figure code and manuscript source for a study that decomposes one blocked chest-radiograph reporting project into an administrative obstacle, a corpus-level power ceiling and a labeller artifact.
+Derived label tables, access-obstacle records, split and selection protocols, prevalence and sampling-ceiling figures, and manuscript source for a measurement audit that decomposes one blocked chest-radiograph reporting project into an administrative obstacle, a corpus-level power ceiling and a labeller artifact. The IU pilot is not a Type-R benchmark.
 
 Archived at [10.5281/zenodo.22647018](https://doi.org/10.5281/zenodo.22647018).
 
@@ -11,7 +11,7 @@ Repository: https://github.com/PeterPonyu/blocked-pilot-decomposition
 - `paper/tex/` — manuscript source
 - `paper/figs/` — the R code that draws the figures and writes the printed numbers
 - `paper/evidence/` — a file list with SHA-256 hashes
-- `data/` — the 12 data files named in that list
+- `data/` — the 16 data files named in that list
 
 ## Not included
 

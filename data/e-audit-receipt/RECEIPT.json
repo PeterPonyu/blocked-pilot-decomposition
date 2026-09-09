@@ -1,0 +1,97 @@
+{
+  "schema": "frontier-003-audit20260907-receipt/v1",
+  "purpose": "Execution receipts for audit items A1/A2/A3 of tmp/scientific-audit-2026-09-07/003-audit.md",
+  "outputs": {
+    "battery.json": {
+      "path": "data/e-battery/battery.json",
+      "sha256": "4fbae4864f7be134bade211f3fbd26e5a83a60978a4eb70585bb453179b98bd6",
+      "bytes": 96357,
+      "schema": "frontier-003-audit20260907-labeller-battery/v1",
+      "written_utc": "2026-09-08T05:18:39Z",
+      "wall_clock_s": 12.6,
+      "script": "source-tree/003-medical-report-gen/scripts/audit20260907_battery.py"
+    },
+    "gold_placeholder_ablation.json": {
+      "path": "data/e-gold-ablation/gold_placeholder_ablation.json",
+      "sha256": "eca24590238e2d14df517024a2cc246afa79a205ee738c87c0151b2d97474c19",
+      "bytes": 167285,
+      "schema": "frontier-003-audit20260907-gold-placeholder-ablation/v1",
+      "written_utc": "2026-09-08T05:23:45Z",
+      "wall_clock_s": 116.4,
+      "script": "source-tree/003-medical-report-gen/scripts/audit20260907_gold_placeholder_ablation.py"
+    },
+    "controls_333.json": {
+      "path": "data/e-controls-333/controls_333.json",
+      "sha256": "ed1bdbdc3d50bd6cded2d383433c4302bb89a7656fa51b818641165c59f360a4",
+      "bytes": 232370,
+      "schema": "frontier-003-audit20260907-controls-333/v1",
+      "written_utc": "2026-09-08T05:28:23Z",
+      "wall_clock_s": 113.9,
+      "script": "source-tree/003-medical-report-gen/scripts/audit20260907_controls_333.py"
+    }
+  },
+  "scripts": {
+    "source-tree/003-medical-report-gen/scripts/audit20260907_battery.py": "72bd38fb38fe89f465bbe50a17914538040d8edf30c5e9d6b7757d39c1af8b81",
+    "source-tree/003-medical-report-gen/scripts/audit20260907_common.py": "50bbd0df930277bca41847ec573e6c404e4722074fce395f1354b88f83d0ead0",
+    "source-tree/003-medical-report-gen/scripts/audit20260907_controls_333.py": "e2a9b1bb21475cae96d9c119571b00b212924304fee80a6be71dce9e95866be2",
+    "source-tree/003-medical-report-gen/scripts/audit20260907_gold_placeholder_ablation.py": "b561e86a1feeb01d14e5928c1391417fa0f5ead3f80b391c8ee37710d167ee0b",
+    "source-tree/003-medical-report-gen/scripts/audit20260907_receipt.py": "8c3350c91dad4624ffa9eb2f21ebf8c4e31675f7f06f57e4d08254d188a9b5ff"
+  },
+  "file_ownership": {
+    "created_only_under": [
+      "source-tree/003-medical-report-gen/scripts/audit20260907_*.py",
+      "source-tree/003-medical-report-gen/results/sota_copy/core/audit20260907/",
+      "tmp/scientific-audit-2026-09-07/003-execution.md"
+    ],
+    "pre_existing_files_modified": []
+  },
+  "second_labeller_attempt": {
+    "status": "skipped",
+    "budget_minutes": 20,
+    "minutes_spent": 8,
+    "steps": [
+      "conda create -n audit20260907-negbio python=3.9: failed, repo.anaconda.com unreachable through the local proxy (SSL EOF).",
+      "pip install negbio (Python 3.9 venv from the isoST interpreter and Python 3.13 dl env): 'No matching distribution'; https://pypi.org/simple/negbio/ returns 404 with and without the proxy, i.e. NegBio is not published on PyPI.",
+      "pip install git+https://github.com/ncbi-nlp/NegBio.git: metadata generation fails because setup.py shells out to `python -m nltk.downloader` inside pip's isolated build env (fails identically with nltk pre-installed in the venv).",
+      "Remaining steps not attempted (bllipparser C++ build, GENIA+PubMed parser model download, Stanford CoreNLP jar for pystanforddependencies, chexpert-labeler checkout) exceed the budget; the audit itself estimated 1-2 h."
+    ],
+    "scratch_state_left_behind": "none (venv and probe dirs under /tmp removed; no conda env created)"
+  },
+  "receipt": {
+    "written_utc": "2026-09-08T05:35:01Z",
+    "started_utc": "2026-09-08T05:35:00Z",
+    "wall_clock_s": 0.0,
+    "script": "source-tree/003-medical-report-gen/scripts/audit20260907_receipt.py",
+    "script_sha256": "8c3350c91dad4624ffa9eb2f21ebf8c4e31675f7f06f57e4d08254d188a9b5ff",
+    "common_module": "source-tree/003-medical-report-gen/scripts/audit20260907_common.py",
+    "common_module_sha256": "50bbd0df930277bca41847ec573e6c404e4722074fce395f1354b88f83d0ead0",
+    "checkpoint": {
+      "path": "~/.cache/chexbert/chexbert.pth",
+      "sha256": "6550703c92d640e1e04d8105a7a185d76ece0f25fcbf033d292785bf22c0fde1"
+    },
+    "device": "cpu",
+    "versions": {
+      "python": "3.13.7",
+      "torch": "2.12.1+cu130",
+      "transformers": "5.12.1",
+      "numpy": "2.2.6",
+      "scipy": "1.16.2",
+      "f1chexbert": "0.0.2",
+      "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.39"
+    },
+    "inputs": {
+      "data/e-split/003-iu-split-manifest.v1.json": "8550a81f9285eb3bab2c6d4c6fdc054eaee1a8c590aac17b310c40932b9cd1cd",
+      "source-tree/003-medical-report-gen/data/iu_xray_manifest.jsonl": "6e8a728840e6ad30412c9695eb07f4b1d82711c9140d43f81ace76015e1f960d"
+    },
+    "label_legend": {
+      "1": "positive/present",
+      "0": "negative/absent",
+      "-1": "uncertain",
+      "2": "blank/not mentioned"
+    },
+    "official_r": false,
+    "not_official_r": true,
+    "chexbench_type_r": "forbidden",
+    "evidence_score_delta": 0
+  }
+}

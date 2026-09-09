@@ -13,3 +13,7 @@ E-RETRIEVAL	data/e-retrieval/static.json	derived_table	the retrieval control sco
 E-MAJORITY	data/e-majority/naive.json	derived_table	the majority control scored on surface text over the full test split
 E-HARNESS	data/e-harness/paper_measurement_iu_harness.json	recorded_state	the eight-image inference run, recorded as a harness rather than a benchmark result
 E-PRIMARY	data/e-primary/paper_primary.json	recorded_state	the same run entered in the comparison ladder, with its claim kind recorded
+E-BATTERY	data/e-battery/battery.json	derived_table	labeller battery on the majority template and its first-sentence and placeholder variants
+E-CONTROLS-333	data/e-controls-333/controls_333.json	derived_table	the same two control arms scored on the full frozen test split of 333 reports
+E-GOLD-ABLATION	data/e-gold-ablation/gold_placeholder_ablation.json	derived_table	gold labels recomputed after stripping the de-identification placeholder from each test report
+E-AUDIT-RECEIPT	data/e-audit-receipt/RECEIPT.json	receipt	execution receipt for the 2026-09-07 labeller battery, 333-row controls, and gold-placeholder ablation

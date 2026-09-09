@@ -1,14 +1,14 @@
 %% Self-contained. No \ref, no \cref, no section numbers, no "see above".
 %% One falsifiable question, the bounded answer, and the scope it does not leave.
 
-A blocked machine-learning project can hide administrative, statistical, and
+A blocked project can hide administrative, statistical, and
 instrumental obstacles behind one verdict. We audit a chest-radiograph
 report-generation pilot and separate those obstacles. The intended benchmark
 is contact-gated: the project records \NLocks{} locks, comprising
 \NPermissionLocks{} permission locks, \NArtifactLocks{} missing evaluation
 artifact, and \NSubstitutionLocks{} refusals to score a local corpus under the
-benchmark's name. None is removed by computation, and the record predates
-any compute provisioning.
+benchmark's name. None is removed by computation: the permission locks were never submitted,
+and the record predates any compute provisioning.
 
 The statistical limits are distinct. For \NExceedSplit{} of \NFindings{}
 labelled findings, a draw would need more reports than the frozen
@@ -16,16 +16,14 @@ labelled findings, a draw would need more reports than the frozen
 The pre-registered cohort of \NCohort{} reports instead contains
 \SkewObserved{} \SkewFinding{} positives versus \SkewExpected{} expected
 (exact two-sided probability \SkewP{}, threshold \Bonferroni{}), and only
-\NScored{} of \NFindings{} observations clear the presence gate. On those
-scored cells both controls fail: the constant report misses every gold
+\NScored{} of \NFindings{} observations clear the presence gate.
+\NUnderpowered{} of \NFindings{} observations are underpowered and receive no rate.
+On those scored cells both controls fail: the constant report misses every gold
 positive, while the retrieval control misses \RetMissedOne{} and
 \RetMissedTwo{} findings, with one-sided 90\% upper limits
 \RetUpperOne{} and \RetUpperTwo{}. The constant report is not a trivial floor:
 the automatic labeller marks it \MajAsserted{} on all \NCohort{} rows and never
-marks the no-finding observation. Scoring surface text over the full split
-produces token F1 of \SurfaceRetrievalF{} and \SurfaceMajorityF{}, which does
-not repair the blocked benchmark.
+marks the no-finding observation. Surface-text F1 of \SurfaceRetrievalF{} and
+\SurfaceMajorityF{} does not repair the blocked benchmark.
 
-No benchmark result is synthesized and no score is reported under its name.
-The record names the obstacles that blocked the pilot, not a completed gated
-evaluation.
+The contribution is an obstacle inventory for this contact-gated, statistically bounded report-generation pilot.

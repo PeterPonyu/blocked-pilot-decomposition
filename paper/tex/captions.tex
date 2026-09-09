@@ -86,6 +86,17 @@ prevalence; in particular, a grey segment must not be read as absence. The rows
 are ordered by the positive count so the rare findings remain visible.%
 }
 
+\newcommand{\CapPrevalenceSamplingCeiling}{%
+Full-split prevalence and the observed sampling ceiling. Bars are positive-label
+counts from the \FullSplitN{}-row frozen test split; filled blue points are positive counts
+in the pre-registered \NCohort{}-row draw, and open points are expected from full-split
+prevalence. The horizontal rule is the \MinPresent{}-positive presence gate: cells with
+\(n_{\mathrm{present}}<\MinPresent{}\) are coloured red and are underpowered, so no rate is
+attached. The observed points come from the registered draw, while the frozen test split
+supplies the full-split bars. This is labeller-output prevalence rather than clinical prevalence;
+the compact x-axis key is: \FindingKey.%
+}
+
 \newcommand{\CapDraw}{%
 Whether the pre-registered subsample of \NCohort{} reports resembles the
 \NTest{}-report split it was drawn from, for each of the \NFindings{}
@@ -133,4 +144,17 @@ that near-total failure cannot be excluded from these data. Both cells hold
 fewer than fifteen positives, and the intervals are wide for that reason and not
 for any other. The horizontal rule at one is the logical maximum miss rate; a
 point at one is complete miss, not an unobserved cell.%
+}
+
+\newcommand{\CapBatteryTable}{%
+How the released CheXbert checkpoint labels five controlled variants of
+the constant majority-report template, for Cardiomegaly and for No
+Finding. The raw template is marked positive for Cardiomegaly and is not
+marked No Finding. Deleting the first sentence flips the same template
+to No Finding. Removing the de-identification placeholder token alone
+does not. Replacing that placeholder with the plausible English wording
+``remained stable'' moves Cardiomegaly to uncertain. Labels are the
+four-state CheXbert output: positive, negative, uncertain, or blank
+(not mentioned). These are labeller-output states for one checkpoint and
+these strings, not a measure of labeller accuracy.%
 }

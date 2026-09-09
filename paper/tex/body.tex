@@ -177,7 +177,8 @@ project's record is explicit that these three are not interchangeable: holding
 any one of them satisfies neither of the others, and none of them is a token
 that can be substituted for another. That sounds obvious written down and is
 routinely got wrong in planning, because all three are colloquially ``getting
-access''.
+access''. None of those three requests was filed. The permission locks record
+that absence, not a denial.
 
 Fig.~\ref{fig:permissions} draws the relation the record states, with the
 permissions on one axis and the things a project needs on the other. Each
@@ -270,7 +271,7 @@ it gates every other.}
 
 The pilot labelled \NCohort{} of the \NTest{} test reports, \CoveragePct{} per
 cent of the split, and \NUnderpowered{} of the \NFindings{} observations fall
-below the presence gate. The obvious reading is that the pilot is too small. For
+below the presence gate (Fig.~\ref{fig:prevalence-sampling-ceiling}). The obvious reading is that the pilot is too small. For
 most of the observations that reading is right, and for \NExceedSplit{} of them
 it is wrong in a way that matters.
 
@@ -321,6 +322,13 @@ asserting its absence.}
 \includegraphics[width=\linewidth]{fig3_required_rows.pdf}
 \caption{\CapRequired}
 \label{fig:required}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig8_prevalence_sampling_ceiling.pdf}
+\caption{\CapPrevalenceSamplingCeiling}
+\label{fig:prevalence-sampling-ceiling}
 \end{figure}
 
 The gate operates on one label state only, while each report contributes one
@@ -420,6 +428,35 @@ is not the null vector anyone assumed. Any comparison in which the majority
 baseline's label-space score is treated as the trivial floor inherits this,
 whatever its sample size.
 
+\subsection{What the labeller is reading}
+
+The assignment is not a property of the whole template taken as one
+string. A battery of \BatteryN{} controlled variants isolates what the
+released checkpoint responds to. The raw template is marked positive for
+\BatteryRawPositive{} and is not marked No Finding. Deleting the first
+sentence, which is the only clause that contains the de-identification
+placeholder, flips the same template to \BatteryMinusFirst{}.
+\BatteryPlausibleUncertain{} plausible English wordings of that
+placeholder---``remained stable'', ``not changed'', ``no change'',
+``been stable'', and a mask token---move Cardiomegaly from positive to
+uncertain. Stripping the placeholder token alone \BatteryPlaceholderFlips{}
+flip it: the remainder of the first sentence is still read as
+\BatteryRawPositive{}. Table~\ref{tab:battery} records those five variants.
+
+Of the gold texts, \GoldPlaceholderTexts{} carry the placeholder.
+Relabelling those texts with the placeholder removed changes any label
+on \GoldRowsChanged{} rows and moves no finding's present count by more
+than \GoldMaxDeltaPresent{}, while individual label states move up to
+\GoldLungOpacityAnyState{} times for Lung Opacity.
+
+\begin{table}[tbp]
+\centering
+\caption{\CapBatteryTable}
+\label{tab:battery}
+\small
+\input{generated_table_battery}
+\end{table}
+
 \subsection{The two cells that can be scored}
 
 Table~\ref{tab:scored} and Fig.~\ref{fig:scored} give the two cells that clear
@@ -437,6 +474,18 @@ every positive. Two cells with \ScoredOnePresent{} and \ScoredTwoPresent{}
 positives do not distinguish a control that misses four fifths of positives from
 one that misses all of them, and reporting the point estimates without the
 limits would suggest otherwise.
+
+A later, post-hoc scoring of the same controls on the frozen
+\FullSplitN{}-report split, after the registered analysis was frozen, finds
+that \FullSplitScorable{} of the \NFindings{} findings clear the presence
+gate of \MinPresent{} gold positives, and the \NCohort{}-row registered draw
+\FullSplitReproduces{} the published control baselines exactly. The constant
+report hits all \FullSplitMajCardioHit{} Cardiomegaly positives because it
+asserts Cardiomegaly on all \FullSplitMajCardioPred{} rows. The
+\NCohort{}-row draw remains the registered analysis, including the count that
+the labeller marks the constant string \MajAsserted{} on all \NCohort{}
+rows; that count is unchanged. The \FullSplitN{}-row scoring is a post-hoc
+check and does not replace it.
 
 \subsection{The same controls, scored differently}
 

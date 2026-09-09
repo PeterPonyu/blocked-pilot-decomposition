@@ -1,7 +1,7 @@
 {
   "schema": "evidence-manifest/v1",
   "state": "BOUND",
-  "bound_utc": "2026-08-28T12:27:17Z",
+  "bound_utc": "2026-09-08T13:02:47Z",
   "allowed_roots": [
     "data",
     "paper/evidence"
@@ -103,6 +103,38 @@
       "note": "the same run entered in the comparison ladder, with its claim kind recorded",
       "bytes": 548,
       "sha256": "d8d228267e044fc34080d5a569e7a4c2985adab3ef47f0b1d49213e5c7efeec5"
+    },
+    {
+      "id": "E-BATTERY",
+      "path": "data/e-battery/battery.json",
+      "role": "derived_table",
+      "note": "labeller battery on the majority template and its first-sentence and placeholder variants",
+      "bytes": 96222,
+      "sha256": "4fbae4864f7be134bade211f3fbd26e5a83a60978a4eb70585bb453179b98bd6"
+    },
+    {
+      "id": "E-CONTROLS-333",
+      "path": "data/e-controls-333/controls_333.json",
+      "role": "derived_table",
+      "note": "the same two control arms scored on the full frozen test split of 333 reports",
+      "bytes": 232193,
+      "sha256": "ed1bdbdc3d50bd6cded2d383433c4302bb89a7656fa51b818641165c59f360a4"
+    },
+    {
+      "id": "E-GOLD-ABLATION",
+      "path": "data/e-gold-ablation/gold_placeholder_ablation.json",
+      "role": "derived_table",
+      "note": "gold labels recomputed after stripping the de-identification placeholder from each test report",
+      "bytes": 167117,
+      "sha256": "eca24590238e2d14df517024a2cc246afa79a205ee738c87c0151b2d97474c19"
+    },
+    {
+      "id": "E-AUDIT-RECEIPT",
+      "path": "data/e-audit-receipt/RECEIPT.json",
+      "role": "receipt",
+      "note": "execution receipt for the 2026-09-07 labeller battery, 333-row controls, and gold-placeholder ablation",
+      "bytes": 5099,
+      "sha256": "da16f78bdeffa70515c86ca2eec38652dc6d3ce0278fe4784382692073ca8f61"
     }
   ]
 }

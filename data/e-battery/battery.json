@@ -1,0 +1,3436 @@
+{
+  "schema": "frontier-003-audit20260907-labeller-battery/v1",
+  "claim_kind": "labeller_artifact_battery",
+  "labeller": "CheXbert (Smit et al. 2020), single public checkpoint, CPU, 4-state output",
+  "second_labeller": "not run in this file; see RECEIPT.json / memo for the NegBio/chexpert-labeler attempt",
+  "majority_template": {
+    "text": "The heart and lungs have XXXX XXXX in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+    "train_count": 41,
+    "n_train": 2646,
+    "train_fraction": 0.015495086923658353,
+    "runner_up": {
+      "text": "The heart is normal in size. The mediastinum is unremarkable. The lungs are clear.",
+      "train_count": 37
+    },
+    "sources_agree": [
+      "modal train findings (this run)",
+      "source-tree/003-type-r-unblock-and-underpowered-pilot/tex/generated_numbers.tex \\MajTemplate",
+      "data/e-controls/iu_chexbert_control_baselines.json majority_findings"
+    ],
+    "first_sentence": "The heart and lungs have XXXX XXXX in the interval.",
+    "remaining_sentences": "Both lungs are clear and expanded. Heart and mediastinum normal."
+  },
+  "placeholder_transform": {
+    "regex": "\\bX{2,}\\b",
+    "replacement": "",
+    "whitespace": "collapsed"
+  },
+  "n_strings": 74,
+  "summary": {
+    "placeholder_containing": {
+      "n_unique_texts": 5,
+      "n_assert_cardiomegaly": 2,
+      "n_assert_any_pathology": 2,
+      "n_no_finding": 3,
+      "frac_assert_cardiomegaly": 0.4,
+      "frac_no_finding": 0.6,
+      "ids": [
+        "T1_template",
+        "T3_s1_alone",
+        "N03_raw",
+        "N11_raw",
+        "N13_raw"
+      ]
+    },
+    "placeholder_free": {
+      "n_unique_texts": 50,
+      "n_assert_cardiomegaly": 2,
+      "n_assert_any_pathology": 2,
+      "n_no_finding": 38,
+      "frac_assert_cardiomegaly": 0.04,
+      "frac_no_finding": 0.76,
+      "ids": [
+        "T2_template_minus_s1",
+        "T4_s1_remained_stable",
+        "T4_s1_not_changed",
+        "T4_s1_no_change",
+        "T4_s1_removed",
+        "T4_s1_been_stable",
+        "T4x_s1_mask",
+        "T4t_template_remained_stable",
+        "T4t_template_not_changed",
+        "T4t_template_no_change",
+        "T4t_template_removed",
+        "T4t_template_been_stable",
+        "N02_raw",
+        "N03_deid",
+        "N04_raw",
+        "N05_raw",
+        "N06_raw",
+        "N08_raw",
+        "N09_raw",
+        "N10_raw",
+        "N11_deid",
+        "N12_raw",
+        "N13_deid",
+        "N14_raw",
+        "N15_raw",
+        "N16_raw",
+        "N17_raw",
+        "N18_raw",
+        "N19_raw",
+        "N20_raw",
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "P16",
+        "P17",
+        "P18",
+        "P19",
+        "P20"
+      ]
+    },
+    "template_ablation": {
+      "template_raw": {
+        "labels": {
+          "Enlarged Cardiomediastinum": 0,
+          "Cardiomegaly": 1,
+          "Lung Opacity": 2,
+          "Lung Lesion": 2,
+          "Edema": 2,
+          "Consolidation": 2,
+          "Pneumonia": 2,
+          "Atelectasis": 2,
+          "Pneumothorax": 2,
+          "Pleural Effusion": 2,
+          "Pleural Other": 2,
+          "Fracture": 2,
+          "Support Devices": 2,
+          "No Finding": 2
+        },
+        "flags": {
+          "asserts_cardiomegaly": true,
+          "asserts_any_pathology": true,
+          "no_finding": false,
+          "positives": [
+            "Cardiomegaly"
+          ],
+          "uncertain": []
+        }
+      },
+      "template_placeholder_removed": {
+        "text": "The heart and lungs have in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+        "labels": {
+          "Enlarged Cardiomediastinum": 0,
+          "Cardiomegaly": 1,
+          "Lung Opacity": 2,
+          "Lung Lesion": 2,
+          "Edema": 2,
+          "Consolidation": 2,
+          "Pneumonia": 2,
+          "Atelectasis": 2,
+          "Pneumothorax": 2,
+          "Pleural Effusion": 2,
+          "Pleural Other": 2,
+          "Fracture": 2,
+          "Support Devices": 2,
+          "No Finding": 2
+        },
+        "flags": {
+          "asserts_cardiomegaly": true,
+          "asserts_any_pathology": true,
+          "no_finding": false,
+          "positives": [
+            "Cardiomegaly"
+          ],
+          "uncertain": []
+        }
+      },
+      "template_minus_first_sentence": {
+        "labels": {
+          "Enlarged Cardiomediastinum": 0,
+          "Cardiomegaly": 0,
+          "Lung Opacity": 2,
+          "Lung Lesion": 2,
+          "Edema": 2,
+          "Consolidation": 2,
+          "Pneumonia": 2,
+          "Atelectasis": 2,
+          "Pneumothorax": 2,
+          "Pleural Effusion": 2,
+          "Pleural Other": 2,
+          "Fracture": 2,
+          "Support Devices": 2,
+          "No Finding": 1
+        },
+        "flags": {
+          "asserts_cardiomegaly": false,
+          "asserts_any_pathology": false,
+          "no_finding": true,
+          "positives": [
+            "No Finding"
+          ],
+          "uncertain": []
+        }
+      },
+      "first_sentence_alone": {
+        "labels": {
+          "Enlarged Cardiomediastinum": 2,
+          "Cardiomegaly": 1,
+          "Lung Opacity": 2,
+          "Lung Lesion": 2,
+          "Edema": 2,
+          "Consolidation": 2,
+          "Pneumonia": 2,
+          "Atelectasis": 2,
+          "Pneumothorax": 2,
+          "Pleural Effusion": 2,
+          "Pleural Other": 2,
+          "Fracture": 2,
+          "Support Devices": 2,
+          "No Finding": 2
+        },
+        "flags": {
+          "asserts_cardiomegaly": true,
+          "asserts_any_pathology": true,
+          "no_finding": false,
+          "positives": [
+            "Cardiomegaly"
+          ],
+          "uncertain": []
+        }
+      },
+      "removing_placeholder_flips_template_to_no_finding": false,
+      "removing_placeholder_drops_cardiomegaly": false,
+      "first_sentence_replacements": {
+        "remained stable": {
+          "id": "T4_s1_remained_stable",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          },
+          "labels": {
+            "Enlarged Cardiomediastinum": 2,
+            "Cardiomegaly": -1,
+            "Lung Opacity": 2,
+            "Lung Lesion": 2,
+            "Edema": 2,
+            "Consolidation": 2,
+            "Pneumonia": 2,
+            "Atelectasis": 2,
+            "Pneumothorax": 2,
+            "Pleural Effusion": 2,
+            "Pleural Other": 2,
+            "Fracture": 2,
+            "Support Devices": 2,
+            "No Finding": 2
+          }
+        },
+        "not changed": {
+          "id": "T4_s1_not_changed",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          },
+          "labels": {
+            "Enlarged Cardiomediastinum": 2,
+            "Cardiomegaly": -1,
+            "Lung Opacity": 2,
+            "Lung Lesion": 2,
+            "Edema": 2,
+            "Consolidation": 2,
+            "Pneumonia": 2,
+            "Atelectasis": 2,
+            "Pneumothorax": 2,
+            "Pleural Effusion": 2,
+            "Pleural Other": 2,
+            "Fracture": 2,
+            "Support Devices": 2,
+            "No Finding": 2
+          }
+        },
+        "no change": {
+          "id": "T4_s1_no_change",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          },
+          "labels": {
+            "Enlarged Cardiomediastinum": 2,
+            "Cardiomegaly": -1,
+            "Lung Opacity": 2,
+            "Lung Lesion": 2,
+            "Edema": 2,
+            "Consolidation": 2,
+            "Pneumonia": 2,
+            "Atelectasis": 2,
+            "Pneumothorax": 2,
+            "Pleural Effusion": 2,
+            "Pleural Other": 2,
+            "Fracture": 2,
+            "Support Devices": 2,
+            "No Finding": 2
+          }
+        },
+        "<removed>": {
+          "id": "T4_s1_removed",
+          "flags": {
+            "asserts_cardiomegaly": true,
+            "asserts_any_pathology": true,
+            "no_finding": false,
+            "positives": [
+              "Cardiomegaly"
+            ],
+            "uncertain": []
+          },
+          "labels": {
+            "Enlarged Cardiomediastinum": 2,
+            "Cardiomegaly": 1,
+            "Lung Opacity": 2,
+            "Lung Lesion": 2,
+            "Edema": 2,
+            "Consolidation": 2,
+            "Pneumonia": 2,
+            "Atelectasis": 2,
+            "Pneumothorax": 2,
+            "Pleural Effusion": 2,
+            "Pleural Other": 2,
+            "Fracture": 2,
+            "Support Devices": 2,
+            "No Finding": 2
+          }
+        },
+        "been stable": {
+          "id": "T4_s1_been_stable",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Enlarged Cardiomediastinum",
+              "Cardiomegaly"
+            ]
+          },
+          "labels": {
+            "Enlarged Cardiomediastinum": -1,
+            "Cardiomegaly": -1,
+            "Lung Opacity": 2,
+            "Lung Lesion": 2,
+            "Edema": 2,
+            "Consolidation": 2,
+            "Pneumonia": 2,
+            "Atelectasis": 2,
+            "Pneumothorax": 2,
+            "Pleural Effusion": 2,
+            "Pleural Other": 2,
+            "Fracture": 2,
+            "Support Devices": 2,
+            "No Finding": 2
+          }
+        },
+        "[MASK]": {
+          "id": "T4x_s1_mask",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          },
+          "labels": {
+            "Enlarged Cardiomediastinum": 2,
+            "Cardiomegaly": -1,
+            "Lung Opacity": 2,
+            "Lung Lesion": 2,
+            "Edema": 2,
+            "Consolidation": 2,
+            "Pneumonia": 2,
+            "Atelectasis": 2,
+            "Pneumothorax": 2,
+            "Pleural Effusion": 2,
+            "Pleural Other": 2,
+            "Fracture": 2,
+            "Support Devices": 2,
+            "No Finding": 2
+          }
+        }
+      },
+      "template_replacements": {
+        "remained stable": {
+          "id": "T4t_template_remained_stable",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          }
+        },
+        "not changed": {
+          "id": "T4t_template_not_changed",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          }
+        },
+        "no change": {
+          "id": "T4t_template_no_change",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          }
+        },
+        "<removed>": {
+          "id": "T4t_template_removed",
+          "flags": {
+            "asserts_cardiomegaly": true,
+            "asserts_any_pathology": true,
+            "no_finding": false,
+            "positives": [
+              "Cardiomegaly"
+            ],
+            "uncertain": []
+          }
+        },
+        "been stable": {
+          "id": "T4t_template_been_stable",
+          "flags": {
+            "asserts_cardiomegaly": false,
+            "asserts_any_pathology": false,
+            "no_finding": false,
+            "positives": [],
+            "uncertain": [
+              "Cardiomegaly"
+            ]
+          }
+        }
+      }
+    },
+    "train_top20": {
+      "n_templates": 20,
+      "n_with_placeholder": 4,
+      "n_raw_assert_cardiomegaly": 1,
+      "n_deid_assert_cardiomegaly": 1,
+      "n_raw_no_finding": 19,
+      "n_deid_no_finding": 19,
+      "n_pairs_any_label_changed": 0,
+      "n_pairs_changed_among_placeholder": 0,
+      "raw_assert_cardiomegaly_ranks": [
+        1
+      ],
+      "raw_assert_any_pathology_ranks": [
+        1
+      ],
+      "pairs": [
+        {
+          "rank": 1,
+          "train_count": 41,
+          "has_placeholder": true,
+          "raw_positives": [
+            "Cardiomegaly"
+          ],
+          "deid_positives": [
+            "Cardiomegaly"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 1,
+          "cardiomegaly_deid": 1,
+          "no_finding_raw": 2,
+          "no_finding_deid": 2
+        },
+        {
+          "rank": 2,
+          "train_count": 37,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 3,
+          "train_count": 35,
+          "has_placeholder": true,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 4,
+          "train_count": 33,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 2,
+          "cardiomegaly_deid": 2,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 5,
+          "train_count": 29,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 6,
+          "train_count": 22,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 2,
+          "cardiomegaly_deid": 2,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 7,
+          "train_count": 19,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 8,
+          "train_count": 17,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 9,
+          "train_count": 15,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 10,
+          "train_count": 13,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 11,
+          "train_count": 13,
+          "has_placeholder": true,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 12,
+          "train_count": 12,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 2,
+          "cardiomegaly_deid": 2,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 13,
+          "train_count": 11,
+          "has_placeholder": true,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 14,
+          "train_count": 10,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 15,
+          "train_count": 10,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 16,
+          "train_count": 9,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 17,
+          "train_count": 9,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 18,
+          "train_count": 9,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 19,
+          "train_count": 9,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        },
+        {
+          "rank": 20,
+          "train_count": 9,
+          "has_placeholder": false,
+          "raw_positives": [
+            "No Finding"
+          ],
+          "deid_positives": [
+            "No Finding"
+          ],
+          "labels_changed": [],
+          "cardiomegaly_raw": 0,
+          "cardiomegaly_deid": 0,
+          "no_finding_raw": 1,
+          "no_finding_deid": 1
+        }
+      ]
+    },
+    "paraphrases": {
+      "n_unique_texts": 20,
+      "n_assert_cardiomegaly": 0,
+      "n_assert_any_pathology": 0,
+      "n_no_finding": 19,
+      "frac_assert_cardiomegaly": 0.0,
+      "frac_no_finding": 0.95,
+      "ids": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "P16",
+        "P17",
+        "P18",
+        "P19",
+        "P20"
+      ]
+    }
+  },
+  "battery": [
+    {
+      "id": "T1_template",
+      "text": "The heart and lungs have XXXX XXXX in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "raw",
+      "source": "template",
+      "has_placeholder": true,
+      "n_placeholder_tokens": 2,
+      "train_count": 41,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": true,
+        "asserts_any_pathology": true,
+        "no_finding": false,
+        "positives": [
+          "Cardiomegaly"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "T2_template_minus_s1",
+      "text": "Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "raw",
+      "source": "template_minus_first_sentence",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "T3_s1_alone",
+      "text": "The heart and lungs have XXXX XXXX in the interval.",
+      "variant": "raw",
+      "source": "first_sentence",
+      "has_placeholder": true,
+      "n_placeholder_tokens": 2,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": true,
+        "asserts_any_pathology": true,
+        "no_finding": false,
+        "positives": [
+          "Cardiomegaly"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "T4_s1_remained_stable",
+      "text": "The heart and lungs have remained stable in the interval.",
+      "variant": "placeholder_replaced",
+      "source": "first_sentence_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "remained stable",
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4_s1_not_changed",
+      "text": "The heart and lungs have not changed in the interval.",
+      "variant": "placeholder_replaced",
+      "source": "first_sentence_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "not changed",
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4_s1_no_change",
+      "text": "The heart and lungs have no change in the interval.",
+      "variant": "placeholder_replaced",
+      "source": "first_sentence_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "no change",
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4_s1_removed",
+      "text": "The heart and lungs have in the interval.",
+      "variant": "placeholder_replaced",
+      "source": "first_sentence_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "",
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": true,
+        "asserts_any_pathology": true,
+        "no_finding": false,
+        "positives": [
+          "Cardiomegaly"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "T4_s1_been_stable",
+      "text": "The heart and lungs have been stable in the interval.",
+      "variant": "placeholder_replaced",
+      "source": "first_sentence_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "been stable",
+      "labels": {
+        "Enlarged Cardiomediastinum": -1,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Enlarged Cardiomediastinum",
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4x_s1_mask",
+      "text": "The heart and lungs have [MASK] in the interval.",
+      "variant": "placeholder_replaced",
+      "source": "first_sentence_replacement_extra",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "[MASK]",
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4t_template_remained_stable",
+      "text": "The heart and lungs have remained stable in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "placeholder_replaced",
+      "source": "template_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "remained stable",
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4t_template_not_changed",
+      "text": "The heart and lungs have not changed in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "placeholder_replaced",
+      "source": "template_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "not changed",
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4t_template_no_change",
+      "text": "The heart and lungs have no change in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "placeholder_replaced",
+      "source": "template_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "no change",
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "T4t_template_removed",
+      "text": "The heart and lungs have in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "placeholder_replaced",
+      "source": "template_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "",
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": true,
+        "asserts_any_pathology": true,
+        "no_finding": false,
+        "positives": [
+          "Cardiomegaly"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "T4t_template_been_stable",
+      "text": "The heart and lungs have been stable in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "placeholder_replaced",
+      "source": "template_replacement",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "replacement": "been stable",
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "N01_raw",
+      "text": "The heart and lungs have XXXX XXXX in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": true,
+      "n_placeholder_tokens": 2,
+      "rank": 1,
+      "train_count": 41,
+      "train_fraction": 0.015495086923658353,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": true,
+        "asserts_any_pathology": true,
+        "no_finding": false,
+        "positives": [
+          "Cardiomegaly"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N01_deid",
+      "text": "The heart and lungs have in the interval. Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 1,
+      "train_count": 41,
+      "identical_to_raw": false,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": true,
+        "asserts_any_pathology": true,
+        "no_finding": false,
+        "positives": [
+          "Cardiomegaly"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N02_raw",
+      "text": "The heart is normal in size. The mediastinum is unremarkable. The lungs are clear.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 2,
+      "train_count": 37,
+      "train_fraction": 0.013983371126228269,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N02_deid",
+      "text": "The heart is normal in size. The mediastinum is unremarkable. The lungs are clear.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 2,
+      "train_count": 37,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N03_raw",
+      "text": "Heart size normal. Lungs are clear. XXXX are normal. No pneumonia, effusions, edema, pneumothorax, adenopathy, nodules or masses.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": true,
+      "n_placeholder_tokens": 1,
+      "rank": 3,
+      "train_count": 35,
+      "train_fraction": 0.013227513227513227,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 0,
+        "Edema": 0,
+        "Consolidation": 2,
+        "Pneumonia": 0,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N03_deid",
+      "text": "Heart size normal. Lungs are clear. are normal. No pneumonia, effusions, edema, pneumothorax, adenopathy, nodules or masses.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 3,
+      "train_count": 35,
+      "identical_to_raw": false,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 0,
+        "Edema": 0,
+        "Consolidation": 2,
+        "Pneumonia": 0,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N04_raw",
+      "text": "The lungs are clear bilaterally. Specifically, no evidence of focal consolidation, pneumothorax, or pleural effusion.. Cardio mediastinal silhouette is unremarkable. Visualized osseous structures of the thorax are without acute abnormality.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 4,
+      "train_count": 33,
+      "train_fraction": 0.012471655328798186,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N04_deid",
+      "text": "The lungs are clear bilaterally. Specifically, no evidence of focal consolidation, pneumothorax, or pleural effusion.. Cardio mediastinal silhouette is unremarkable. Visualized osseous structures of the thorax are without acute abnormality.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 4,
+      "train_count": 33,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N05_raw",
+      "text": "Cardiac and mediastinal contours are within normal limits. The lungs are clear. Bony structures are intact.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 5,
+      "train_count": 29,
+      "train_fraction": 0.010959939531368102,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N05_deid",
+      "text": "Cardiac and mediastinal contours are within normal limits. The lungs are clear. Bony structures are intact.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 5,
+      "train_count": 29,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N06_raw",
+      "text": "The cardiomediastinal silhouette and pulmonary vasculature are within normal limits in size. The lungs are clear of focal airspace disease, pneumothorax, or pleural effusion. There are no acute bony findings.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 6,
+      "train_count": 22,
+      "train_fraction": 0.008314436885865457,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N06_deid",
+      "text": "The cardiomediastinal silhouette and pulmonary vasculature are within normal limits in size. The lungs are clear of focal airspace disease, pneumothorax, or pleural effusion. There are no acute bony findings.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 6,
+      "train_count": 22,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N07_raw",
+      "text": "Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 7,
+      "train_count": 19,
+      "train_fraction": 0.007180650037792895,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N07_deid",
+      "text": "Both lungs are clear and expanded. Heart and mediastinum normal.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 7,
+      "train_count": 19,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N08_raw",
+      "text": "Lungs are clear bilaterally. Cardiac and mediastinal silhouettes are normal. Pulmonary vasculature is normal. No pneumothorax or pleural effusion. No acute bony abnormality.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 8,
+      "train_count": 17,
+      "train_fraction": 0.006424792139077854,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N08_deid",
+      "text": "Lungs are clear bilaterally. Cardiac and mediastinal silhouettes are normal. Pulmonary vasculature is normal. No pneumothorax or pleural effusion. No acute bony abnormality.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 8,
+      "train_count": 17,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N09_raw",
+      "text": "The cardiac contours are normal. The lungs are clear. Thoracic spondylosis.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 9,
+      "train_count": 15,
+      "train_fraction": 0.005668934240362812,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N09_deid",
+      "text": "The cardiac contours are normal. The lungs are clear. Thoracic spondylosis.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 9,
+      "train_count": 15,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N10_raw",
+      "text": "The heart size and pulmonary vascularity appear within normal limits. The lungs are free of focal airspace disease. No pleural effusion or pneumothorax is seen.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 10,
+      "train_count": 13,
+      "train_fraction": 0.0049130763416477706,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N10_deid",
+      "text": "The heart size and pulmonary vascularity appear within normal limits. The lungs are free of focal airspace disease. No pleural effusion or pneumothorax is seen.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 10,
+      "train_count": 13,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N11_raw",
+      "text": "The heart size is normal. The mediastinal contour is within normal limits. The lungs are free of any focal infiltrates. There are no nodules or masses. No visible pneumothorax. No visible pleural fluid. The XXXX are grossly normal. There is no visible free intraperitoneal air under the diaphragm.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": true,
+      "n_placeholder_tokens": 1,
+      "rank": 11,
+      "train_count": 13,
+      "train_fraction": 0.0049130763416477706,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 0,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N11_deid",
+      "text": "The heart size is normal. The mediastinal contour is within normal limits. The lungs are free of any focal infiltrates. There are no nodules or masses. No visible pneumothorax. No visible pleural fluid. The are grossly normal. There is no visible free intraperitoneal air under the diaphragm.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 11,
+      "train_count": 13,
+      "identical_to_raw": false,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 0,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N12_raw",
+      "text": "The cardiomediastinal silhouette is within normal limits for size and contour. The lungs are normally inflated without evidence of focal airspace disease, pleural effusion, or pneumothorax. Osseous structures are within normal limits for patient age..",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 12,
+      "train_count": 12,
+      "train_fraction": 0.0045351473922902496,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N12_deid",
+      "text": "The cardiomediastinal silhouette is within normal limits for size and contour. The lungs are normally inflated without evidence of focal airspace disease, pleural effusion, or pneumothorax. Osseous structures are within normal limits for patient age..",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 12,
+      "train_count": 12,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N13_raw",
+      "text": "The heart is normal in size and contour. There is no mediastinal widening. The lungs are clear bilaterally. No large pleural effusion or pneumothorax. The XXXX are intact.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": true,
+      "n_placeholder_tokens": 1,
+      "rank": 13,
+      "train_count": 11,
+      "train_fraction": 0.0041572184429327285,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N13_deid",
+      "text": "The heart is normal in size and contour. There is no mediastinal widening. The lungs are clear bilaterally. No large pleural effusion or pneumothorax. The are intact.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 13,
+      "train_count": 11,
+      "identical_to_raw": false,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N14_raw",
+      "text": "The heart is normal in size and contour. The lungs are clear, without evidence of infiltrate. There is no pneumothorax or effusion.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 14,
+      "train_count": 10,
+      "train_fraction": 0.003779289493575208,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N14_deid",
+      "text": "The heart is normal in size and contour. The lungs are clear, without evidence of infiltrate. There is no pneumothorax or effusion.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 14,
+      "train_count": 10,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N15_raw",
+      "text": "The lungs are clear. The cardiomediastinal silhouette is within normal limits. No pneumothorax or pleural effusion.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 15,
+      "train_count": 10,
+      "train_fraction": 0.003779289493575208,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N15_deid",
+      "text": "The lungs are clear. The cardiomediastinal silhouette is within normal limits. No pneumothorax or pleural effusion.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 15,
+      "train_count": 10,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N16_raw",
+      "text": "2 images. Heart size and pulmonary vascular engorgement appear within limits of normal. Mediastinal contour is unremarkable. No focal consolidation, pleural effusion, or pneumothorax identified. No convincing acute bony findings.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 16,
+      "train_count": 9,
+      "train_fraction": 0.003401360544217687,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N16_deid",
+      "text": "2 images. Heart size and pulmonary vascular engorgement appear within limits of normal. Mediastinal contour is unremarkable. No focal consolidation, pleural effusion, or pneumothorax identified. No convincing acute bony findings.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 16,
+      "train_count": 9,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N17_raw",
+      "text": "Heart size and mediastinal contours appear within normal limits. Pulmonary vascularity is within normal limits. No focal consolidation, suspicious pulmonary opacity, pneumothorax or definite pleural effusion. Visualized osseous structures appear intact.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 17,
+      "train_count": 9,
+      "train_fraction": 0.003401360544217687,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N17_deid",
+      "text": "Heart size and mediastinal contours appear within normal limits. Pulmonary vascularity is within normal limits. No focal consolidation, suspicious pulmonary opacity, pneumothorax or definite pleural effusion. Visualized osseous structures appear intact.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 17,
+      "train_count": 9,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N18_raw",
+      "text": "Lungs are clear. There is no pneumothorax or pleural effusion. The heart and mediastinum are within normal limits. Bony structures are intact.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 18,
+      "train_count": 9,
+      "train_fraction": 0.003401360544217687,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N18_deid",
+      "text": "Lungs are clear. There is no pneumothorax or pleural effusion. The heart and mediastinum are within normal limits. Bony structures are intact.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 18,
+      "train_count": 9,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N19_raw",
+      "text": "The lungs and pleural spaces show no acute abnormality. Heart size and pulmonary vascularity within normal limits.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 19,
+      "train_count": 9,
+      "train_fraction": 0.003401360544217687,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N19_deid",
+      "text": "The lungs and pleural spaces show no acute abnormality. Heart size and pulmonary vascularity within normal limits.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 19,
+      "train_count": 9,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N20_raw",
+      "text": "The lungs are clear. There is no pleural effusion or pneumothorax. The heart and mediastinum are normal. The skeletal structures are normal.",
+      "variant": "raw",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 20,
+      "train_count": 9,
+      "train_fraction": 0.003401360544217687,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "N20_deid",
+      "text": "The lungs are clear. There is no pleural effusion or pneumothorax. The heart and mediastinum are normal. The skeletal structures are normal.",
+      "variant": "deid_removed",
+      "source": "train_top20",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "rank": 20,
+      "train_count": 9,
+      "identical_to_raw": true,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P01",
+      "text": "No acute cardiopulmonary abnormality.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P02",
+      "text": "The heart is normal in size. The lungs are clear.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P03",
+      "text": "No focal consolidation, pleural effusion, or pneumothorax. Cardiomediastinal silhouette is within normal limits.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P04",
+      "text": "Heart size and mediastinal contours are within normal limits. Lungs are clear. No pleural effusion or pneumothorax.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P05",
+      "text": "The cardiomediastinal silhouette is normal. The lungs are clear without focal airspace disease. No pneumothorax or effusion.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 0,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P06",
+      "text": "Normal heart size. Clear lungs. No acute osseous abnormality.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P07",
+      "text": "The lungs are clear bilaterally. The heart and pulmonary vascularity are normal. No pleural effusion.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P08",
+      "text": "Cardiac silhouette is normal in size and contour. Lungs are clear. Osseous structures are intact.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P09",
+      "text": "No evidence of pneumonia, edema, effusion, or pneumothorax. Heart size is normal.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 0,
+        "Consolidation": 2,
+        "Pneumonia": 0,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P10",
+      "text": "The heart and mediastinum are unremarkable. The lungs are well expanded and clear.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P11",
+      "text": "Normal cardiomediastinal silhouette. No focal consolidation. No pleural effusion. No pneumothorax.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P12",
+      "text": "The heart is not enlarged. The lungs are free of focal infiltrate. Pleural spaces are clear.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P13",
+      "text": "Unremarkable chest radiograph. Heart size within normal limits. Lungs clear.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P14",
+      "text": "The lungs are clear and fully expanded. The cardiac and mediastinal contours are normal.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P15",
+      "text": "There is no focal airspace opacity, pleural effusion, or pneumothorax. The heart size is normal. The bony thorax is intact.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P16",
+      "text": "No interval change. The heart is normal in size. The lungs are clear.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P17",
+      "text": "The heart and lungs are unchanged from the prior examination. No acute findings.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": -1,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 2,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 2
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": false,
+        "positives": [],
+        "uncertain": [
+          "Cardiomegaly"
+        ]
+      }
+    },
+    {
+      "id": "P18",
+      "text": "No active cardiopulmonary disease. Cardiomediastinal silhouette within normal limits. No pleural fluid.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 0,
+        "Cardiomegaly": 2,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 2,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P19",
+      "text": "Heart size normal. Lungs clear. No pneumothorax, effusion, or focal consolidation. No acute bony abnormality.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 0,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 0,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    },
+    {
+      "id": "P20",
+      "text": "Trachea is midline. Heart is normal size. Lungs are clear with no infiltrates. No effusion.",
+      "variant": "raw",
+      "source": "paraphrase_handwritten",
+      "has_placeholder": false,
+      "n_placeholder_tokens": 0,
+      "labels": {
+        "Enlarged Cardiomediastinum": 2,
+        "Cardiomegaly": 0,
+        "Lung Opacity": 2,
+        "Lung Lesion": 2,
+        "Edema": 2,
+        "Consolidation": 0,
+        "Pneumonia": 2,
+        "Atelectasis": 2,
+        "Pneumothorax": 2,
+        "Pleural Effusion": 0,
+        "Pleural Other": 2,
+        "Fracture": 2,
+        "Support Devices": 2,
+        "No Finding": 1
+      },
+      "flags": {
+        "asserts_cardiomegaly": false,
+        "asserts_any_pathology": false,
+        "no_finding": true,
+        "positives": [
+          "No Finding"
+        ],
+        "uncertain": []
+      }
+    }
+  ],
+  "receipt": {
+    "written_utc": "2026-09-08T05:18:39Z",
+    "started_utc": "2026-09-08T05:18:26Z",
+    "wall_clock_s": 12.6,
+    "script": "source-tree/003-medical-report-gen/scripts/audit20260907_battery.py",
+    "script_sha256": "72bd38fb38fe89f465bbe50a17914538040d8edf30c5e9d6b7757d39c1af8b81",
+    "common_module": "source-tree/003-medical-report-gen/scripts/audit20260907_common.py",
+    "common_module_sha256": "50bbd0df930277bca41847ec573e6c404e4722074fce395f1354b88f83d0ead0",
+    "checkpoint": {
+      "path": "~/.cache/chexbert/chexbert.pth",
+      "sha256": "6550703c92d640e1e04d8105a7a185d76ece0f25fcbf033d292785bf22c0fde1"
+    },
+    "device": "cpu",
+    "versions": {
+      "python": "3.13.7",
+      "torch": "2.12.1+cu130",
+      "transformers": "5.12.1",
+      "numpy": "2.2.6",
+      "scipy": "1.16.2",
+      "f1chexbert": "0.0.2",
+      "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.39"
+    },
+    "inputs": {
+      "data/e-split/003-iu-split-manifest.v1.json": "8550a81f9285eb3bab2c6d4c6fdc054eaee1a8c590aac17b310c40932b9cd1cd",
+      "source-tree/003-medical-report-gen/data/iu_xray_manifest.jsonl": "6e8a728840e6ad30412c9695eb07f4b1d82711c9140d43f81ace76015e1f960d",
+      "source-tree/003-type-r-unblock-and-underpowered-pilot/tex/generated_numbers.tex": "8a5eb3fc9f21f224114513b1c5275569f88754dec220056d5a37ca67721c7caa",
+      "data/e-controls/iu_chexbert_control_baselines.json": "1d64a6eeb89722d02ec22671a10e004c98e91e750b2734e0f4aaf241daeeb8a2"
+    },
+    "label_legend": {
+      "1": "positive/present",
+      "0": "negative/absent",
+      "-1": "uncertain",
+      "2": "blank/not mentioned"
+    },
+    "official_r": false,
+    "not_official_r": true,
+    "chexbench_type_r": "forbidden",
+    "evidence_score_delta": 0
+  }
+}

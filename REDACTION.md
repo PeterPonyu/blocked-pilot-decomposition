@@ -54,3 +54,7 @@ checks.
 | `data/e-majority/naive.json` | 1 | 0 | `21c4b64cda7cfb90…` | `bbd757064bb6366c…` |
 | `data/e-harness/paper_measurement_iu_harness.json` | 1 | 0 | `b8dd79a6dc313cc2…` | `7fde6811101d92b8…` |
 | `data/e-primary/paper_primary.json` | 1 | 0 | `85c7bbd6cb5bd9a6…` | `d8d228267e044fc3…` |
+| `data/e-battery/battery.json` | 9 | 0 | `18f5f05bf3908de4…` | `4fbae4864f7be134…` |
+| `data/e-controls-333/controls_333.json` | 12 | 0 | `644872c3a1d33f3b…` | `ed1bdbdc3d50bd6c…` |
+| `data/e-gold-ablation/gold_placeholder_ablation.json` | 10 | 0 | `530c949d97f8436e…` | `eca24590238e2d14…` |
+| `data/e-audit-receipt/RECEIPT.json` | 18 | 3 | `40664079cc4d4a26…` | `da16f78bdeffa705…` |

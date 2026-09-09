@@ -37,6 +37,10 @@ controls <- read_bound$json("E-CONTROLS")
 retrieval_surface <- read_bound$json("E-RETRIEVAL")
 majority_surface <- read_bound$json("E-MAJORITY")
 harness <- read_bound$json("E-HARNESS")
+battery <- read_bound$json("E-BATTERY")
+controls_333 <- read_bound$json("E-CONTROLS-333")
+gold_ablation <- read_bound$json("E-GOLD-ABLATION")
+audit_receipt <- read_bound$json("E-AUDIT-RECEIPT")
 
 ## ---------------------------------------------------------------------------
 ## The three quantities everything else is built from.
@@ -142,13 +146,144 @@ if (nrow(scored) == 0) stop("no finding cleared the presence gate; the pilot has
 assert_gate_is(per_finding, MIN_PRESENT)
 
 ## ---------------------------------------------------------------------------
+## Labeller battery, full-split controls, gold-placeholder ablation.
+## Every printed quantity below is stop()'d against a named field.
+## ---------------------------------------------------------------------------
+
+as_chr <- function(x) {
+  if (is.null(x) || length(x) == 0) character(0) else as.character(unlist(x, use.names = FALSE))
+}
+
+chex_word <- function(code) {
+  code <- as.integer(code)
+  if (identical(code, 1L)) return("positive")
+  if (identical(code, 0L)) return("negative")
+  if (identical(code, -1L)) return("uncertain")
+  if (identical(code, 2L)) return("blank")
+  stop("unrecognised CheXbert code ", code)
+}
+
+finding_node <- function(per_finding, name) {
+  node <- per_finding[[name]]
+  if (is.null(node) && is.data.frame(per_finding) && name %in% rownames(per_finding)) {
+    node <- as.list(per_finding[name, , drop = TRUE])
+  }
+  if (is.null(node)) stop("per_finding is missing ", name)
+  node
+}
+
+field_int <- function(node, field, owner) {
+  value <- node[[field]]
+  if (length(value) != 1L || is.na(as.integer(value))) {
+    stop(owner, " field ", field, " is missing or not a single integer")
+  }
+  as.integer(value)
+}
+
+if (is.null(audit_receipt$outputs[["battery.json"]]) ||
+    is.null(audit_receipt$outputs[["controls_333.json"]]) ||
+    is.null(audit_receipt$outputs[["gold_placeholder_ablation.json"]])) {
+  stop("RECEIPT.json outputs is missing battery.json, controls_333.json, or gold_placeholder_ablation.json")
+}
+
+if (!identical(as.integer(battery$n_strings), 74L)) {
+  stop("n_strings is ", battery$n_strings, "; expected 74")
+}
+
+ablation <- battery$summary$template_ablation
+raw_pos <- as_chr(ablation$template_raw$flags$positives)
+if (!identical(raw_pos, "Cardiomegaly")) {
+  stop("template_raw positives are [", paste(raw_pos, collapse = ", "),
+       "]; expected [Cardiomegaly]")
+}
+if ("No Finding" %in% raw_pos || isTRUE(ablation$template_raw$flags$no_finding)) {
+  stop("template_raw No Finding is asserted; it must not be")
+}
+
+minus_pos <- as_chr(ablation$template_minus_first_sentence$flags$positives)
+if (!identical(minus_pos, "No Finding")) {
+  stop("template_minus_first_sentence positives are [", paste(minus_pos, collapse = ", "),
+       "]; expected [No Finding]")
+}
+
+ph_flags <- ablation$template_placeholder_removed$flags
+if (!isTRUE(ph_flags$asserts_cardiomegaly) || !("Cardiomegaly" %in% as_chr(ph_flags$positives))) {
+  stop("template_placeholder_removed is not still Cardiomegaly positive")
+}
+if (!identical(as.logical(ablation$removing_placeholder_flips_template_to_no_finding), FALSE)) {
+  stop("removing_placeholder_flips_template_to_no_finding is ",
+       ablation$removing_placeholder_flips_template_to_no_finding, "; expected false")
+}
+
+plausible <- c("remained stable", "not changed", "no change", "been stable", "[MASK]")
+repl <- ablation$first_sentence_replacements
+for (word in plausible) {
+  cardio <- repl[[word]]$labels[["Cardiomegaly"]]
+  if (!identical(as.integer(cardio), -1L)) {
+    stop("first_sentence_replacements '", word, "' Cardiomegaly is ",
+         cardio, "; expected -1")
+  }
+}
+
+if (!identical(as.integer(controls_333$gold$n_scorable), 9L)) {
+  stop("n_scorable is ", controls_333$gold$n_scorable, "; expected 9")
+}
+if (!identical(as.integer(controls_333$presence_gate), 5L)) {
+  stop("presence_gate is ", controls_333$presence_gate, "; expected 5")
+}
+if (!identical(as.integer(controls_333$n), 333L)) {
+  stop("controls_333 n is ", controls_333$n, "; expected 333")
+}
+if (!isTRUE(controls_333$reproduction_check_32$reproduces_iu_chexbert_control_baselines_exactly)) {
+  stop("reproduction_check_32.reproduces_iu_chexbert_control_baselines_exactly is not true")
+}
+
+maj_cardio <- finding_node(controls_333$majority$per_finding, "Cardiomegaly")
+if (!identical(field_int(maj_cardio, "n_hit", "majority Cardiomegaly n_hit"), 41L) ||
+    !identical(field_int(maj_cardio, "n_present", "majority Cardiomegaly n_present"), 41L)) {
+  stop("majority Cardiomegaly n_hit/n_present are ",
+       maj_cardio$n_hit, "/", maj_cardio$n_present, "; expected 41/41")
+}
+if (!identical(field_int(maj_cardio, "n_pred_present", "majority Cardiomegaly n_pred_present"), 333L)) {
+  stop("majority Cardiomegaly n_pred_present is ", maj_cardio$n_pred_present, "; expected 333")
+}
+
+if (!identical(as.integer(gold_ablation$n_texts_with_placeholder), 143L)) {
+  stop("n_texts_with_placeholder is ", gold_ablation$n_texts_with_placeholder, "; expected 143")
+}
+if (!identical(as.integer(gold_ablation$summary$rows_with_any_label_change), 16L)) {
+  stop("rows_with_any_label_change is ", gold_ablation$summary$rows_with_any_label_change,
+       "; expected 16")
+}
+if (!isTRUE(gold_ablation$reproduction_check$recomputed_raw_prevalence_matches_existing_exactly)) {
+  stop("recomputed_raw_prevalence_matches_existing_exactly is not true")
+}
+
+gold_pf <- gold_ablation$per_finding
+if (is.data.frame(gold_pf) && "delta_present" %in% names(gold_pf)) {
+  max_abs_delta <- max(abs(as.numeric(gold_pf$delta_present)))
+  lo_any <- as.integer(gold_pf[["Lung Opacity", "any_state_change"]])
+} else {
+  max_abs_delta <- max(vapply(gold_pf, function(node) abs(as.numeric(node$delta_present)), numeric(1)))
+  lo_any <- as.integer(gold_pf[["Lung Opacity"]]$any_state_change)
+}
+if (!identical(as.integer(max_abs_delta), 1L)) {
+  stop("max |delta_present| over findings is ", max_abs_delta, "; expected 1")
+}
+if (!identical(lo_any, 6L)) {
+  stop("per_finding Lung Opacity any_state_change is ", lo_any, "; expected 6")
+}
+
+plausible_one <- repl[["remained stable"]]
+
+## ---------------------------------------------------------------------------
 ## Figures. Each panel reads the objects above and writes one file.
 ## ---------------------------------------------------------------------------
 
 for (unit in c("fig0_three_reasons.R", "fig1_access_locks.R", "fig2_permissions.R",
                "fig3_required_rows.R", "fig4_draw_vs_split.R",
                "fig5_control_assertions.R", "fig6_scored_cells.R",
-               "fig7_label_states.R")) {
+               "fig7_label_states.R", "fig8_prevalence_sampling_ceiling.R")) {
   source(file.path("figs", "panels", unit))
 }
 
@@ -238,7 +373,21 @@ write_generated(c(
   macro("BlockerDate", substr(blocker$written_utc, 1, 10)),
   macro("SelectionSalt", heldout$selection_salt),
   macro("NEvidence", nrow(manifest$entries)),
-  macro("EvidenceBytes", format(sum(manifest$entries$bytes), big.mark = ","))
+  macro("EvidenceBytes", format(sum(manifest$entries$bytes), big.mark = ",")),
+  macro("BatteryRawPositive", "Cardiomegaly"),
+  macro("BatteryMinusFirst", "No Finding"),
+  macro("BatteryPlaceholderFlips", "does not"),
+  macro("BatteryPlausibleUncertain", "five"),
+  macro("BatteryN", as.integer(battery$n_strings)),
+  macro("FullSplitScorable", as.integer(controls_333$gold$n_scorable)),
+  macro("FullSplitN", as.integer(controls_333$n)),
+  macro("FullSplitReproduces", "reproduces"),
+  macro("FullSplitMajCardioHit", field_int(maj_cardio, "n_hit", "majority Cardiomegaly n_hit")),
+  macro("FullSplitMajCardioPred", field_int(maj_cardio, "n_pred_present", "majority Cardiomegaly n_pred_present")),
+  macro("GoldPlaceholderTexts", as.integer(gold_ablation$n_texts_with_placeholder)),
+  macro("GoldRowsChanged", as.integer(gold_ablation$summary$rows_with_any_label_change)),
+  macro("GoldMaxDeltaPresent", as.integer(max_abs_delta)),
+  macro("GoldLungOpacityAnyState", lo_any)
 ), "generated_numbers.tex")
 
 ## Every observation in the schema, with what it would take to score it.
@@ -317,5 +466,26 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_scored.tex")
 
-message(sprintf("wrote 8 figures to figs/out and 5 generated tex files to tex/ (%d of %d observations scored)",
+battery_rows <- list(
+  list(name = "template, as written", node = ablation$template_raw),
+  list(name = "placeholder token removed", node = ablation$template_placeholder_removed),
+  list(name = "first sentence deleted", node = ablation$template_minus_first_sentence),
+  list(name = "first sentence alone", node = ablation$first_sentence_alone),
+  list(name = "plausible English (remained stable)", node = plausible_one)
+)
+write_generated(c(
+  "\\begin{tabular}{lll}",
+  "\\toprule",
+  "String variant & Cardiomegaly & No Finding \\\\",
+  "\\midrule",
+  vapply(battery_rows, function(row) {
+    paste0(row$name, " & ",
+           chex_word(row$node$labels[["Cardiomegaly"]]), " & ",
+           chex_word(row$node$labels[["No Finding"]]), " \\\\")
+  }, character(1)),
+  "\\bottomrule",
+  "\\end{tabular}"
+), "generated_table_battery.tex")
+
+message(sprintf("wrote 9 figures to figs/out and 6 generated tex files to tex/ (%d of %d observations scored)",
                 nrow(scored), nrow(per_finding)))

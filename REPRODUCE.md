@@ -21,6 +21,10 @@ the build instead of producing a stale number.
 | `data/e-majority/naive.json` | derived_table | 896 | `bbd757064bb6366c…` |
 | `data/e-harness/paper_measurement_iu_harness.json` | recorded_state | 468 | `7fde6811101d92b8…` |
 | `data/e-primary/paper_primary.json` | recorded_state | 548 | `d8d228267e044fc3…` |
+| `data/e-battery/battery.json` | derived_table | 96222 | `4fbae4864f7be134…` |
+| `data/e-controls-333/controls_333.json` | derived_table | 232193 | `ed1bdbdc3d50bd6c…` |
+| `data/e-gold-ablation/gold_placeholder_ablation.json` | derived_table | 167117 | `eca24590238e2d14…` |
+| `data/e-audit-receipt/RECEIPT.json` | receipt | 5099 | `da16f78bdeffa705…` |
 
 Some of these files recorded the paths of the machine that produced them. Those path strings and source links were refreshed before deposit; `REDACTION.md` states the rules, lists every file touched with both digests, and describes the check that proves no number changed.
 

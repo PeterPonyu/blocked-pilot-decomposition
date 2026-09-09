@@ -35,7 +35,13 @@ evidence_reader <- function(manifest, repo_root) {
     if (!identical(actual, row$sha256[[1]])) stop("bound evidence drifted on disk: ", id)
     path
   }
-  list(json = function(id) jsonlite::fromJSON(bound_path(id), simplifyVector = TRUE))
+  list(json = function(id) {
+    # Bound control tables record IEEE NaN/Infinity for undefined odds ratios.
+    # jsonlite rejects those tokens, so replace them after the digest check.
+    txt <- paste(readLines(bound_path(id), warn = FALSE), collapse = "\n")
+    txt <- gsub("\\b-?Infinity\\b", "null", gsub("\\bNaN\\b", "null", txt))
+    jsonlite::fromJSON(txt, simplifyVector = TRUE)
+  })
 }
 
 # The manifest, as an appendix table.
