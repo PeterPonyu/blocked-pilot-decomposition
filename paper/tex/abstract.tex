@@ -1,29 +1,30 @@
 %% Self-contained. No \ref, no \cref, no section numbers, no "see above".
 %% One falsifiable question, the bounded answer, and the scope it does not leave.
 
-A blocked project can hide administrative, statistical, and
-instrumental obstacles behind one verdict. We audit a chest-radiograph
-report-generation pilot and separate those obstacles. The intended benchmark
-is contact-gated: the project records \NLocks{} locks, comprising
-\NPermissionLocks{} permission locks, \NArtifactLocks{} missing evaluation
-artifact, and \NSubstitutionLocks{} refusals to score a local corpus under the
-benchmark's name. None is removed by computation: the permission locks were never submitted,
-and the record predates any compute provisioning.
+We audit a chest-radiograph report-generation pilot that did not reach its
+intended benchmark and separate its administrative, statistical, and
+instrumental obstacles. The benchmark is contact-gated: the project recorded
+\NLocks{} access locks, comprising \NPermissionLocks{} permissions,
+\NArtifactLocks{} evaluation artifact that arrives with the first permission,
+and \NSubstitutionLocks{} self-imposed refusals to score a local corpus under
+the benchmark's name. The permission requests were never submitted, the record
+predates compute provisioning, and computation removes none of the locks.
 
-The statistical limits are distinct. For \NExceedSplit{} of \NFindings{}
+The statistical limits are separate. For \NExceedSplit{} of \NFindings{}
 labelled findings, a draw would need more reports than the frozen
 \NTest{}-report split before it is expected to contain \MinPresent{} positives.
-The pre-registered cohort of \NCohort{} reports instead contains
-\SkewObserved{} \SkewFinding{} positives versus \SkewExpected{} expected
-(exact two-sided probability \SkewP{}, threshold \Bonferroni{}), and only
-\NScored{} of \NFindings{} observations clear the presence gate.
-\NUnderpowered{} of \NFindings{} observations are underpowered and receive no rate.
-On those scored cells both controls fail: the constant report misses every gold
-positive, while the retrieval control misses \RetMissedOne{} and
-\RetMissedTwo{} findings, with one-sided 90\% upper limits
-\RetUpperOne{} and \RetUpperTwo{}. The constant report is not a trivial floor:
-the automatic labeller marks it \MajAsserted{} on all \NCohort{} rows and never
-marks the no-finding observation. Surface-text F1 of \SurfaceRetrievalF{} and
-\SurfaceMajorityF{} does not repair the blocked benchmark.
+The pre-registered draw of \NCohort{} reports contains \SkewObserved{}
+\SkewFinding{} positives against \SkewExpected{} expected (exact two-sided
+probability \SkewP{}, threshold \Bonferroni{}); \NScored{} of \NFindings{}
+observations clear the presence gate and \NUnderpowered{} are reported as
+underpowered without a rate. On the scored cells the constant report misses
+every gold positive and the retrieval control misses \RetMissedOne{} and
+\RetMissedTwo{}, with one-sided 90\% upper limits \RetUpperOne{} and
+\RetUpperTwo{}. The automatic labeller reads the constant report as
+\MajAsserted{} on all \NCohort{} rows and never as the no-finding
+observation, so the majority floor is the labeller's reading of one string;
+surface-text F1 of \SurfaceRetrievalF{} and \SurfaceMajorityF{} carries none
+of it.
 
-The contribution is an obstacle inventory for this contact-gated, statistically bounded report-generation pilot.
+The contributions are the obstacle inventory, the registered draw with
+expected counts, and the labeller-reading result.

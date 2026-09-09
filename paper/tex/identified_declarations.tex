@@ -1,0 +1,53 @@
+%% Declarations printed only in the identified build.  body.tex reads this file
+%% inside the \else branch of \ifdefined\ANONYMOUS, so the blind copy compiled
+%% with \def\ANONYMOUS{1} never sees it; the blind copy prints one short
+%% subsection pointing to the separately submitted title page instead.  The statements
+%% that identify nobody (availability, ethics, consent, generative-AI use) are
+%% in body.tex and reach both builds.
+%%
+%% Every statement the repository holds no record for is draft-only under
+%% ruling R15 (2026-09-09): it is kept in an \ownertodo{...} inside
+%% \ifdefined\DRAFTTODO, prints in NO packet PDF, and appears only in a draft
+%% build that defines \DRAFTTODO.  The owner supplies the confirmed sentence
+%% before the corresponding review row (ETHICS_CONSENT_AND_DATA_RIGHTS,
+%% AUTHORS_AND_AFFILIATIONS) is signed.
+%% Funding and competing interests are the exception (ruling R16, 2026-09-09):
+%% their wording is adopted from the owner's packaging script
+%% (scripts/build_springer_submission_package.py), shipped in every packet
+%% since 2026-08-28, and prints here; FUNDING_AND_CONFLICTS stays OPEN for the
+%% owner's final read.  \ownertodo is defined in captions.tex.
+%%
+%% Not named declarations.tex: scripts/build_springer_submission_package.py
+%% writes its own declarations.tex into the flattened source, and the two must
+%% not collide.
+
+\subsection*{Funding}
+
+No external funding was received for this study.
+
+\subsection*{Competing interests}
+
+The author declares that they have no competing financial or non-financial
+interests that are directly or indirectly related to the work submitted for
+publication.
+
+\ifdefined\DRAFTTODO
+\subsection*{Institutional ethics determination}
+
+\ownertodo{state whether Army Medical University requires an ethics-committee
+exemption or a not-applicable determination for this secondary analysis of a
+public de-identified corpus; the project files contain no such record, and the
+corpus's licence terms are not filed in the paper tree.}
+\fi
+
+\subsection*{Author contributions}
+
+Zeyu Fu: conceptualization, methodology, software, validation, formal
+analysis, investigation, visualization, writing---original draft, and
+writing---review and editing.
+
+\ifdefined\DRAFTTODO
+\subsection*{Acknowledgements}
+
+\ownertodo{acknowledgements, if any; none are recorded in the project files.}
+\fi

@@ -1,9 +1,16 @@
+%% Draft-only owner placeholder (ruling R15, 2026-09-09). Prints ONLY when the
+%% build defines \DRAFTTODO (e.g. pdflatex "\def\DRAFTTODO{1}\input{main}");
+%% every packet build leaves it undefined, so no unconfirmed declaration text
+%% reaches a PDF. The owner replaces each use with the confirmed sentence.
+\providecommand{\ownertodo}[1]{\ifdefined\DRAFTTODO[TODO-OWNER: #1]\fi}
+
 %% Independent caption file. Every caption is self-contained: readable without
 %% the body text, without cross-references, and without float numbers.
 
 \newcommand{\CapReasons}{%
-The three reasons the vanished pilot cannot answer its own question, placed
-side by side so they cannot be collapsed into one verdict. The Permission
+The three separable reasons the pilot stopped short of its own question,
+placed side by side so that they are read as three records rather than one
+verdict. The Permission
 panel restates the \NPermissionLocks{} approvals a person or an institution
 must grant. The Prevalence panel restates the prevalence arithmetic:
 \NExceedSplit{} of the \NFindings{} findings need more reports than the
@@ -140,7 +147,7 @@ upper limit on that share, which is the honest width at these counts rather than
 a decoration. The majority control misses every positive in both cells, so its
 point sits at one and its interval has nowhere to extend. The retrieval control
 does better in both cells, and its upper limits still reach close enough to one
-that near-total failure cannot be excluded from these data. Both cells hold
+that these data remain consistent with near-total failure. Both cells hold
 fewer than fifteen positives, and the intervals are wide for that reason and not
 for any other. The horizontal rule at one is the logical maximum miss rate; a
 point at one is complete miss, not an unobserved cell.%
