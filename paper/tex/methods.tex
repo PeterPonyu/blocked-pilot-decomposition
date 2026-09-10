@@ -140,6 +140,15 @@ control failed to assert. The denominator is therefore the observed
 gold-positive count in \(C\), not \(|C|\), \(|S|\), or the number of files on
 disk. No \(\widehat q_f\) is defined when \(K_f<\MinPresent{}\).
 
+The source design asked for a coverage--risk curve over abstention rates.
+The bound control tables record a single coverage of the labelled draw and
+no ranking that would order reports for intermediate abstention. Only the
+\NCoverageRiskPoints{} cells with \(K_f\geq\MinPresent{}\) can contribute a
+point, and each point is \(\widehat q_f\) at coverage
+\CoverageRiskCoverage{}. A curve is therefore not drawn. The same tables
+record the contact-gated evaluation as \TypeRBound{}; no score is computed
+or printed under that name.
+
 The same two controls also exist scored a different way, on surface text over the
 whole test split rather than in label space on the subsample, using exact match
 and unigram token F1. Those numbers are reported here only as a contrast, and

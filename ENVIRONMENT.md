@@ -1,6 +1,6 @@
 # runtime-snapshot/v1
 
-Captured UTC: `2026-09-10T00:09:16Z`
+Captured UTC: `2026-09-10T15:47:34Z`
 
 This file records the interpreter, typesetter and R package versions available when the export was assembled. It does not install them.
 

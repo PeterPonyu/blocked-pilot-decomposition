@@ -494,6 +494,13 @@ that misses essentially every positive. Two cells with \ScoredOnePresent{} and
 fifths of positives from one that misses all of them, and reporting the point
 estimates without the limits would suggest otherwise.
 
+Those two miss rates are also the only coverage--risk points the registered
+draw can support (Table~\ref{tab:coverage-risk}). Each sits at coverage
+\CoverageRiskCoverage{} of the labelled rows. The bound control tables
+record no ranking that would order reports for intermediate abstention
+(\CoverageRiskRanking{}), so a curve over abstention rates is not defined
+from these bytes and is not drawn.
+
 The same controls were later scored on the frozen \FullSplitN{}-report split,
 after the registered analysis was frozen, as a post-hoc check. On the full
 split \FullSplitScorable{} of the \NFindings{} findings clear the presence gate
@@ -505,6 +512,36 @@ asserts Cardiomegaly on all \FullSplitMajCardioPred{} rows. By design the
 the labeller marks the constant string \MajAsserted{} on all \NCohort{} rows;
 that count is unchanged, and the \FullSplitN{}-row scoring is reported as the
 check it is rather than as a replacement.
+
+Table~\ref{tab:scored-333} prints the leftover miss rates on those
+\FullSplitScorable{} post-hoc cells. The constant report misses every gold
+positive on \FullSplitMajMissAll{} of them and misses none of the
+\FullSplitMajCardioHit{} Cardiomegaly positives, because it asserts
+Cardiomegaly on all \FullSplitMajCardioPred{} rows. Retrieval misses
+\FullSplitRetLungOpMiss{} of \SkewSplitPresent{} Lung Opacity positives
+(rate \FullSplitRetLungOpMissRate{}) and \FullSplitRetNoFindMiss{} of
+\ScoredTwoSplit{} No Finding positives (rate \FullSplitRetNoFindMissRate{});
+on Cardiomegaly it misses \FullSplitRetCardioMiss{} of
+\FullSplitMajCardioHit{} (rate \FullSplitRetCardioMissRate{}), which is the
+cell where the constant vector looks like a hit only because it asserts the
+label everywhere. \NFullSplitUnderpowered{} findings remain underpowered on
+the full split and receive no rate. None of these numbers replaces the
+registered \NCohort{}-row analysis.
+
+\begin{table}[tbp]
+\centering
+\caption{Post-hoc scoring of the same two controls on the frozen
+\FullSplitN{}-report test split, after the registered \NCohort{}-report
+analysis was frozen. \FullSplitScorable{} findings clear the presence gate of
+\MinPresent{} gold positives; \NFullSplitUnderpowered{} remain underpowered
+and receive no rate. Intervals are the two-sided \(95\%\) Clopper--Pearson
+limits stored on the bound full-split table. The constant majority report
+misses every gold positive except Cardiomegaly, which it asserts on every
+row. This table does not replace the registered \NCohort{}-report analysis.}
+\label{tab:scored-333}
+\small
+\input{generated_table_scored_333}
+\end{table}
 
 \subsection{The same controls scored on surface text}
 
@@ -544,6 +581,14 @@ indication text is nearest by TF--IDF cosine similarity.}
 \label{tab:scored}
 \small
 \input{generated_table_scored}
+\end{table}
+
+\begin{table}[tbp]
+\centering
+\caption{\CapCoverageRisk}
+\label{tab:coverage-risk}
+\small
+\input{generated_table_coverage_risk}
 \end{table}
 
 \begin{figure}[tbp]
@@ -624,7 +669,11 @@ number.
 
 Cells below the presence gate receive no rate, interval, or direction. Of the
 \NFindings{} observations, \NUnderpowered{} are reported as underpowered and
-are left there.
+are left there. The registered coverage--risk curve is not drawn: only
+\NCoverageRiskPoints{} cells can contribute a point, each at coverage
+\CoverageRiskCoverage{}, and the bound tables record no ranking
+(\CoverageRiskRanking{}). The contact-gated evaluation remains
+\TypeRBound{} on those same tables.
 
 \section{Conclusion}
 

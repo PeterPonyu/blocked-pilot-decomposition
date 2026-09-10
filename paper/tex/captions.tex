@@ -143,6 +143,19 @@ for any other. The horizontal rule at one is the logical maximum miss rate; a
 point at one is complete miss, not an unobserved cell.%
 }
 
+\newcommand{\CapCoverageRisk}{%
+The only coverage--risk points the pre-registered \NCohort{}-report draw
+can support. \NCoverageRiskPoints{} findings clear the presence gate of
+\MinPresent{} gold positives; each contributes one point at coverage
+\CoverageRiskCoverage{}, which is the miss rate already reported for that
+control. The bound control tables record no ranking that would order
+reports for intermediate abstention (\CoverageRiskRanking{}), so a curve
+over abstention rates is not defined from these bytes and is not drawn.
+Risk is the share of gold positives the control failed to assert. These
+are the registered-draw points, not a replacement by the later full-split
+scoring.%
+}
+
 \newcommand{\CapBatteryTable}{%
 How the released CheXbert checkpoint labels five controlled variants of
 the constant majority-report template, for Cardiomegaly and for No

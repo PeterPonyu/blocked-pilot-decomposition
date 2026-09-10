@@ -180,6 +180,40 @@ field_int <- function(node, field, owner) {
   as.integer(value)
 }
 
+field_chr <- function(node, field, owner) {
+  value <- node[[field]]
+  if (length(value) != 1L || is.na(as.character(value))) {
+    stop(owner, " field ", field, " is missing or not a single string")
+  }
+  as.character(value)
+}
+
+cp_two_sided <- function(node, field, owner) {
+  value <- node[[field]]
+  nums <- as.numeric(unlist(value, use.names = FALSE))
+  if (length(nums) != 2L || anyNA(nums)) {
+    stop(owner, " field ", field, " is not a length-2 numeric interval")
+  }
+  nums
+}
+
+fmt_interval <- function(lo, hi) {
+  paste0("[", fmt(lo), ", ", fmt(hi), "]")
+}
+
+# A coverage-risk curve needs a ranking that orders which reports to drop.
+# The bound control tables record only a single coverage of the labelled
+# draw. If a ranking field appears later, the "curve not drawn" reading
+# would be false and the build must stop.
+RANKING_KEYS <- c("ranking", "rank", "confidence", "abstain", "abstention",
+                  "coverage_risk", "risk_curve", "cosine_per_row",
+                  "per_row_score")
+has_ranking_field <- function(obj) {
+  nms <- names(obj)
+  if (is.null(nms)) return(FALSE)
+  any(tolower(nms) %in% RANKING_KEYS)
+}
+
 if (is.null(audit_receipt$outputs[["battery.json"]]) ||
     is.null(audit_receipt$outputs[["controls_333.json"]]) ||
     is.null(audit_receipt$outputs[["gold_placeholder_ablation.json"]])) {
@@ -246,6 +280,91 @@ if (!identical(field_int(maj_cardio, "n_hit", "majority Cardiomegaly n_hit"), 41
 }
 if (!identical(field_int(maj_cardio, "n_pred_present", "majority Cardiomegaly n_pred_present"), 333L)) {
   stop("majority Cardiomegaly n_pred_present is ", maj_cardio$n_pred_present, "; expected 333")
+}
+
+if (has_ranking_field(controls) || has_ranking_field(controls$majority) ||
+    has_ranking_field(controls$retrieval) || has_ranking_field(controls_333) ||
+    has_ranking_field(controls_333$majority) ||
+    has_ranking_field(controls_333$retrieval)) {
+  stop("a ranking or abstention field appeared on a bound control table")
+}
+if (!identical(as.character(controls$chexbench_type_r), "forbidden") ||
+    isTRUE(controls$official_r) ||
+    as.numeric(controls$evidence_score_delta) != 0) {
+  stop("E-CONTROLS Type-R flags drifted from forbidden / unofficial / delta 0")
+}
+
+scored_333_names <- as_chr(controls_333$gold$scorable_findings_ge5_positives)
+if (length(scored_333_names) != 9L) {
+  stop("scorable_findings_ge5_positives has ", length(scored_333_names), "; expected 9")
+}
+
+n_333_under <- 0L
+n_333_maj_miss_all <- 0L
+scored_333 <- do.call(rbind, lapply(scored_333_names, function(f) {
+  maj <- finding_node(controls_333$majority$per_finding, f)
+  ret <- finding_node(controls_333$retrieval$per_finding, f)
+  gold_n <- as.integer(controls_333$gold$present_counts[[f]])
+  if (length(gold_n) != 1L || is.na(gold_n)) {
+    stop("gold present_counts missing ", f)
+  }
+  maj_n <- field_int(maj, "n_present", paste("333 majority", f))
+  ret_n <- field_int(ret, "n_present", paste("333 retrieval", f))
+  if (!identical(maj_n, ret_n) || !identical(maj_n, gold_n)) {
+    stop("333 n_present disagreement for ", f, ": majority ", maj_n,
+         ", retrieval ", ret_n, ", gold ", gold_n)
+  }
+  if (!identical(field_chr(maj, "status", paste("333 majority", f)), "scored") ||
+      !identical(field_chr(ret, "status", paste("333 retrieval", f)), "scored")) {
+    stop("333 scored list includes a non-scored cell: ", f)
+  }
+  maj_miss <- field_int(maj, "n_miss", paste("333 majority", f))
+  ret_miss <- field_int(ret, "n_miss", paste("333 retrieval", f))
+  maj_ci <- cp_two_sided(maj, "miss_rate_cp95_two_sided", paste("333 majority", f))
+  ret_ci <- cp_two_sided(ret, "miss_rate_cp95_two_sided", paste("333 retrieval", f))
+  data.frame(
+    finding = f,
+    n_present = gold_n,
+    maj_miss = maj_miss,
+    maj_rate = as.numeric(maj$miss_rate),
+    maj_lo = maj_ci[[1]],
+    maj_hi = maj_ci[[2]],
+    ret_miss = ret_miss,
+    ret_rate = as.numeric(ret$miss_rate),
+    ret_lo = ret_ci[[1]],
+    ret_hi = ret_ci[[2]],
+    stringsAsFactors = FALSE
+  )
+}))
+
+for (f in findings) {
+  maj <- finding_node(controls_333$majority$per_finding, f)
+  if (identical(field_chr(maj, "status", paste("333 majority", f)), "underpowered")) {
+    n_333_under <- n_333_under + 1L
+  }
+}
+n_333_maj_miss_all <- sum(scored_333$maj_miss == scored_333$n_present)
+if (!identical(n_333_under, 5L)) {
+  stop("333 underpowered count is ", n_333_under, "; expected 5")
+}
+if (!identical(as.integer(n_333_maj_miss_all), 8L)) {
+  stop("333 majority miss-all scored cells is ", n_333_maj_miss_all, "; expected 8")
+}
+if (nrow(scored) != 2L) {
+  stop("registered scored cells are ", nrow(scored), "; expected 2")
+}
+
+lo_333 <- scored_333[scored_333$finding == "Lung Opacity", ]
+nf_333 <- scored_333[scored_333$finding == "No Finding", ]
+cm_333 <- scored_333[scored_333$finding == "Cardiomegaly", ]
+if (nrow(lo_333) != 1L || nrow(nf_333) != 1L || nrow(cm_333) != 1L) {
+  stop("333 scored table is missing Lung Opacity, No Finding, or Cardiomegaly")
+}
+if (!identical(as.integer(lo_333$ret_miss), 40L) ||
+    !identical(as.integer(nf_333$ret_miss), 91L) ||
+    !identical(as.integer(cm_333$ret_miss), 30L) ||
+    !identical(as.integer(cm_333$maj_miss), 0L)) {
+  stop("333 leftover miss counts drifted from the bound receipt")
 }
 
 if (!identical(as.integer(gold_ablation$n_texts_with_placeholder), 143L)) {
@@ -387,7 +506,19 @@ write_generated(c(
   macro("GoldPlaceholderTexts", as.integer(gold_ablation$n_texts_with_placeholder)),
   macro("GoldRowsChanged", as.integer(gold_ablation$summary$rows_with_any_label_change)),
   macro("GoldMaxDeltaPresent", as.integer(max_abs_delta)),
-  macro("GoldLungOpacityAnyState", lo_any)
+  macro("GoldLungOpacityAnyState", lo_any),
+  macro("NCoverageRiskPoints", nrow(scored)),
+  macro("CoverageRiskCoverage", "1"),
+  macro("CoverageRiskRanking", "none recorded"),
+  macro("NFullSplitUnderpowered", n_333_under),
+  macro("FullSplitMajMissAll", n_333_maj_miss_all),
+  macro("FullSplitRetLungOpMiss", lo_333$ret_miss),
+  macro("FullSplitRetLungOpMissRate", fmt(lo_333$ret_rate)),
+  macro("FullSplitRetNoFindMiss", nf_333$ret_miss),
+  macro("FullSplitRetNoFindMissRate", fmt(nf_333$ret_rate)),
+  macro("FullSplitRetCardioMiss", cm_333$ret_miss),
+  macro("FullSplitRetCardioMissRate", fmt(cm_333$ret_rate)),
+  macro("TypeRBound", "forbidden")
 ), "generated_numbers.tex")
 
 ## Every observation in the schema, with what it would take to score it.
@@ -466,6 +597,55 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_scored.tex")
 
+## The only coverage-risk points the registered draw can support. A curve
+## is not drawn: two cells, coverage 1, no ranking.
+
+write_generated(c(
+  "\\begingroup",
+  "\\setlength{\\tabcolsep}{5pt}",
+  "\\begin{tabular}{llrlll}",
+  "\\toprule",
+  "Observation & Control & Gold positives & Coverage & Risk & Ranking \\\\",
+  "\\midrule",
+  unlist(lapply(seq_len(nrow(scored)), function(i) c(
+    paste0(short_name(scored$finding[i]), " & Majority template & ",
+           scored$n_present[i], " & ",
+           "1 & ", fmt(scored$maj_rate[i]), " & none recorded \\\\"),
+    paste0(" & Indication retrieval & ",
+           scored$n_present[i], " & ",
+           "1 & ", fmt(scored$ret_rate[i]), " & none recorded \\\\")
+  ))),
+  "\\bottomrule",
+  "\\end{tabular}",
+  "\\endgroup"
+), "generated_table_coverage_risk.tex")
+
+## Post-hoc 333-row scored cells. Does not replace the registered 32-row table.
+
+write_generated(c(
+  "\\begingroup",
+  "\\setlength{\\tabcolsep}{4pt}",
+  "\\begin{tabular}{llrrrl}",
+  "\\toprule",
+  "Observation & Control & Gold positives & Missed & Miss rate & 95\\% interval \\\\",
+  "\\midrule",
+  unlist(lapply(seq_len(nrow(scored_333)), function(i) c(
+    paste0(short_name(scored_333$finding[i]), " & Majority template & ",
+           scored_333$n_present[i], " & ",
+           scored_333$maj_miss[i], " & ",
+           fmt(scored_333$maj_rate[i]), " & ",
+           fmt_interval(scored_333$maj_lo[i], scored_333$maj_hi[i]), " \\\\"),
+    paste0(" & Indication retrieval & ",
+           scored_333$n_present[i], " & ",
+           scored_333$ret_miss[i], " & ",
+           fmt(scored_333$ret_rate[i]), " & ",
+           fmt_interval(scored_333$ret_lo[i], scored_333$ret_hi[i]), " \\\\")
+  ))),
+  "\\bottomrule",
+  "\\end{tabular}",
+  "\\endgroup"
+), "generated_table_scored_333.tex")
+
 battery_rows <- list(
   list(name = "template, as written", node = ablation$template_raw),
   list(name = "placeholder token removed", node = ablation$template_placeholder_removed),
@@ -487,5 +667,5 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_battery.tex")
 
-message(sprintf("wrote 9 figures to figs/out and 6 generated tex files to tex/ (%d of %d observations scored)",
+message(sprintf("wrote 9 figures to figs/out and 8 generated tex files to tex/ (%d of %d observations scored)",
                 nrow(scored), nrow(per_finding)))
