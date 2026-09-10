@@ -4,6 +4,10 @@
 # the three, so holding one is not partial progress toward the other two. The
 # empty cells carry the content here, which is why they are drawn as cells
 # rather than left as whitespace.
+#
+# A three-by-three grid of single words does not need the full measure, so it
+# is printed at 0.8 of the text width; the canvas is that width so the labels
+# keep the shared type size.
 
 grid <- permission_grid(permissions)
 
@@ -12,10 +16,10 @@ p <- ggplot(grid, aes(x = col, y = -row)) +
             width = 0.94, height = 0.94) +
   geom_text(aes(label = ifelse(delivered, "delivers", "still required")),
             family = FIGURE_FONT_FAMILY,
-            colour = ifelse(grid$delivered, "grey15", "grey45"),
+            colour = ifelse(grid$delivered, PAL$blue, "grey40"),
             fontface = ifelse(grid$delivered, "bold", "plain"),
-            size = 2.6) +
-  scale_fill_manual(values = c(`TRUE` = "#D8E4D0", `FALSE` = "#F4F4F4"), guide = "none") +
+            size = FIGURE_CELL_SIZE) +
+  scale_fill_manual(values = c(`TRUE` = PAL$fill_blue, `FALSE` = "#F4F4F4"), guide = "none") +
   scale_x_continuous(
     name = NULL, position = "top",
     breaks = seq_len(nrow(permissions)), labels = permissions$delivers,
@@ -27,7 +31,9 @@ p <- ggplot(grid, aes(x = col, y = -row)) +
   theme(panel.grid = element_blank(),
         panel.border = element_blank(),
         axis.ticks = element_blank(),
-        axis.text.x = element_text(size = 7.0, lineheight = 1.05, face = "bold"),
-        axis.text.y = element_text(size = 7.0, lineheight = 1.05, hjust = 0))
+        axis.text.x = element_text(size = FIGURE_AXIS_TEXT_SIZE, lineheight = 1.0,
+                                   face = "bold", margin = margin(b = 3)),
+        axis.text.y = element_text(size = FIGURE_AXIS_TEXT_SIZE, lineheight = 1.0,
+                                   hjust = 0, margin = margin(r = 4)))
 
-save_fig(p, "fig2_permissions", FIGURE_TEXT_WIDTH_IN, 2.35)
+save_fig(p, "fig2_permissions", 0.8 * FIGURE_TEXT_WIDTH_IN, 2.1)

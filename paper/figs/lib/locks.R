@@ -45,10 +45,10 @@ KIND_ORDER <- c("Permission: a person or an institution must act",
 # of lines; a fixed tile height therefore either clips the longest entry or
 # leaves the others half empty.  Each tile is instead sized to the entry it
 # holds, which is what keeps the figure as short as its content allows.
-LOCK_WRAP_CHARS <- 95
-LOCK_TITLE_UNITS <- 1.55   # the title line plus the space under it
-LOCK_PAD_UNITS <- 0.42     # inset above the title and below the last detail line
-LOCK_GAP_UNITS <- 0.34     # between one tile and the next
+LOCK_WRAP_CHARS <- 118
+LOCK_TITLE_UNITS <- 1.45   # the title line plus the space under it
+LOCK_PAD_UNITS <- 0.45     # inset above the title and below the last detail line
+LOCK_GAP_UNITS <- 0.30     # between one tile and the next
 
 build_locks <- function(lock_rows) {
   if (!setequal(names(LOCK_TEXT), lock_rows$lock)) {
@@ -84,7 +84,8 @@ locks_limits <- function(locks) {
 
 # One line of detail text, in inches.  The y scale is in line units, so this is
 # what converts the stack's height into a canvas height and the only place the
-# figure's physical size is decided.
+# figure's physical size is decided.  Detail text is set at 7.1 pt with a 1.05
+# leading, which is 0.104 in per line; the remainder is the tile's own air.
 LOCK_LINE_IN <- 0.118
 
 # The leading word of each category, which is what the counts are reported by.

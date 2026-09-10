@@ -19,18 +19,43 @@ FIGURE_FONT_FAMILY <- "Arial"
 # the page unchanged.  A panel that emits a different canvas width would
 # silently rescale its own type and reintroduce the size drift these constants
 # exist to prevent; figs/lib/emit.R refuses to write such a canvas.
+#
+# The floor is the journal's: no glyph under 7 pt at printed size, axis titles
+# 8--9 pt, panel labels bold 9--10 pt.  Theme sizes are points; geom text sizes
+# are millimetres, and 2.5 mm is 7.1 pt, so no annotation may go below
+# FIGURE_ANNOTATION_SIZE.
 FIGURE_TEXT_WIDTH_IN <- 6.5
-FIGURE_BASE_SIZE <- 9.8
-FIGURE_AXIS_TITLE_SIZE <- 8.9
-FIGURE_AXIS_TEXT_SIZE <- 8.0
-FIGURE_LEGEND_TITLE_SIZE <- 8.2
-FIGURE_LEGEND_TEXT_SIZE <- 7.8
-FIGURE_STRIP_TEXT_SIZE <- 8.4
-FIGURE_TITLE_SIZE <- 10.7
-FIGURE_SUBTITLE_SIZE <- 8.2
-FIGURE_ANNOTATION_SIZE <- 2.40
-FIGURE_CELL_SIZE <- 2.25
-FIGURE_PANEL_LABEL_SIZE <- 11.6
+FIGURE_BASE_SIZE <- 9.0
+FIGURE_AXIS_TITLE_SIZE <- 8.5
+FIGURE_AXIS_TEXT_SIZE <- 7.5
+FIGURE_LEGEND_TITLE_SIZE <- 8.0
+FIGURE_LEGEND_TEXT_SIZE <- 7.5
+FIGURE_STRIP_TEXT_SIZE <- 8.5
+FIGURE_TITLE_SIZE <- 10.0
+FIGURE_SUBTITLE_SIZE <- 8.0
+FIGURE_ANNOTATION_SIZE <- 2.50
+FIGURE_CELL_SIZE <- 2.50
+FIGURE_PANEL_LABEL_SIZE <- 10.0
+
+# ggplot2 `linewidth` is in millimetres and reaches the PDF as lwd = mm * 72.27/25.4
+# at 1/96 in per lwd unit, i.e. 2.13 pt per unit.  0.25 is therefore the thinnest
+# rule that still prints at the journal's 0.5 pt floor.
+FIGURE_RULE_WIDTH <- 0.4
+FIGURE_HAIRLINE_WIDTH <- 0.25
+
+# One palette for the whole paper, colour-blind safe (ColorBrewer RdBu plus one
+# purple), so the same thing is the same colour in every figure: the majority
+# control, the permission obstacles and the findings the corpus cannot power are
+# red; the retrieval control, the drawn positives and the reachable findings are
+# blue; the labeller artifact is orange; the absent artifact is purple; the
+# gold-positive denominator and the self-imposed refusals are grey.
+PAL <- list(
+  red = "#B2182B", blue = "#2166AC", orange = "#E08214", purple = "#7B3294",
+  grey = "#4D4D4D", gold = "#8C8C8C",
+  light_red = "#F4B4B4", light_blue = "#BFD7EA",
+  fill_red = "#F9DEDE", fill_blue = "#DCEAF5", fill_orange = "#FDE7C8",
+  fill_purple = "#E6DEF0", fill_grey = "#E8E8E8"
+)
 
 # Resolve the family before any panel is built.  A `family` string alone is not
 # enough: on a different host Cairo can silently substitute a fallback when a
@@ -86,13 +111,15 @@ rtx_theme <- function(base_size = FIGURE_BASE_SIZE) {
   ggplot2::theme_bw(base_size = base_size, base_family = FIGURE_FONT_FAMILY) +
     ggplot2::theme(
       text = ggplot2::element_text(family = FIGURE_FONT_FAMILY, colour = "black"),
+      panel.grid = ggplot2::element_line(colour = "grey88",
+                                         linewidth = FIGURE_HAIRLINE_WIDTH),
       panel.grid.minor = ggplot2::element_blank(),
       panel.border = ggplot2::element_rect(colour = "black", linewidth = 0.3),
-      axis.ticks = ggplot2::element_line(linewidth = 0.3),
+      axis.ticks = ggplot2::element_line(linewidth = 0.3, colour = "black"),
       axis.title = ggplot2::element_text(family = FIGURE_FONT_FAMILY,
                                          size = FIGURE_AXIS_TITLE_SIZE),
       axis.text = ggplot2::element_text(family = FIGURE_FONT_FAMILY,
-                                        size = FIGURE_AXIS_TEXT_SIZE),
+                                        size = FIGURE_AXIS_TEXT_SIZE, colour = "black"),
       legend.title = ggplot2::element_text(family = FIGURE_FONT_FAMILY,
                                            size = FIGURE_LEGEND_TITLE_SIZE),
       legend.text = ggplot2::element_text(family = FIGURE_FONT_FAMILY,
@@ -100,8 +127,19 @@ rtx_theme <- function(base_size = FIGURE_BASE_SIZE) {
       strip.text = ggplot2::element_text(family = FIGURE_FONT_FAMILY,
                                          size = FIGURE_STRIP_TEXT_SIZE),
       legend.key = ggplot2::element_blank(),
-      strip.background = ggplot2::element_blank()
+      legend.key.size = grid::unit(0.32, "cm"),
+      legend.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
+      legend.box.spacing = grid::unit(4, "pt"),
+      strip.background = ggplot2::element_blank(),
+      plot.margin = ggplot2::margin(t = 4, r = 6, b = 4, l = 4)
     )
+}
+
+# Category axes name the findings with the schema's own labels, set at an angle
+# so fourteen of them fit the printed width without codes or a caption key.
+rotated_axis_text <- function() {
+  ggplot2::element_text(family = FIGURE_FONT_FAMILY, size = FIGURE_AXIS_TEXT_SIZE,
+                        colour = "black", angle = 40, hjust = 1, vjust = 1)
 }
 
 # Apply a panel label to one member of a composed figure.  A ggplot plot tag
